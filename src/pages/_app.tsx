@@ -4,17 +4,15 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { AuthProvider } from '../hooks/AuthContext'
 import { CartProvider } from '../hooks/useCart'
-import '../styles/globals.scss'
+import '../styles/styles.scss'
 
 function MyApp({ Component, pageProps }: AppProps) {
    return (
       <AuthProvider>
-         <Theme dataTheme="light">
+         <Theme dataTheme="light" className="bg-base-100">
             <CartProvider>
                <ToastContainer />
-               <div className="m-3">
-                  <Component {...pageProps} />
-               </div>
+               <Component {...pageProps} />
             </CartProvider>
          </Theme>
       </AuthProvider>

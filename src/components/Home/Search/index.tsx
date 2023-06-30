@@ -7,12 +7,12 @@ interface SearchHomeProps {
 const SearchHome = ({ className }: SearchHomeProps) => {
    return (
       <form
-         className={`flex items-center w-full p-2 justify-between bg-slate-300 rounded-md ${className}`}
+         className={`flex items-center w-full p-2 justify-between bg-primary text-base-100 rounded-md ${className}`}
       >
          <input
             type="text"
             id="simple-search"
-            className="text-sm bg-transparent focus:outline-none focus:bg-transparent focus:border-transparent w-full text-black"
+            className="text-sm placeholder:text-base-100 bg-transparent focus:outline-none focus:bg-transparent focus:border-transparent w-full"
             placeholder="Buscar"
             required
          />
