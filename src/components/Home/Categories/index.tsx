@@ -1,10 +1,9 @@
-import Image from 'next/image'
-// import { Navigation } from 'swiper'
-import { Autoplay, Navigation } from 'swiper'
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
+import { Navigation } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import LanchePng from '../../../assets/images/lanche.png'
+import CategoriesItem from './item'
 
 interface CategoriesComponentProps {
    className?: string
@@ -12,87 +11,52 @@ interface CategoriesComponentProps {
 
 const CategoriesComponent = ({ className }: CategoriesComponentProps) => {
    return (
-      <>
+      <div className="relative">
          <Swiper
             slidesPerView={3}
-            spaceBetween={130}
+            spaceBetween={10}
             centeredSlides={true}
             autoplay={{
                delay: 2500,
                disableOnInteraction: false,
             }}
-            // navigation={{
-            //    prevEl: '.swiper-button-prev',
-            //    nextEl: '.swiper-button-next',
-            // }}
-            modules={[Autoplay, Navigation]}
+            navigation={{
+               prevEl: '.custom-pr',
+               nextEl: '.custom-nx',
+            }}
+            modules={[Navigation]}
+            initialSlide={1}
             className={`mySwiper cursor-pointer ${className}`}
          >
-            <SwiperSlide>
-               <div className="flex flex-col justify-center items-center">
-                  <div className="bg-primary rounded-full w-28 h-28 p-3 flex justify-center items-center">
-                     <Image
-                        src={LanchePng}
-                        alt="Icone"
-                        width={80}
-                        height={80}
-                     />
-                  </div>
-                  <h4 className="text-primary text-lg font-semibold uppercase mt-2">
-                     Lanches
-                  </h4>
-               </div>
+            <SwiperSlide className="w-[175px]">
+               <CategoriesItem />
             </SwiperSlide>
-            <SwiperSlide>
-               <div className="flex flex-col justify-center items-center">
-                  <div className="bg-primary rounded-full w-28 h-28 p-3 flex justify-center items-center">
-                     <Image
-                        src={LanchePng}
-                        alt="Icone"
-                        width={80}
-                        height={80}
-                     />
-                  </div>
-                  <h4 className="text-primary text-lg font-semibold uppercase mt-2">
-                     Lanches
-                  </h4>
-               </div>
-            </SwiperSlide>
-            <SwiperSlide>
-               <div className="flex flex-col justify-center items-center">
-                  <div className="bg-primary rounded-full w-28 h-28 p-3 flex justify-center items-center">
-                     <Image
-                        src={LanchePng}
-                        alt="Icone"
-                        width={80}
-                        height={80}
-                     />
-                  </div>
-                  <h4 className="text-primary text-lg font-semibold uppercase mt-2">
-                     Lanches
-                  </h4>
-               </div>
-            </SwiperSlide>
-            <SwiperSlide>
-               <div className="flex flex-col justify-center items-center">
-                  <div className="bg-primary rounded-full w-28 h-28 p-3 flex justify-center items-center">
-                     <Image
-                        src={LanchePng}
-                        alt="Icone"
-                        width={80}
-                        height={80}
-                     />
-                  </div>
-                  <h4 className="text-primary text-lg font-semibold uppercase mt-2">
-                     Lanches
-                  </h4>
-               </div>
+            <SwiperSlide className="w-[175px]">
+               <CategoriesItem />
+            </SwiperSlide>{' '}
+            <SwiperSlide className="w-[175px]">
+               <CategoriesItem />
+            </SwiperSlide>{' '}
+            <SwiperSlide className="w-[175px]">
+               <CategoriesItem />
+            </SwiperSlide>{' '}
+            <SwiperSlide className="w-[175px]">
+               <CategoriesItem />
+            </SwiperSlide>{' '}
+            <SwiperSlide className="w-[175px]">
+               <CategoriesItem />
+            </SwiperSlide>{' '}
+            <SwiperSlide className="w-[175px]">
+               <CategoriesItem />
             </SwiperSlide>
          </Swiper>
-
-         {/* <div className="swiper-button-prev custom-prev"></div>
-         <div className="swiper-button-next custom-next"></div> */}
-      </>
+         <div className="custom-pr btn bg-primary/70 hover:bg-primary btn-circle border-base-100 absolute top-0 left-0 mt-[3%] z-10">
+            <GrFormPrevious />
+         </div>
+         <div className="custom-nx btn bg-primary/70 hover:bg-primary btn-circle border-base-100 absolute top-0 right-0 mt-[3%] z-10">
+            <GrFormNext />
+         </div>
+      </div>
    )
 }
 

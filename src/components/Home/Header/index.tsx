@@ -1,29 +1,58 @@
 import Image from 'next/image'
-import { Button } from 'react-daisyui'
-import { FiShoppingBag } from 'react-icons/fi'
-import { RiMenuFill } from 'react-icons/ri'
-import LogoTeste from '../../../assets/images/logoTeste.png'
+import { Button, Navbar } from 'react-daisyui'
+import logo from '../../../assets/images/logoTeste.png'
 
 export const HeaderComponentHome = () => {
    return (
-      <div>
-         <div className="flex justify-between">
-            <Button className="btn btn-ghost bg-primary rounded-xl w-12 h-12 p-3 flex justify-center items-center ">
-               <FiShoppingBag className="text-white" size={20} />
-            </Button>
-            <div className="bg-primary rounded-full w-28 h-28 p-3 flex justify-center items-center">
-               <Image
-                  src={LogoTeste}
-                  quality={100}
-                  alt="Logo"
-                  width={80}
-                  height={80}
-               />
+      <Navbar className="bg-primary p-2 w-full shadow-md fixed top-0 z-50">
+         <div className="flex justify-between items-center w-full max-w-6xl mx-auto">
+            <div className="flex gap-10">
+               <a
+                  href="https://flowbite.com/"
+                  className="flex items-center gap-2"
+               >
+                  <Image src={logo} width={50} height={50} />
+                  <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-base-100">
+                     ICARUS LANCHES
+                  </span>
+               </a>
+               <div
+                  className="items-center bg-primary justify-between hidden w-full md:flex md:w-auto md:order-1"
+                  id="mobile-menu-2"
+               >
+                  <ul className="flex gap-5 font-medium p-4 bg-primary">
+                     <li>
+                        <a
+                           href="#"
+                           className="block py-2 pl-3 pr-4 text-white rounded bg-transparent"
+                           aria-current="page"
+                        >
+                           Promoções
+                        </a>
+                     </li>
+                     <li>
+                        <a
+                           href="#"
+                           className="block py-2 pl-3 pr-4 text-white rounded bg-transparent"
+                        >
+                           Funcionamento
+                        </a>
+                     </li>
+                     <li>
+                        <a
+                           href="#"
+                           className="block py-2 pl-3 pr-4 text-white rounded bg-transparent"
+                        >
+                           Contato
+                        </a>
+                     </li>
+                  </ul>
+               </div>
             </div>
-            <Button className="btn btn-ghost bg-primary rounded-xl w-12 h-12 p-3 flex justify-center items-center">
-               <RiMenuFill className="text-white" size={20} />
+            <Button className="btn bg-base-100 text-primary font-bold border-none">
+               Registre-se e ganhe desconto
             </Button>
          </div>
-      </div>
+      </Navbar>
    )
 }

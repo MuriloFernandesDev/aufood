@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Nunito', sans-serif;
+   scroll-behavior: smooth;
+}
+
+.swiper {
+   width: 100%;
+   height: 100%;
+}
+
+.swiper-slide {
+   text-align: center;
+   font-size: 18px;
+   background: #fff;
+
+   /* Center slide text vertically */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.swiper-slide img {
+   display: block;
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
+
+.card-of-day:hover {
+   picture {
+      transform: scale(1.05);
+      transition: all 0.2s ease-in-out;
+   }
+}
+
+// .custom-prev,
+// .custom-next {
+//    position: absolute;
+//    top: 50%;
+//    transform: translateY(-50%);
+//    width: 40px;
+//    height: 40px;
+//    background-color: #ffffff;
+//    border-radius: 50%;
+//    display: flex;
+//    justify-content: center;
+//    align-items: center;
+//    cursor: pointer;
+//    z-index: 10;
+// }
+
+// .custom-prev {
+//    left: 10px;
+// }
+
+// .custom-next {
+//    right: 10px;
+// }

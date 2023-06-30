@@ -1,7 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 
 const color = {
-   primary: '#4E60FF',
+   primary: '#da3b3b',
+   background: '#fff',
+   price: '#da3b3b',
 }
 
 module.exports = {
@@ -11,7 +13,12 @@ module.exports = {
       './src/components/**/*.{js,ts,jsx,tsx}',
    ],
    theme: {
-      extend: {},
+      extend: {
+         colors: {
+            price: color.price,
+            'base-100': color.background,
+         },
+      },
    },
    daisyui: {
       themes: [
@@ -19,7 +26,8 @@ module.exports = {
             light: {
                ...require('daisyui/src/colors/themes')['[data-theme=light]'],
                primary: color.primary,
-               'info-content': '#606060',
+               'base-100': color.background,
+               price: color.price,
             },
          },
       ],
