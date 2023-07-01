@@ -3,7 +3,7 @@ import { FaClock } from 'react-icons/fa'
 import { GrFormClose } from 'react-icons/gr'
 import Drawer from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
-import { config } from '../../configs/config'
+import { config } from '../../configs'
 
 interface InfoDrawerProps {
    isOpen: boolean
@@ -50,7 +50,7 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
          overlayOpacity={0}
          direction={isMobile ? 'bottom' : 'right'}
          className={isMobile ? 'rounded-t-3xl' : 'mt-[88px]'}
-         size={isMobile ? '100vw' : '30vw'}
+         size={isMobile ? 450 : '30vw'}
       >
          <>
             <div className="w-full flex p-2">
@@ -60,7 +60,7 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
                   onClick={toggleDrawer}
                />
             </div>
-            <div className="p-3">
+            <div className="p-3 overflow-auto">
                <div className="tabs w-full">
                   <a
                      onClick={() => setTab(0)}
@@ -87,7 +87,7 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
                      Pagamentos
                   </a>
                </div>
-               <div className="text-primary mt-4 mx-4">
+               <div className="text-primary mt-4 mx-4 max-h-80 md:max-h-full overflow-y-auto">
                   {tab == 0 ? (
                      <>
                         <div>

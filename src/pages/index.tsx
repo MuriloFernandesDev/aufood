@@ -6,7 +6,7 @@ import { HeaderComponentHome } from '../components/Home/Header'
 import CardOfDay from '../components/Home/OffDay'
 import ProductCard from '../components/Home/ProductCard'
 import SearchHome from '../components/Home/Search'
-import { config } from '../configs/config'
+import { config } from '../configs'
 
 /*
 Drawer: https://www.npmjs.com/package/react-modern-drawer

@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Button, Navbar } from 'react-daisyui'
 import { AiOutlineMenu } from 'react-icons/ai'
-import { config } from '../../../configs/config'
+import { config } from '../../../configs'
 
 interface HeaderComponentHomeProps {
    itensHeader: {
@@ -22,7 +22,7 @@ export const HeaderComponentHome = ({
                   <div className="flex items-center gap-3 cursor-pointer">
                      <Image
                         src={config.logo}
-                        width={100}
+                        width={150}
                         height={50}
                         layout="fixed"
                      />
