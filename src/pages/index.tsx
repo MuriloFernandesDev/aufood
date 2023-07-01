@@ -1,18 +1,28 @@
-import dynamic from 'next/dynamic'
 import { FaHamburger } from 'react-icons/fa'
+import CategoriesComponent from '../components/Home/Categories'
 import { HeaderComponentHome } from '../components/Home/Header'
 import CardOfDay from '../components/Home/OffDay'
 import ProductCard from '../components/Home/ProductCard'
 import SearchHome from '../components/Home/Search'
-const CategoriesComponent = dynamic(
-   () => import('../components/Home/Categories'),
-   { ssr: false }
-)
 
 const Home = () => {
+   const itensHeader = [
+      {
+         name: 'Promoções',
+         link: '#',
+      },
+      {
+         name: 'Funcionamento',
+         link: '#',
+      },
+      {
+         name: 'Contato',
+         link: '#',
+      },
+   ]
    return (
       <div>
-         <HeaderComponentHome />
+         <HeaderComponentHome itensHeader={itensHeader} />
 
          <div
             className="w-full h-96 bg-cover bg-center"
