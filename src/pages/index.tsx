@@ -1,11 +1,21 @@
+import { useState } from 'react'
 import { FaHamburger } from 'react-icons/fa'
+import InfoDrawer from '../components/Drawer/InfoDrawer'
 import CategoriesComponent from '../components/Home/Categories'
 import { HeaderComponentHome } from '../components/Home/Header'
 import CardOfDay from '../components/Home/OffDay'
 import ProductCard from '../components/Home/ProductCard'
 import SearchHome from '../components/Home/Search'
+import { config } from '../configs/config'
+
+/*
+Drawer: https://www.npmjs.com/package/react-modern-drawer
+Modal: https://www.npmjs.com/package/react-modal
+*/
 
 const Home = () => {
+   const [isOpen, setIsOpen] = useState(false)
+
    const itensHeader = [
       {
          name: 'Promoções',
@@ -21,7 +31,7 @@ const Home = () => {
       },
    ]
    return (
-      <div>
+      <>
          <HeaderComponentHome itensHeader={itensHeader} />
 
          <div
@@ -34,10 +44,13 @@ const Home = () => {
 
          <div className="flex flex-col justify-center items-center mt-10 text-primary">
             <h1 className="text-primary text-2xl font-bold uppercase">
-               Icarus lanches
+               {config.title}
             </h1>
             <h4 className="mt-1">
-               Tempo de entrega - 40m - <span className="link">Ver mais</span>
+               Tempo de entrega - 40m -{' '}
+               <span className="link" onClick={() => setIsOpen(!isOpen)}>
+                  Ver mais
+               </span>
             </h4>
             <div className="px-3 w-full">
                <SearchHome className="mt-3 max-w-xl mx-auto" />
@@ -66,7 +79,8 @@ const Home = () => {
                </div>
             </div>
          </div>
-      </div>
+         <InfoDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
+      </>
    )
 }
 

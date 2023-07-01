@@ -1,7 +1,8 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { Button, Navbar } from 'react-daisyui'
 import { AiOutlineMenu } from 'react-icons/ai'
-import logo from '../../../assets/images/logoTeste.png'
+import { config } from '../../../configs/config'
 
 interface HeaderComponentHomeProps {
    itensHeader: {
@@ -17,19 +18,23 @@ export const HeaderComponentHome = ({
       <Navbar className="bg-primary p-2 w-full shadow-md fixed top-0 z-50">
          <div className="flex justify-between items-center w-full max-w-6xl mx-auto">
             <div className="flex gap-10 items-center">
-               <a
-                  href="https://flowbite.com/"
-                  className="flex items-center gap-2"
-               >
-                  <Image src={logo} width={50} height={50} />
-                  <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-base-100">
-                     ICARUS LANCHES
-                  </span>
-               </a>
+               <Link href="/">
+                  <div className="flex items-center gap-3 cursor-pointer">
+                     <Image
+                        src={config.logo}
+                        width={100}
+                        height={50}
+                        layout="fixed"
+                     />
+                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-base-100">
+                        {config.title}
+                     </span>
+                  </div>
+               </Link>
                <div className="items-center bg-primary justify-between hidden w-full md:flex md:w-auto md:order-1">
                   <ul className="flex gap-5 font-medium p-4 bg-primary">
-                     {itensHeader.map((item) => (
-                        <li>
+                     {itensHeader.map((item, i) => (
+                        <li key={i}>
                            <a
                               href={item.link}
                               className="block py-2 pl-3 pr-4 text-white rounded bg-transparent"
