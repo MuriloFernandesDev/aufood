@@ -64,7 +64,7 @@ const Home = () => {
                   </div>
                   <h1 className="text-3xl font-semibold ">{config.title}</h1>
                </div>
-               <div className="flex flex-col lg:flex-row lg:h-7 text-sm">
+               <div className="flex flex-col-reverse lg:flex-row lg:h-7 text-sm mt-10 md:mt-0">
                   <div className="grid flex-grow place-items-center">
                      <span className="link" onClick={() => setIsOpen(!isOpen)}>
                         Ver mais
