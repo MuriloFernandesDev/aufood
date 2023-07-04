@@ -109,10 +109,10 @@ const CategoriesComponent = ({ className }: CategoriesComponentProps) => {
                </SwiperSlide>
             </Swiper>
          </div>
-         <div className="custom-pr btn btn-sm bg-primary btn-circle border-base-100 absolute top-0 left-0 mt-8 md:mt-[3.3%] z-10 ml-2">
+         <div className="custom-pr btn btn-sm bg-primary btn-circle border-base-100 absolute top-0 left-0 mt-12 md:mt-[3.3%] z-10 ml-2">
             <GrFormPrevious className='icon-base-100'/>
          </div>
-         <div className="custom-nx btn btn-sm bg-primary btn-circle border-base-100 absolute top-0 right-0 mt-8 md:mt-[3.3%] z-10 mr-2">
+         <div className="custom-nx btn btn-sm bg-primary btn-circle border-base-100 absolute top-0 right-0 mt-12 md:mt-[3.3%] z-10 mr-2">
             <GrFormNext className='icon-base-100' />
          </div>
       </div>
