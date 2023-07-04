@@ -4,7 +4,7 @@ import { Navigation } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import CategoriesItem from './item'
+import CategoriesItem2 from './item2'
 
 interface CategoriesComponentProps {
    className?: string
@@ -18,14 +18,17 @@ const CategoriesComponent = ({ className }: CategoriesComponentProps) => {
       const handleResize = () => {
          const width = window.innerWidth
          if (width <= 640) {
-            setSlidesPerView(1)
-            setSpaceBetween(2)
-         } else if (width <= 768) {
-            setSlidesPerView(2)
-            setSpaceBetween(5)
-         } else {
             setSlidesPerView(3)
+            setSpaceBetween(5)
+         } else if(width <= 1025){
+            setSlidesPerView(5)
             setSpaceBetween(10)
+         } else if(width <= 1280){
+            setSlidesPerView(8)
+            setSpaceBetween(15)
+         } else {
+            setSlidesPerView(10)
+            setSpaceBetween(20)
          }
       }
 
@@ -38,50 +41,79 @@ const CategoriesComponent = ({ className }: CategoriesComponentProps) => {
    }, [])
 
    return (
-      <div className="relative">
-         <Swiper
-            slidesPerView={slidesPerView}
-            spaceBetween={spaceBetween}
-            centeredSlides={true}
-            autoplay={{
-               delay: 2500,
-               disableOnInteraction: false,
-            }}
-            navigation={{
-               prevEl: '.custom-pr',
-               nextEl: '.custom-nx',
-            }}
-            modules={[Navigation]}
-            initialSlide={1}
-            className={`mySwiper max-w-xs md:max-w-none cursor-pointer ${className}`}
-         >
-            <SwiperSlide className="w-[150px]">
-               <CategoriesItem />
-            </SwiperSlide>
-            <SwiperSlide className="w-[150px]">
-               <CategoriesItem />
-            </SwiperSlide>{' '}
-            <SwiperSlide className="w-[150px]">
-               <CategoriesItem />
-            </SwiperSlide>{' '}
-            <SwiperSlide className="w-[150px]">
-               <CategoriesItem />
-            </SwiperSlide>{' '}
-            <SwiperSlide className="w-[150px]">
-               <CategoriesItem />
-            </SwiperSlide>{' '}
-            <SwiperSlide className="w-[150px]">
-               <CategoriesItem />
-            </SwiperSlide>{' '}
-            <SwiperSlide className="w-[150px]">
-               <CategoriesItem />
-            </SwiperSlide>
-         </Swiper>
-         <div className="custom-pr btn btn-sm md:btn-md bg-primary/70 hover:bg-primary btn-circle border-base-100 absolute top-0 left-0 mt-8 md:mt-[3%] z-10">
-            <GrFormPrevious />
+      <div className={`relative ${className}`}>
+         <div className="swiper-container max-w-container px-4">
+            <Swiper
+               slidesPerView={slidesPerView}
+               spaceBetween={spaceBetween}
+               centeredSlides={true}
+               autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: false,
+               }}
+               navigation={{
+                  prevEl: '.custom-pr',
+                  nextEl: '.custom-nx',
+               }}
+               modules={[Navigation]}
+               initialSlide={1}
+               className="py-4 max-w-xs sm:max-w-xl md:max-w-2xl lg:max-w-5xl xl:max-w-none cursor-pointer"
+            >
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+               <SwiperSlide className="rounded-lg">
+                  <CategoriesItem2 />
+               </SwiperSlide>
+            </Swiper>
          </div>
-         <div className="custom-nx btn btn-sm md:btn-md bg-primary/70 hover:bg-primary btn-circle border-base-100 absolute top-0 right-0 mt-8 md:mt-[3%] z-10">
-            <GrFormNext />
+         <div className="custom-pr btn btn-sm bg-primary btn-circle border-base-100 absolute top-0 left-0 mt-8 md:mt-[3.3%] z-10 ml-2">
+            <GrFormPrevious className='icon-base-100'/>
+         </div>
+         <div className="custom-nx btn btn-sm bg-primary btn-circle border-base-100 absolute top-0 right-0 mt-8 md:mt-[3.3%] z-10 mr-2">
+            <GrFormNext className='icon-base-100' />
          </div>
       </div>
    )

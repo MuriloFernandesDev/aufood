@@ -1,9 +1,9 @@
-/** @type {import('tailwindcss').Config} */
-
 let colors = {
    primary: 'var(--color-primary)',
    'base-100': 'var(--color-background)',
    price: 'var(--color-primary)',
+   secondary: 'var(--color-secondary)',
+   'secondary-opacity-70': 'rgba(var(--color-secondary-rgb), 0.7)',
 }
 
 module.exports = {
@@ -15,8 +15,11 @@ module.exports = {
    theme: {
       extend: {
          colors: colors,
+         maxWidth: {
+            container: '1200px',
+         },
       },
    },
-   daisyui: {},
+   daisyui: { themes: ['light'] },
    plugins: [require('daisyui')],
 }

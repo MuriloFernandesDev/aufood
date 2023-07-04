@@ -7,28 +7,21 @@ import { config } from '../configs'
 import { AuthProvider } from '../hooks/AuthContext'
 import { CartProvider } from '../hooks/useCart'
 import '../styles/styles.scss'
+import { SaveColors } from '../utils/Utils'
 
 function MyApp({ Component, pageProps }: AppProps) {
    useEffect(() => {
       const colors = config.colors
 
-      document.documentElement.style.setProperty(
-         '--color-primary',
-         colors.primary
-      )
-      document.documentElement.style.setProperty(
-         '--color-background',
-         colors.background
-      )
-      document.documentElement.style.setProperty(
-         '--color-price',
-         colors.primary
-      )
+      SaveColors(colors.primary, 'primary')
+      SaveColors(colors.background, 'background')
+      SaveColors(colors.primary, 'price')
+      SaveColors(colors.secondary, 'secondary')
    }, [])
 
    return (
       <AuthProvider>
-         <Theme dataTheme="theme_store" className="bg-base-100">
+         <Theme dataTheme="light" className="bg-base-100">
             <CartProvider>
                <ToastContainer />
                <Component {...pageProps} />

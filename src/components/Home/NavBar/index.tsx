@@ -4,40 +4,35 @@ import { Button, Navbar } from 'react-daisyui'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { config } from '../../../configs'
 
-interface HeaderComponentHomeProps {
-   itensHeader: {
+interface NavComponentProps {
+   navItens: {
       name: string
       link: string
    }[]
 }
 
-export const HeaderComponentHome = ({
-   itensHeader,
-}: HeaderComponentHomeProps) => {
+export const NavComponent = ({ navItens }: NavComponentProps) => {
    return (
-      <Navbar className="bg-primary p-2 w-full shadow-md fixed top-0 z-50">
-         <div className="flex justify-between items-center w-full max-w-6xl mx-auto">
+      <Navbar className="bg-primary w-full flex justify-center items-center fixed top-0 z-50 h-20 border-b-[1px] border-secondary/70">
+         <div className="flex justify-between items-center w-full max-w-container px-4 mx-auto">
             <div className="flex gap-10 items-center">
                <Link href="/">
-                  <div className="flex items-center gap-3 cursor-pointer">
+                  <div>
                      <Image
                         src={config.logo}
-                        width={150}
-                        height={50}
+                        width={100}
+                        height={40}
                         layout="fixed"
                      />
-                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-base-100">
-                        {config.title}
-                     </span>
                   </div>
                </Link>
                <div className="items-center bg-primary justify-between hidden w-full md:flex md:w-auto md:order-1">
-                  <ul className="flex gap-5 font-medium p-4 bg-primary">
-                     {itensHeader.map((item, i) => (
+                  <ul className="flex gap-5 font-medium p-3 bg-primary">
+                     {navItens.map((item, i) => (
                         <li key={i}>
                            <a
                               href={item.link}
-                              className="block py-2 pl-3 pr-4 text-white rounded bg-transparent"
+                              className="block px-2 text-base-100 rounded bg-transparent"
                               aria-current="page"
                            >
                               {item.name}
@@ -55,11 +50,11 @@ export const HeaderComponentHome = ({
                   tabIndex={0}
                   className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                >
-                  {itensHeader.map((item) => (
+                  {navItens.map((item) => (
                      <li>
                         <a
                            href={item.link}
-                           className="block py-2 pl-3 pr-4 text-primary rounded bg-transparent"
+                           className="block py-2 px-2 text-primary rounded bg-transparent"
                            aria-current="page"
                         >
                            {item.name}
@@ -73,7 +68,7 @@ export const HeaderComponentHome = ({
                   </li>
                </ul>
             </div>
-            <Button className="btn bg-base-100 text-primary font-bold border-none hidden md:block">
+            <Button className="btn btn-base-100 text-primary font-bold border-none hidden md:block">
                Registre-se e ganhe desconto
             </Button>
          </div>

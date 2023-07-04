@@ -49,7 +49,7 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
          onClose={toggleDrawer}
          overlayOpacity={0}
          direction={isMobile ? 'bottom' : 'right'}
-         className={isMobile ? 'rounded-t-3xl' : 'mt-[88px]'}
+         className={`${isMobile ? 'rounded-t-3xl' : 'mt-20'} bg-base-100`}
          size={isMobile ? 450 : '30vw'}
       >
          <>
@@ -132,7 +132,7 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
                               className={`flex justify-between ${
                                  item.day === today
                                     ? 'text-primary font-bold'
-                                    : 'text-primary/50'
+                                    : 'text-primary opacity-50'
                               }`}
                            >
                               <div className="flex gap-1 items-center">

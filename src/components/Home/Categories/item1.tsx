@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import lanchePng from '../../../assets/images/lancheCategorias.png'
 
-const CategoriesItem = () => {
+const CategorieItem1 = () => {
    return (
       <a className="group block text-center w-[140px] h-[140px] bg-base-100">
          <div className="flex xl:mb-4 p-2 h-[100px] w-[100px] mx-auto rounded-full overflow-hidden bg-primary">
@@ -20,4 +20,4 @@ const CategoriesItem = () => {
    )
 }
 
-export default CategoriesItem
+export default CategorieItem1

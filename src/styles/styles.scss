@@ -40,26 +40,33 @@
    }
 }
 
-// .custom-prev,
-// .custom-next {
-//    position: absolute;
-//    top: 50%;
-//    transform: translateY(-50%);
-//    width: 40px;
-//    height: 40px;
-//    background-color: #ffffff;
-//    border-radius: 50%;
-//    display: flex;
-//    justify-content: center;
-//    align-items: center;
-//    cursor: pointer;
-//    z-index: 10;
-// }
+.small-banner-item__title {
+   display: flex;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   margin: 5px 0 0;
+   font-size: 0.75rem;
+   color: #717171;
+}
 
-// .custom-prev {
-//    left: 10px;
-// }
+.icon-base-100 polyline {
+   stroke: var(--color-background);
+}
 
-// .custom-next {
-//    right: 10px;
-// }
+.icon-primary polyline {
+   stroke: var(--color-primary);
+}
+
+.icon-secondary polyline {
+   stroke: var(--color-secondary);
+}
+
+@layer components {
+   .btn-shadow {
+      box-shadow: 0 0 10px 1px rgba(var(--color-background-rgb), 0.5);
+   }
+
+   .btn-base-100 {
+      @apply bg-base-100 btn-shadow hover:bg-base-100 hover:opacity-90 text-white font-bold py-2 px-4;
+   }
+}
