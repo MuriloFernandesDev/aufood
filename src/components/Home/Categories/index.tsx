@@ -56,7 +56,7 @@ const CategoriesComponent = ({ className }: CategoriesComponentProps) => {
                   nextEl: '.custom-nx',
                }}
                modules={[Navigation]}
-               initialSlide={1}
+               initialSlide={5} //initialSlide será o meio da lista que vier do banco de dados
                className="py-4 max-w-xs sm:max-w-xl md:max-w-2xl lg:max-w-5xl xl:max-w-none cursor-pointer"
             >
                <SwiperSlide className="rounded-lg">
