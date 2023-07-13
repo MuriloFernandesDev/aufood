@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { FaHamburger } from 'react-icons/fa'
 import InfoDrawer from '../components/Drawer/InfoDrawer'
@@ -36,14 +36,35 @@ const Home = () => {
          link: '#',
       },
    ]
+   const [scrollPassed250px, setScrollPassed250px] = useState(false)
+
+   useEffect(() => {
+      const handleScroll = () => {
+         if (window.scrollY > 270) {
+            setScrollPassed250px(true)
+         } else {
+            setScrollPassed250px(false)
+         }
+      }
+
+      window.addEventListener('scroll', handleScroll)
+
+      return () => {
+         window.removeEventListener('scroll', handleScroll)
+      }
+   }, [])
 
    return (
       <>
          <NavComponent navItens={navItens} />
-         <div className="header-container">
-            <header>
+         <div
+            className={`header-container transition-all duration-300 ${
+               scrollPassed250px ? 'opacity-0 md:opacity-100' : 'opacity-100'
+            }`}
+         >
+            <header className="px-4 max-w-container mx-auto">
                <div
-                  className="rounded-[4px] h-[250px] w-full text-[#f7f7f7] bg-cover bg-center bg-no-repeat max-w-container"
+                  className="rounded-[4px] h-[250px] w-full text-[#f7f7f7] bg-cover bg-center bg-no-repeat"
                   style={{
                      backgroundImage:
                         'url(https://images6.alphacoders.com/908/908160.jpg)',
@@ -52,7 +73,7 @@ const Home = () => {
             </header>
          </div>
          <div className="content-container">
-            <div className="max-w-container mx-auto mb-10 lg:pt-0 z-20">
+            <div className="max-w-container px-4 mx-auto mb-10 lg:pt-0 z-20">
                <div className="bg-base-100 rounded-t-lg">
                   <div className="flex my-10 flex-col lg:flex-row justify-between items-center w-full text-secondary">
                      <div className="flex items-center gap-3">
