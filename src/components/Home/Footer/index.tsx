@@ -55,7 +55,7 @@ const Footer = () => {
                </div>
             </div>
          </footer>
-         <footer className="footer footer-center border-t-[2px] border-base-100 pt-4 px-4 max-w-container mx-auto">
+         <footer className="footer footer-center border-t-[1px] border-base-100 pt-4 px-4 max-w-container mx-auto">
             <div className="grid grid-flow-col gap-4">
                <a className="link link-hover">About us</a>
                <a className="link link-hover">Contact</a>

@@ -62,7 +62,7 @@ const Home = () => {
                scrollPassed250px ? 'opacity-0 md:opacity-100' : 'opacity-100'
             }`}
          >
-            <header className="px-4 max-w-container mx-auto">
+            <header className="px-[1.1rem] max-w-container mx-auto">
                <div
                   className="rounded-[4px] h-[250px] w-full text-[#f7f7f7] bg-cover bg-center bg-no-repeat"
                   style={{
