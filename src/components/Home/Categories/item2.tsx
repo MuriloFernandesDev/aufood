@@ -1,7 +1,7 @@
 const CategoriesItem2 = () => {
    return (
       <div className="rounded-lg">
-         <a className="w-[-moz-fit-content] flex flex-col items-center cursor-pointer no-underline bg-base-100 hover:scale-105 hover:shadow-lg rounded-lg transition-all duration-300">
+         <a className="w-[-moz-fit-content] flex flex-col items-center cursor-pointer no-underline bg-base-100 md:hover:scale-105 md:hover:shadow-lg rounded-lg transition-all duration-300">
             <div
                className="block relative rounded-lg"
                style={{ height: '80px', width: '100px' }}

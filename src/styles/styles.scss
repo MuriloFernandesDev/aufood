@@ -61,6 +61,14 @@
    stroke: var(--color-secondary);
 }
 
+.btn-primary {
+   background-color: var(--color-primary);
+   color: var(--color-background);
+   ::hover {
+      background-color: var(--color-primary);
+   }
+}
+
 @layer components {
    .btn-shadow {
       box-shadow: 0 0 10px 1px rgba(var(--color-background-rgb), 0.5);

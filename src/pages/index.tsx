@@ -36,15 +36,11 @@ const Home = () => {
          link: '#',
       },
    ]
-   const [scrollPassed250px, setScrollPassed250px] = useState(false)
+   const [scroll, setScroll] = useState(0)
 
    useEffect(() => {
       const handleScroll = () => {
-         if (window.scrollY > 270) {
-            setScrollPassed250px(true)
-         } else {
-            setScrollPassed250px(false)
-         }
+         setScroll(window.scrollY)
       }
 
       window.addEventListener('scroll', handleScroll)
@@ -58,8 +54,8 @@ const Home = () => {
       <>
          <NavComponent navItens={navItens} />
          <div
-            className={`header-container transition-all duration-300 ${
-               scrollPassed250px ? 'opacity-0 md:opacity-100' : 'opacity-100'
+            className={`header-container transition-all duration-300 md:opacity-100 ${
+               scroll >= 270 ? 'opacity-0' : 'opacity-100'
             }`}
          >
             <header className="px-[1.1rem] max-w-container mx-auto">
@@ -75,7 +71,7 @@ const Home = () => {
          <div className="content-container">
             <div className="max-w-container px-4 mx-auto mb-10 lg:pt-0 z-20">
                <div className="bg-base-100 rounded-t-lg">
-                  <div className="flex my-10 flex-col lg:flex-row justify-between items-center w-full text-secondary">
+                  <div className="flex my-10 pt-4 flex-col lg:flex-row justify-between items-center w-full text-secondary">
                      <div className="flex items-center gap-3">
                         <div className="mask mask-circle bg-primary p-3 flex justify-center items-center">
                            <Image
@@ -131,10 +127,30 @@ const Home = () => {
                            </span>
 
                            <div className="grid grid-cols-1 md:grid-cols-4 w-full gap-3 mt-3">
-                              <ProductCard />
-                              <ProductCard />
-                              <ProductCard />
-                              <ProductCard />
+                              <ProductCard
+                                 category="Lanches"
+                                 name="X-Bacon - Artesanal"
+                                 price={29.99}
+                                 timeDelivery="25-30min"
+                              />
+                              <ProductCard
+                                 category="Hot-dog"
+                                 name="X-Bacon - Artesanal"
+                                 price={29.99}
+                                 timeDelivery="25-30min"
+                              />
+                              <ProductCard
+                                 category="Lanches"
+                                 name="X-Bacon - Artesanal"
+                                 price={29.99}
+                                 timeDelivery="25-30min"
+                              />
+                              <ProductCard
+                                 category="Lanches"
+                                 name="X-Bacon - Artesanal"
+                                 price={29.99}
+                                 timeDelivery="25-30min"
+                              />
                            </div>
                         </div>
                      </div>
