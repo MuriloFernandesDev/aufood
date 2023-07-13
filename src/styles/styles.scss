@@ -64,9 +64,14 @@
 .btn-primary {
    background-color: var(--color-primary);
    color: var(--color-background);
-   ::hover {
-      background-color: var(--color-primary);
-   }
+   border-color: var(--color-primary); /* Manter a mesma cor de borda */
+}
+
+.btn-primary:hover {
+   background-color: var(--color-primary); /* Manter a mesma cor de fundo */
+   color: var(--color-background); /* Manter a mesma cor de texto */
+   border-color: var(--color-primary); /* Manter a mesma cor de borda */
+   opacity: 0.9;
 }
 
 @layer components {

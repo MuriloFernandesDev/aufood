@@ -22,6 +22,7 @@ const ProductCard = ({
    timeDelivery,
 }: ProductCardProps) => {
    const [openModal, setOpenModal] = useState(false)
+   const [qtdProduct, setQtdProduct] = useState(1)
    const modalRef = useRef<HTMLDivElement>(null)
 
    const handleModal = () => {
@@ -34,6 +35,16 @@ const ProductCard = ({
          !modalRef.current.contains(event.target as Node)
       ) {
          setOpenModal(false)
+      }
+   }
+
+   const changeQtdProduct = (type: string) => {
+      if (type === 'add') {
+         setQtdProduct(qtdProduct + 1)
+      } else {
+         if (qtdProduct > 1) {
+            setQtdProduct(qtdProduct - 1)
+         }
       }
    }
 
@@ -91,18 +102,32 @@ const ProductCard = ({
                         Acompanha batata frita e bebida.
                      </h2>
                      <h3>Serve 1 pessoa</h3>
-                     <span>R$ 19,90R$ 34,70</span>
+                     <span>R$ {price}</span>
                   </div>
                </div>
                <div className="absolute bottom-0 left-0 p-6 w-full flex justify-between items-center">
                   <div className="btn-group btn-group-horizontal">
-                     <button className="btn btn-primary">-</button>
-                     <button className="btn btn-outline border-none hover:bg-transparent text-black">
-                        2
+                     <button
+                        className={`btn ${
+                           qtdProduct == 1 ? 'btn-disabled' : 'btn-primary'
+                        }`}
+                        onClick={() => changeQtdProduct('decrement')}
+                     >
+                        -
                      </button>
-                     <button className="btn btn-primary">+</button>
+                     <button className="btn btn-outline border-none hover:bg-transparent text-black">
+                        {qtdProduct}
+                     </button>
+                     <button
+                        className="btn btn-primary"
+                        onClick={() => changeQtdProduct('add')}
+                     >
+                        +
+                     </button>
                   </div>
-                  <button className="btn btn-primary">Adicionar</button>
+                  <button className="btn btn-primary">
+                     R${price * qtdProduct} - Adicionar
+                  </button>
                </div>
             </div>
          </div>
