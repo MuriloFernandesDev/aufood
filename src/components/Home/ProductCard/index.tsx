@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { FaHamburger } from 'react-icons/fa'
 import { FiClock } from 'react-icons/fi'
 import Lanche from '../../../assets/images/LancheWpp.jpg'
+import { useCart } from '../../../hooks/useCart'
 
 interface ProductCardProps {
    name: string
@@ -24,6 +25,7 @@ const ProductCard = ({
    const [openModal, setOpenModal] = useState(false)
    const [qtdProduct, setQtdProduct] = useState(1)
    const modalRef = useRef<HTMLDivElement>(null)
+   const { addProduct } = useCart()
 
    const handleModal = () => {
       setOpenModal(!openModal)
@@ -36,6 +38,11 @@ const ProductCard = ({
       ) {
          setOpenModal(false)
       }
+   }
+
+   const handleAddProduct = () => {
+      addProduct(1, 100, 'imagem.png', name, qtdProduct)
+      setOpenModal(false)
    }
 
    const changeQtdProduct = (type: string) => {
@@ -125,7 +132,10 @@ const ProductCard = ({
                         +
                      </button>
                   </div>
-                  <button className="btn btn-primary">
+                  <button
+                     className="btn btn-primary"
+                     onClick={handleAddProduct}
+                  >
                      R${price * qtdProduct} - Adicionar
                   </button>
                </div>

@@ -3,7 +3,6 @@ import {
    ReactNode,
    useContext,
    useEffect,
-   useRef,
    useState,
 } from 'react'
 import { toast } from 'react-toastify'
@@ -17,15 +16,22 @@ interface UpdateProductAmount {
    quantity: number
 }
 
+interface IProduct {
+   product_id: number
+   name: string
+   price: number
+   image: string
+   quantity: number
+}
+
 interface CartContextData {
-   cart: any[]
+   cart: IProduct[]
    addProduct: (
       product_id: number,
       price: number,
       image: string,
       title: string,
-      quantity: number,
-      options: any
+      quantity: number
    ) => Promise<void>
    removeProduct: (product_id: number) => void
    updateProductAmount: ({ product_id, quantity }: UpdateProductAmount) => void
@@ -37,65 +43,35 @@ const CartContext = createContext<CartContextData>({} as CartContextData)
 
 export function CartProvider({ children }: CartProviderProps): JSX.Element {
    const [somaTotal, setSomaTotal] = useState(0)
-   const [cartSize, setCartSize] = useState<number>(0)
-   const [cart, setCart] = useState<any[]>(() => {
-      // Verificando se existe no localstorage o carrinho
-      const storagedCart = null
+   const [cartSize, setCartSize] = useState(0)
+
+   const [cart, setCart] = useState<IProduct[]>(() => {
+      const storagedCart = JSON.parse(
+         localStorage.getItem('@AuFood:cart') ?? '[]'
+      )
+
       if (storagedCart) {
          //Se existir configurar o setCart
          return storagedCart
       }
       return []
    })
-   /**
-    *
-    * Verificando alteração do carrinho
-    * e atualizando o localstorage
-    *
-    *
-    */
-   const prevCartRef = useRef<any[]>()
-   useEffect(() => {
-      prevCartRef.current = cart
-   })
-   const cartPreviousValue = prevCartRef.current ?? cart
-   useEffect(() => {
-      if (cartPreviousValue !== cart) {
-         // localStorage.setItem('@IrPlis:cart', JSON.stringify(cart))
-      }
-   }, [cart, cartPreviousValue])
-   /**
-    *
-    * Add Produto (Função)
-    *
-    *
-    */
 
    useEffect(() => {
-      const total = cart.map((product) => {
-         return product.price * product.quantity
-      }, 0) //da um map nos produtos e adiciona a const total
+      setCartSize(cart.length)
+      const total = cart.reduce((sumTotal, product) => {
+         return sumTotal + product.price * product.quantity
+      }, 0)
 
-      var soma = 0
-      for (var i = 0; i < total.length; i++) {
-         soma += total[i]
-      }
-      setSomaTotal(soma)
-   }, [cart])
-
-   useEffect(() => {
-      if (cart) {
-         setCartSize(cart.length)
-      }
+      setSomaTotal(total)
    }, [cart])
 
    const addProduct = async (
       product_id: number,
       price: number,
       image: string,
-      title: string,
-      quantity: number,
-      options: any
+      name: string,
+      quantity: number
    ) => {
       try {
          //Criando um novo array para manipular o cart
@@ -106,63 +82,41 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
             (product) => product.product_id === product_id
          )
 
-         // Verificando a quantidade inserida no carrinho
-         const currentAmount = productExists ? productExists.quantity : 0
-         // Adicionando mais um item
-         const newAmount = currentAmount + quantity
-
          //verificando se o produto existe no carrinho
          if (productExists) {
-            // se sim incrementa a quantidade
-            productExists.quantity = newAmount
+            //se existe atualiza a quantidade
+            productExists.quantity = (productExists.quantity ?? 0) + quantity
          } else {
             //se nao, adiciona ao carrinho
             const newProduct = {
                product_id,
                price,
                image,
-               title,
-               quantity: quantity,
-               options: options,
+               name,
+               quantity,
             }
             updatedCart.push(newProduct)
          }
+
          //Atualizando o Carrinho
-         toast.success(`${title} adicionado ao carrinho`)
+         toast.success(`${name} adicionado ao carrinho`)
          setCart(updatedCart)
       } catch {
          //Caso dê algum erro exibir uma notificação
          toast.error('Erro na adição do produto')
       }
    }
-   /**
-    *
-    * Remover Produto (Função)
-    *
-    *
-    */
+
+   // Função para remover um produto do carrinho
    const removeProduct = (product_id: number) => {
       try {
-         const updatedCart = [...cart]
-         const productIndex = updatedCart.findIndex(
-            (product) => product.product_id === product_id
-         )
-         if (productIndex >= 0) {
-            updatedCart.splice(productIndex, 1)
-            setCart(updatedCart)
-         } else {
-            throw Error()
-         }
+         setCart(cart.filter((product) => product.product_id !== product_id))
       } catch {
          toast.error('Erro na remoção do produto')
       }
    }
-   /**
-    *
-    * Atualizar Quantidade (Função)
-    *
-    *
-    */
+
+   // Função para atualizar a quantidade de um produto no carrinho
    const updateProductAmount = async ({
       product_id,
       quantity,

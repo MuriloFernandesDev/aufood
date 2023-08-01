@@ -8,6 +8,7 @@ import Footer from '../components/Home/Footer'
 import { NavComponent } from '../components/Home/NavBar'
 import ProductCard from '../components/Home/ProductCard'
 import SearchHome from '../components/Home/Search'
+import CartComponent from '../components/Home/cart'
 import { config } from '../configs'
 
 /*
@@ -52,6 +53,7 @@ const Home = () => {
 
    return (
       <>
+         <CartComponent />
          <NavComponent navItens={navItens} />
          <div
             className={`header-container transition-all duration-300 md:opacity-100 ${
