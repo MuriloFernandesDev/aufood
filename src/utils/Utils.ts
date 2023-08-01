@@ -15,8 +15,8 @@ export function SaveColors(color: string, name: string) {
    )
 }
 
-export function saveCookie(name: string, value: string, days: number) {
-   setCookie(null, name, value, {
+export function setCookies(name: string, value: string) {
+   setCookie(null, `@AuFood:${name}`, value, {
       maxAge: 30 * 24 * 60 * 60,
       path: '/',
    })

@@ -3,9 +3,11 @@ import {
    ReactNode,
    useContext,
    useEffect,
+   useRef,
    useState,
 } from 'react'
 import { toast } from 'react-toastify'
+import { getCookie, setCookies } from '../utils/Utils'
 
 interface CartProviderProps {
    children: ReactNode
@@ -46,13 +48,11 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
    const [cartSize, setCartSize] = useState(0)
 
    const [cart, setCart] = useState<IProduct[]>(() => {
-      const storagedCart = JSON.parse(
-         localStorage.getItem('@AuFood:cart') ?? '[]'
-      )
+      const storageCart = getCookie('Cart')
+      const storage = storageCart ? JSON.parse(storageCart) : null
 
-      if (storagedCart) {
-         //Se existir configurar o setCart
-         return storagedCart
+      if (storage) {
+         return storage
       }
       return []
    })
@@ -65,6 +65,17 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
       setSomaTotal(total)
    }, [cart])
+
+   const prevCartRef = useRef<IProduct[]>()
+   useEffect(() => {
+      prevCartRef.current = cart
+   })
+   const cartPreviousValue = prevCartRef.current ?? cart
+   useEffect(() => {
+      if (cartPreviousValue !== cart) {
+         setCookies('Cart', JSON.stringify(cart))
+      }
+   }, [cart, cartPreviousValue])
 
    const addProduct = async (
       product_id: number,
