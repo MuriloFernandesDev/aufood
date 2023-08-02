@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { FaShoppingCart } from 'react-icons/fa'
-import { useCart } from '../../../hooks/useCart'
+import { useCart } from '../../hooks/useCart'
 
 const CartComponent = () => {
    const { cartSize } = useCart()

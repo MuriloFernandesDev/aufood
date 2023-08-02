@@ -2,13 +2,10 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { FaHamburger } from 'react-icons/fa'
+import CategoriesComponent from '../components/Categories'
 import InfoDrawer from '../components/Drawer/InfoDrawer'
-import CategoriesComponent from '../components/Home/Categories'
-import Footer from '../components/Home/Footer'
-import { NavComponent } from '../components/Home/NavBar'
-import ProductCard from '../components/Home/ProductCard'
-import SearchHome from '../components/Home/Search'
-import CartComponent from '../components/Home/cart'
+import ProductCard from '../components/ProductCard'
+import SearchHome from '../components/Search'
 import { config } from '../configs'
 
 /*
@@ -19,24 +16,6 @@ Modal: https://www.npmjs.com/package/react-modal
 const Home = () => {
    const [isOpen, setIsOpen] = useState(false)
 
-   const navItens = [
-      {
-         name: 'Início',
-         link: '#',
-      },
-      {
-         name: 'Promoções',
-         link: '#',
-      },
-      {
-         name: 'Funcionamento',
-         link: '#',
-      },
-      {
-         name: 'Contato',
-         link: '#',
-      },
-   ]
    const [scroll, setScroll] = useState(0)
 
    useEffect(() => {
@@ -53,8 +32,6 @@ const Home = () => {
 
    return (
       <>
-         <CartComponent />
-         <NavComponent navItens={navItens} />
          <div
             className={`header-container transition-all duration-300 md:opacity-100 ${
                scroll >= 270 ? 'opacity-0' : 'opacity-100'
@@ -161,7 +138,6 @@ const Home = () => {
                </div>
             </div>
          </div>
-         <Footer />
       </>
    )
 }
