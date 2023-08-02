@@ -75,7 +75,7 @@ const Home = () => {
                         </div>
                         <div className="divider lg:divider-horizontal"></div>
                         <div className="grid flex-grow place-items-center">
-                           <span className="flex gap-1 items-center">
+                           <span className="flex gap-1 items-center mt-5 lg:mt-0">
                               <AiOutlineClockCircle /> Tempo de entrega -{' '}
                               {config.operation.delivery_time} min
                            </span>
