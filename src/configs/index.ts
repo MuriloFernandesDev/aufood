@@ -4,9 +4,9 @@ export const config = {
    description: 'Google',
    keywords: 'Google',
    colors: {
-      primary: '#232225',
-      secondary: '#717171',
-      background: '#fafafa',
+      primary: '35, 34, 37',
+      secondary: '113, 113, 113',
+      background: '255, 255, 255',
    },
    operation: {
       delivery_time: 30,

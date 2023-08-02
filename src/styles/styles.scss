@@ -20,7 +20,6 @@
    font-size: 18px;
    background: #fff;
 
-   /* Center slide text vertically */
    display: flex;
    justify-content: center;
    align-items: center;
@@ -50,33 +49,35 @@
 }
 
 .icon-base-100 polyline {
-   stroke: var(--color-background);
+   stroke: rgba(var(--color-background));
 }
 
 .icon-primary polyline {
-   stroke: var(--color-primary);
+   stroke: rgba(var(--color-primary));
 }
 
 .icon-secondary polyline {
-   stroke: var(--color-secondary);
+   stroke: rgba(var(--color-secondary));
 }
 
 .btn-primary {
-   background-color: var(--color-primary);
-   color: var(--color-background);
-   border-color: var(--color-primary); /* Manter a mesma cor de borda */
+   background-color: rgba(var(--color-primary));
+   color: rgba(var(--color-background));
+   border-color: rgba(var(--color-primary)); /* Manter a mesma cor de borda */
 }
 
 .btn-primary:hover {
-   background-color: var(--color-primary); /* Manter a mesma cor de fundo */
-   color: var(--color-background); /* Manter a mesma cor de texto */
-   border-color: var(--color-primary); /* Manter a mesma cor de borda */
+   background-color: rgba(
+      var(--color-primary)
+   ); /* Manter a mesma cor de fundo */
+   color: rgba(var(--color-background)); /* Manter a mesma cor de texto */
+   border-color: rgba(var(--color-primary)); /* Manter a mesma cor de borda */
    opacity: 0.9;
 }
 
 @layer components {
    .btn-shadow {
-      box-shadow: 0 0 10px 1px rgba(var(--color-background-rgb), 0.5);
+      box-shadow: 0 0 10px 1px rgba(var(--color-background), 0.5);
    }
 
    .btn-base-100 {

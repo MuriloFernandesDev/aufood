@@ -1,8 +1,8 @@
 let colors = {
-   primary: 'var(--color-primary)',
-   'base-100': 'var(--color-background)',
-   price: 'var(--color-primary)',
-   secondary: 'var(--color-secondary)',
+   primary: 'rgba(var(--color-primary), <alpha-value>)',
+   'base-100': 'rgba(var(--color-background), <alpha-value>)',
+   price: 'rgba(var(--color-primary), <alpha-value>)',
+   secondary: 'rgba(var(--color-secondary), <alpha-value>)',
    'secondary-opacity-70': 'rgba(var(--color-secondary-rgb), 0.7)',
 }
 

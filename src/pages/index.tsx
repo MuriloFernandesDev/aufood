@@ -93,8 +93,6 @@ const Home = () => {
                      </div>
                      <CategoriesComponent />
 
-                     {/* <CardOfDay className="mt-10 mx-auto" /> */}
-
                      <div className="w-full">
                         <div id="lanche" className="mt-10">
                            <span className="flex items-center text-primary">
