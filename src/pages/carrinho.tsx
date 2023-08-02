@@ -1,7 +1,7 @@
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
-import ProductCard from '../components/Home/ProductCard'
+import ProductCard from '../components/ProductCard'
 import { useCart } from '../hooks/useCart'
 
 const Cart = (): JSX.Element => {
