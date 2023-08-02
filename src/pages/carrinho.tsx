@@ -1,6 +1,5 @@
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
+import { FaShoppingBag } from 'react-icons/fa'
 import ProductCard from '../components/ProductCard'
 import { useCart } from '../hooks/useCart'
 
@@ -57,10 +56,7 @@ const Cart = (): JSX.Element => {
             </div>
          ) : (
             <div className="flex flex-col gap-8 my-10 items-center max-w-3xl mx-auto">
-               <FontAwesomeIcon
-                  icon={faShoppingCart}
-                  className="w-10 h-10 text-primary"
-               />
+               <FaShoppingBag />
                <h1 className="text-2xl font-bold">Carrinho vazio!</h1>
                <span>Você ainda não possui itens no seu carrinho.</span>
                <Link href="/produtos">
