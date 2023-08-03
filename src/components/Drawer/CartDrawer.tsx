@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Divider } from 'react-daisyui'
 import { GrFormClose } from 'react-icons/gr'
 import Drawer from 'react-modern-drawer'
 
@@ -50,9 +51,10 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                onClick={toggleDrawer}
             />
             <div className="px-2">
-               <h3>Acompanhar pedido</h3>
+               <h3>Acompanhar meu pedido</h3>
 
-               <span>teste</span>
+               <span>Mcdonald's - Araçatuba Drive (vsa)</span>
+               <Divider />
             </div>
          </>
       </Drawer>
