@@ -3,8 +3,13 @@ import Link from 'next/link'
 import { Button, Navbar } from 'react-daisyui'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { config } from '../../configs'
+import ButtonCart from '../cart/ButtonCart'
 
-export const NavBar = () => {
+interface NavBarProps {
+   changeCartDrawer: () => void
+}
+
+export const NavBar = ({ changeCartDrawer }: NavBarProps) => {
    const navItens = [
       {
          name: 'Início',
@@ -80,9 +85,7 @@ export const NavBar = () => {
                   </li>
                </ul>
             </div>
-            <Button className="btn btn-base-100 text-primary font-bold border-none hidden md:block">
-               Registre-se e ganhe desconto
-            </Button>
+            <ButtonCart changeCartDrawer={changeCartDrawer} />
          </div>
       </Navbar>
    )

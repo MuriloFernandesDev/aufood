@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { FaClock } from 'react-icons/fa'
 import { GrFormClose } from 'react-icons/gr'
 import Drawer from 'react-modern-drawer'
-import 'react-modern-drawer/dist/index.css'
 import { config } from '../../configs'
 
 interface InfoDrawerProps {

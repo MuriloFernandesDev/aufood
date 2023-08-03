@@ -1,19 +1,24 @@
-import Link from 'next/link'
-import { FaShoppingCart } from 'react-icons/fa'
+import { HiOutlineShoppingBag } from 'react-icons/hi'
 import { useCart } from '../../hooks/useCart'
+import { formatPrice } from '../../utils/Utils'
 
-const ButtonCart = () => {
-   const { cartSize } = useCart()
+interface ButtonCartProps {
+   changeCartDrawer: () => void
+}
+
+const ButtonCart = ({ changeCartDrawer }: ButtonCartProps) => {
+   const { cartSize, somaTotal } = useCart()
 
    return (
-      <div className="fixed right-5 bottom-5 hidden md:block z-10">
-         <Link href="/carrinho">
-            <a className="btn btn-primary btn-circle btn-lg border-base-100 border-2 gap-1 animate-bounce">
-               <FaShoppingCart size={20} />
-               <span>{cartSize}</span>
-            </a>
-         </Link>
-      </div>
+      <button className="btn btn-my-cart gap-1" onClick={changeCartDrawer}>
+         <span>
+            <HiOutlineShoppingBag size={30} className="icon-base-100" />
+         </span>
+         <span className="flex flex-col items-start gap-1">
+            <p>{formatPrice(somaTotal)}</p>
+            <p>{`${cartSize} ite${cartSize === 1 ? 'm' : 'ns'}`}</p>
+         </span>
+      </button>
    )
 }
 

@@ -1,4 +1,5 @@
-import CartComponent from '../cart/ButtonCart'
+import { useState } from 'react'
+import CartDrawer from '../Drawer/CartDrawer'
 import FooterCart from '../cart/FooterCart'
 import Footer from './Footer'
 import { NavBar } from './NavBar'
@@ -8,10 +9,16 @@ interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps) => {
+   const [isOpen, setIsOpen] = useState(false)
+
+   const handleCartDrawer = () => {
+      setIsOpen((prevState) => !prevState)
+   }
+
    return (
       <>
-         <NavBar />
-         <CartComponent />
+         <CartDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
+         <NavBar changeCartDrawer={handleCartDrawer} />
          <FooterCart />
          {children}
          <Footer />
