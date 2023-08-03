@@ -87,7 +87,11 @@ const ProductCard = ({
                </div>
             </div>
          </div>
-         <div className={`modal${openModal ? ' modal-open' : ''}`}>
+         <div
+            className={`modal modal-bottom sm:modal-middle ${
+               openModal ? ' modal-open' : ''
+            }`}
+         >
             <div
                className="modal-box bg-base-100 pt-2 pr-0 min-h-[50%]"
                ref={modalRef}

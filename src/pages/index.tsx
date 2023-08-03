@@ -64,7 +64,7 @@ const Home = () => {
                            {config.title}
                         </h1>
                      </div>
-                     <div className="flex flex-col-reverse lg:flex-row lg:h-7 text-sm mt-10 md:mt-0">
+                     <div className="flex flex-col-reverse lg:flex-row lg:h-7 text-sm mt-4 md:mt-0">
                         <div className="grid flex-grow place-items-center">
                            <span
                               className="link"

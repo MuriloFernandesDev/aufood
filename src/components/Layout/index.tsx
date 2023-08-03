@@ -1,4 +1,3 @@
-import { Container } from 'reactstrap'
 import CartComponent from '../cart/ButtonCart'
 import FooterCart from '../cart/FooterCart'
 import Footer from './Footer'
@@ -10,13 +9,13 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
    return (
-      <Container className="relative">
-         <CartComponent />
+      <>
          <NavBar />
+         <CartComponent />
+         <FooterCart />
          {children}
          <Footer />
-         <FooterCart />
-      </Container>
+      </>
    )
 }
 
