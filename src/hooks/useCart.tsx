@@ -7,6 +7,7 @@ import {
    useState,
 } from 'react'
 import { toast } from 'react-toastify'
+import { IProduct } from '../types'
 import { getCookie, setCookies } from '../utils/Utils'
 
 interface CartProviderProps {
@@ -15,14 +16,6 @@ interface CartProviderProps {
 
 interface UpdateProductAmount {
    product_id: number
-   quantity: number
-}
-
-interface IProduct {
-   product_id: number
-   name: string
-   price: number
-   image: string
    quantity: number
 }
 
