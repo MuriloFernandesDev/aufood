@@ -1,6 +1,7 @@
 import { Divider } from 'react-daisyui'
 import { GoTrash } from 'react-icons/go'
 import { PiPencilSimpleLight } from 'react-icons/pi'
+import { useCart } from '../../hooks/useCart'
 import { formatPrice } from '../../utils/Utils'
 
 interface ItemCartProps {
@@ -11,6 +12,7 @@ interface ItemCartProps {
 }
 
 const ItemCart = ({ name, price, id, description }: ItemCartProps) => {
+   const { removeProduct } = useCart()
    return (
       <div className="flex flex-col gap-2">
          <div className="flex justify-between items-center">
@@ -22,7 +24,10 @@ const ItemCart = ({ name, price, id, description }: ItemCartProps) => {
             <button className="flex gap-[2px] items-center">
                <PiPencilSimpleLight /> Alterar
             </button>
-            <button className="flex gap-[2px] items-center text-red-800 font-bold opacity-50">
+            <button
+               onClick={() => removeProduct(id)}
+               className="flex gap-[2px] items-center text-red-800 font-bold opacity-50"
+            >
                <GoTrash /> Remover
             </button>
          </div>

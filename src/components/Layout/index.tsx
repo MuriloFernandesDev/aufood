@@ -19,7 +19,7 @@ const Layout = ({ children }: LayoutProps) => {
       <>
          <CartDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
          <NavBar changeCartDrawer={handleCartDrawer} />
-         <FooterCart />
+         <FooterCart changeCartDrawer={handleCartDrawer} />
          {children}
          <Footer />
       </>

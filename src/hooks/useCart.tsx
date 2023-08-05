@@ -7,6 +7,8 @@ import {
    useState,
 } from 'react'
 import { toast } from 'react-toastify'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import { IProduct } from '../types'
 import { getCookie, setCookies } from '../utils/Utils'
 
@@ -90,6 +92,10 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
          if (productExists) {
             //se existe atualiza a quantidade
             productExists.quantity = (productExists.quantity ?? 0) + quantity
+
+            toast.success(`Mais ${quantity} ${name} adicionado ao carrinho`, {
+               autoClose: 2000,
+            })
          } else {
             //se nao, adiciona ao carrinho
             const newProduct = {
@@ -100,10 +106,14 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
                quantity,
             }
             updatedCart.push(newProduct)
+
+            toast.success(`${name} adicionado ao carrinho`, {
+               autoClose: 2000,
+            })
          }
 
          //Atualizando o Carrinho
-         toast.success(`${name} adicionado ao carrinho`)
+
          setCart(updatedCart)
       } catch {
          //Caso dê algum erro exibir uma notificação
@@ -114,7 +124,25 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
    // Função para remover um produto do carrinho
    const removeProduct = (product_id: number) => {
       try {
-         setCart(cart.filter((product) => product.product_id !== product_id))
+         const MySwal = withReactContent(Swal)
+         MySwal.fire({
+            title: 'Tem certeza?',
+            text: 'Quer remover este produto do carrinho?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sim, remover!',
+            cancelButtonText: 'Não, cancelar!',
+            reverseButtons: true,
+         }).then((result) => {
+            if (result.isConfirmed) {
+               setCart(
+                  cart.filter((product) => product.product_id !== product_id)
+               )
+               toast.warning('Produto removido do carrinho', {
+                  autoClose: 2000,
+               })
+            }
+         })
       } catch {
          toast.error('Erro na remoção do produto')
       }

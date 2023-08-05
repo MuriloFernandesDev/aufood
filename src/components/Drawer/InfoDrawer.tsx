@@ -48,8 +48,10 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
          onClose={toggleDrawer}
          overlayOpacity={0}
          direction={isMobile ? 'bottom' : 'right'}
-         className={`${isMobile ? 'rounded-t-3xl' : 'mt-20'} bg-base-100`}
-         size={isMobile ? 450 : '30vw'}
+         className={`${
+            isMobile ? 'rounded-t-3xl' : 'mt-[8vh]'
+         } bg-base-100 p-2 max-h-[92vh]`}
+         size={isMobile ? 450 : '40vw'}
       >
          <>
             <div className="w-full flex p-2">
@@ -59,7 +61,7 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
                   onClick={toggleDrawer}
                />
             </div>
-            <div className="p-3 overflow-auto">
+            <div className="p-2 overflow-auto">
                <div className="tabs w-full">
                   <a
                      onClick={() => setTab(0)}
@@ -86,7 +88,7 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
                      Pagamentos
                   </a>
                </div>
-               <div className="text-primary mt-4 mx-4 max-h-80 md:max-h-full overflow-y-auto">
+               <div className="text-primary mt-4 max-h-80 md:max-h-full overflow-y-auto">
                   {tab == 0 ? (
                      <>
                         <div>

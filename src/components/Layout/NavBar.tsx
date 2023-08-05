@@ -85,7 +85,9 @@ export const NavBar = ({ changeCartDrawer }: NavBarProps) => {
                   </li>
                </ul>
             </div>
-            <ButtonCart changeCartDrawer={changeCartDrawer} />
+            <div className="hidden md:block">
+               <ButtonCart changeCartDrawer={changeCartDrawer} />
+            </div>
          </div>
       </Navbar>
    )

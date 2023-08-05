@@ -50,7 +50,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
          className={`${
             isMobile ? 'rounded-t-3xl' : 'mt-[8vh]'
          } bg-base-100 p-2 max-h-[92vh]`}
-         size={isMobile ? 450 : '40vw'}
+         size={isMobile ? '92vh' : '40vw'}
       >
          <>
             <GrFormClose
@@ -58,7 +58,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                className="cursor-pointer"
                onClick={toggleDrawer}
             />
-            <div className="px-2">
+            <div className="px-2 max-h-[70vh] overflow-y-auto">
                <h3>Acompanhar meu pedido</h3>
 
                <span>Mcdonald's - Araçatuba Drive (vsa)</span>
@@ -99,16 +99,15 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                      <span>R$ 5,00</span>
                   </div>
                </div>
-
-               <div className="flex flex-col gap-2 absolute w-[95%] bottom-0 mb-3">
-                  <div className="flex justify-between items-center">
-                     <span>Total</span>
-                     <span>{formatPrice(somaTotal)}</span>
-                  </div>
-                  <button className="btn btn-primary w-full">
-                     Escolher como pagar
-                  </button>
+            </div>
+            <div className="flex flex-col gap-2 absolute w-[95%] bottom-0 mb-3">
+               <div className="flex justify-between items-center">
+                  <span>Total</span>
+                  <span>{formatPrice(somaTotal)}</span>
                </div>
+               <button className="btn btn-primary w-full">
+                  Escolher como pagar
+               </button>
             </div>
          </>
       </Drawer>
