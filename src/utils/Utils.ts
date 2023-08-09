@@ -25,3 +25,18 @@ export function formatPrice(price: number) {
       currency: 'BRL',
    }).format(price)
 }
+
+export const campoInvalido = (
+   dados?: any,
+   erros?: any,
+   campo?: any,
+   tipo?: any
+) => {
+   return (
+      (erros === null || erros[campo]) &&
+      (!dados[campo] ||
+         (tipo === 'int' &&
+            ((dados[campo] ?? 0) === 0 || isNaN(dados[campo]))) ||
+         (!tipo && dados[campo]?.length === 0))
+   )
+}

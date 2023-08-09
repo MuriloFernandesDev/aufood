@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react'
 import { Input } from 'react-daisyui'
+import { CgDanger } from 'react-icons/cg'
 
 type nameTypes = 'name' | 'phone' | 'email' | 'cep' | 'address' | 'number'
 
@@ -9,6 +10,7 @@ interface InputComponentProps {
    label: string
    placeholder: string
    name: nameTypes
+   invalid?: boolean
 }
 
 const InputComponent = ({
@@ -17,6 +19,7 @@ const InputComponent = ({
    label,
    placeholder,
    name,
+   invalid,
 }: InputComponentProps) => {
    return (
       <div>
@@ -27,11 +30,17 @@ const InputComponent = ({
             name={name}
             onChange={handleChange}
             value={value}
-            color="primary"
-            className="w-full"
+            className={`input w-full ${
+               invalid ? 'input-error' : 'input-primary'
+            }`}
             placeholder={placeholder}
             id={label}
          />
+         {invalid && (
+            <span className="label-text-alt text-error flex items-center gap-1 mt-1">
+               <CgDanger /> {label} obrigatório
+            </span>
+         )}
       </div>
    )
 }
