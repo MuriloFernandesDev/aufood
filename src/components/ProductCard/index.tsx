@@ -8,7 +8,7 @@ import { useCart } from '../../hooks/useCart'
 interface ProductCardProps {
    name: string
    price: number
-   id?: number
+   id: number
    image?: string
    category: string
    timeDelivery: string
@@ -41,7 +41,7 @@ const ProductCard = ({
    }
 
    const handleAddProduct = () => {
-      addProduct(1, 100, 'imagem.png', name, qtdProduct)
+      addProduct(id, 100, 'imagem.png', name, qtdProduct)
       setOpenModal(false)
    }
 

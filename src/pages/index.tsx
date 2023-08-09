@@ -96,24 +96,28 @@ const Home = () => {
 
                <div className="grid grid-cols-1 md:grid-cols-4 w-full gap-3 mt-3">
                   <ProductCard
+                     id={4}
                      category="Lanches"
                      name="X-Bacon - Artesanal"
                      price={29.99}
                      timeDelivery="25-30min"
                   />
                   <ProductCard
+                     id={3}
                      category="Hot-dog"
                      name="X-Bacon - Artesanal"
                      price={29.99}
                      timeDelivery="25-30min"
                   />
                   <ProductCard
+                     id={2}
                      category="Lanches"
                      name="X-Bacon - Artesanal"
                      price={29.99}
                      timeDelivery="25-30min"
                   />
                   <ProductCard
+                     id={1}
                      category="Lanches"
                      name="X-Bacon - Artesanal"
                      price={29.99}
