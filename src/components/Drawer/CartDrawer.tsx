@@ -50,6 +50,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
    const [tap, setTap] = useState(0)
    const [personalInfo, setPersonalInfo] =
       useState<PersonalInfoProps>(personalInfoDefault)
+
    const campos_obrigatorios_personal_info = [
       { nome: 'name' },
       { nome: 'cep' },
@@ -102,8 +103,6 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
       formState: { errors },
    } = useForm()
 
-   console.log(errors)
-
    const handleChangeTap = (value: number, back?: boolean) => {
       if (back) {
          setTap(value)
@@ -149,153 +148,128 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
          direction={isMobile ? 'bottom' : 'right'}
          className={`${
             isMobile ? 'rounded-t-3xl' : 'mt-[8vh]'
-         } bg-base-100 p-3 px-4 max-h-[92vh] pt-10`}
-         size={isMobile ? '92vh' : '40vw'}
+         } bg-base-100 p-3 px-4 max-h-[92vh] pt-10 flex flex-col justify-between`}
+         size={isMobile ? '80vh' : '40vw'}
       >
          <>
-            <GrFormClose
-               size={30}
-               className="cursor-pointer absolute top-1 left-3"
-               onClick={toggleDrawer}
-            />
-            <TitleCartDrawer
-               title={title}
-               localName="Mcdonald's - Araçatuba Drive (vsa)"
-            />
-            <Divider />
-            {cart && cart.length > 0 ? (
-               <>
-                  {' '}
-                  {tap === 0 ? (
-                     <div className="max-h-[65vh] overflow-y-auto">
-                        <div className="flex flex-col gap-4">
-                           {cart &&
-                              cart.map((item) => (
-                                 <ItemCart
-                                    key={item.product_id}
-                                    price={item.price}
-                                    id={item.product_id}
-                                    name={item.name}
-                                    description="2x Duplo Burger com Queijo,2x McFritas Media,2x Coca-Cola Original 400ml,2x Não quero levar"
-                                 />
-                              ))}
-                        </div>
+            <div className="pb-4">
+               <GrFormClose
+                  size={30}
+                  className="cursor-pointer absolute top-1 left-3"
+                  onClick={toggleDrawer}
+               />
+               <TitleCartDrawer
+                  title={title}
+                  localName="Mcdonald's - Araçatuba Drive (vsa)"
+               />
+               <Divider />
 
-                        <div className="flex justify-between items-center cursor-pointer">
-                           <div className="flex items-center gap-2">
-                              <IoTicketOutline size={40} />
-                              <div className="flex flex-col">
-                                 <span>Cupom</span>
-                                 <span>Código do cupom</span>
-                              </div>
-                           </div>
-                           <MdKeyboardArrowRight size={30} />
-                        </div>
-                        <Divider />
+               {tap === 0 ? (
+                  <div className="max-h-[65vh] overflow-y-auto">
+                     <div className="flex flex-col gap-4">
+                        {cart &&
+                           cart.map((item) => (
+                              <ItemCart
+                                 key={item.product_id}
+                                 price={item.price}
+                                 id={item.product_id}
+                                 name={item.name}
+                                 description="2x Duplo Burger com Queijo,2x McFritas Media,2x Coca-Cola Original 400ml,2x Não quero levar"
+                              />
+                           ))}
+                     </div>
 
-                        <div className="flex flex-col gap-3">
-                           <div className="flex items-center justify-between">
-                              <span>Subtotal</span>
-                              <span>R$ 50,00</span>
-                           </div>
-                           <div className="flex items-center justify-between">
-                              <span>Taxa de entrega</span>
-                              <span>R$ 5,00</span>
+                     <div className="flex justify-between items-center cursor-pointer">
+                        <div className="flex items-center gap-2">
+                           <IoTicketOutline size={40} />
+                           <div className="flex flex-col">
+                              <span>Cupom</span>
+                              <span>Código do cupom</span>
                            </div>
                         </div>
+                        <MdKeyboardArrowRight size={30} />
                      </div>
-                  ) : tap === 1 ? (
-                     <div className="max-h-[65vh] overflow-y-auto flex flex-col gap-4">
-                        <InputComponent
-                           name="name"
-                           handleChange={handlePersonalInfo}
-                           value={personalInfo?.name ?? ''}
-                           label="Nome"
-                           placeholder="Ex: João da Silva"
-                           invalid={campoInvalido(personalInfo, errors, 'name')}
-                        />
-                        <InputComponent
-                           name="phone"
-                           handleChange={handlePersonalInfo}
-                           value={personalInfo?.phone ?? ''}
-                           label="Telefone"
-                           placeholder="Ex: (18) 99999-9999"
-                           invalid={campoInvalido(
-                              personalInfo,
-                              errors,
-                              'phone'
-                           )}
-                        />
-                        <InputComponent
-                           name="cep"
-                           handleChange={handlePersonalInfo}
-                           value={personalInfo?.cep ?? ''}
-                           label="CEP"
-                           placeholder="Ex: 16000-000"
-                           invalid={campoInvalido(personalInfo, errors, 'cep')}
-                        />
-                        <InputComponent
-                           name="address"
-                           handleChange={handlePersonalInfo}
-                           value={personalInfo?.address ?? ''}
-                           label="Endereço"
-                           placeholder="Ex: Rua nove"
-                           invalid={campoInvalido(
-                              personalInfo,
-                              errors,
-                              'address'
-                           )}
-                        />
-                        <InputComponent
-                           name="number"
-                           handleChange={handlePersonalInfo}
-                           value={personalInfo?.number ?? ''}
-                           label="Número"
-                           placeholder="Ex: 200"
-                           invalid={campoInvalido(
-                              personalInfo,
-                              errors,
-                              'number'
-                           )}
-                        />
+                     <Divider />
+
+                     <div className="flex flex-col gap-3">
+                        <div className="flex items-center justify-between">
+                           <span>Subtotal</span>
+                           <span>R$ 50,00</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                           <span>Taxa de entrega</span>
+                           <span>R$ 5,00</span>
+                        </div>
                      </div>
-                  ) : (
-                     <> </>
-                  )}
-                  <div className="flex flex-col gap-2 absolute w-[95%] bottom-0 mb-3 bg-base-100">
-                     <div className="flex justify-between items-center">
-                        <span>Total</span>
-                        <span>{formatPrice(somaTotal)}</span>
-                     </div>
-                     {tap !== 0 && (
-                        <button
-                           onClick={() => handleChangeTap(tap - 1, true)}
-                           className="btn btn-ghost bg-slate-400 text-white w-full"
-                        >
-                           Voltar
-                        </button>
-                     )}
-                     <button
-                        onClick={() => handleChangeTap(tap + 1)}
-                        className="btn btn-primary w-full"
-                     >
-                        Próximo
-                     </button>
                   </div>
-               </>
-            ) : (
-               <div className="flex flex-col items-center justify-center h-[65vh]">
-                  <span className="text-2xl font-bold text-center">
-                     Seu carrinho está vazio
-                  </span>
-                  <button
-                     onClick={toggleDrawer}
-                     className="btn btn-primary mt-4"
-                  >
-                     Adicionar itens
-                  </button>
+               ) : tap === 1 ? (
+                  <div className="max-h-[65vh] overflow-y-auto flex flex-col gap-4">
+                     <InputComponent
+                        name="name"
+                        handleChange={handlePersonalInfo}
+                        value={personalInfo?.name ?? ''}
+                        label="Nome"
+                        placeholder="Ex: João da Silva"
+                        invalid={campoInvalido(personalInfo, errors, 'name')}
+                     />
+                     <InputComponent
+                        name="phone"
+                        handleChange={handlePersonalInfo}
+                        value={personalInfo?.phone ?? ''}
+                        label="Telefone"
+                        placeholder="Ex: (18) 99999-9999"
+                        invalid={campoInvalido(personalInfo, errors, 'phone')}
+                     />
+                     <InputComponent
+                        name="cep"
+                        handleChange={handlePersonalInfo}
+                        value={personalInfo?.cep ?? ''}
+                        label="CEP"
+                        placeholder="Ex: 16000-000"
+                        invalid={campoInvalido(personalInfo, errors, 'cep')}
+                     />
+                     <InputComponent
+                        name="address"
+                        handleChange={handlePersonalInfo}
+                        value={personalInfo?.address ?? ''}
+                        label="Endereço"
+                        placeholder="Ex: Rua nove"
+                        invalid={campoInvalido(personalInfo, errors, 'address')}
+                     />
+                     <InputComponent
+                        name="number"
+                        handleChange={handlePersonalInfo}
+                        value={personalInfo?.number ?? ''}
+                        label="Número"
+                        placeholder="Ex: 200"
+                        invalid={campoInvalido(personalInfo, errors, 'number')}
+                     />
+                  </div>
+               ) : (
+                  <> </>
+               )}
+            </div>
+
+            <div className="flex flex-col gap-2 w-full bottom-0 mb-3 bg-base-100">
+               <div className="flex justify-between items-center">
+                  <span>Total</span>
+                  <span>{formatPrice(somaTotal)}</span>
                </div>
-            )}
+               {tap !== 0 && (
+                  <button
+                     onClick={() => handleChangeTap(tap - 1, true)}
+                     className="btn btn-ghost bg-slate-400 text-white w-full"
+                  >
+                     Voltar
+                  </button>
+               )}
+               <button
+                  onClick={() => handleChangeTap(tap + 1)}
+                  className="btn btn-primary w-full"
+               >
+                  Próximo
+               </button>
+            </div>
          </>
       </Drawer>
    )
