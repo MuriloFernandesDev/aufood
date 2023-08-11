@@ -26,7 +26,7 @@ const ItemCart = ({ name, price, id, description }: ItemCartProps) => {
             </button>
             <button
                onClick={() => removeProduct(id)}
-               className="flex gap-[2px] items-center text-red-800 font-bold opacity-50"
+               className="cursor-pointer flex gap-[2px] items-center text-red-800 font-bold opacity-50"
             >
                <GoTrash /> Remover
             </button>

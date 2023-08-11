@@ -5,7 +5,7 @@ import {
    useEffect,
    useState,
 } from 'react'
-import { Divider } from 'react-daisyui'
+import { Badge, Divider } from 'react-daisyui'
 import { useForm } from 'react-hook-form'
 import { GrFormClose } from 'react-icons/gr'
 import { IoTicketOutline } from 'react-icons/io5'
@@ -16,6 +16,8 @@ import { useCart } from '../../hooks/useCart'
 import { campoInvalido, formatPrice } from '../../utils/Utils'
 import ItemCart from '../cart/itemCart'
 import InputComponent from '../forms/input'
+import PaymentComponent from './payment'
+import PaymentGroupComponent from './paymentGroup'
 import TitleCartDrawer from './titleCartDrawer'
 
 interface CartDrawerProps {
@@ -43,6 +45,14 @@ const personalInfoDefault = {
    complement: undefined,
 }
 
+const campos_obrigatorios_personal_info = [
+   { nome: 'name' },
+   { nome: 'cep' },
+   { nome: 'address' },
+   { nome: 'number' },
+   { nome: 'phone' },
+]
+
 const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
    //verifica se o dispositivo é mobile
    const [isMobile, setIsMobile] = useState(false)
@@ -50,25 +60,64 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
    const [tap, setTap] = useState(0)
    const [personalInfo, setPersonalInfo] =
       useState<PersonalInfoProps>(personalInfoDefault)
+   const [methodPayment, setMethodPayment] = useState('')
 
-   const campos_obrigatorios_personal_info = [
-      { nome: 'name' },
-      { nome: 'cep' },
-      { nome: 'address' },
-      { nome: 'number' },
-      { nome: 'phone' },
-   ]
+   const {
+      setError,
+      formState: { errors },
+   } = useForm()
 
    //função para abrir e fechar o drawer
-   const toggleDrawer = () => {
+   const toggleDrawer = async () => {
       setIsOpen((prevState) => !prevState)
+
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+      setTap(0)
    }
 
-   useEffect(() => {
-      if (cart.length === 0 && isOpen) {
-         setIsOpen(false)
+   const handleChangeTap = (value: number, back?: boolean) => {
+      if (back) {
+         setTap(value)
+         return
       }
-   }, [cart])
+
+      if (value === 1) {
+         if (cart && cart.length > 0) {
+            setTap(value)
+         }
+      } else if (value === 2) {
+         let vCamposOK = true
+         campos_obrigatorios_personal_info.forEach((campo) => {
+            if (campoInvalido(personalInfo, null, campo.nome)) {
+               vCamposOK = false
+               setError(campo.nome, {
+                  type: 'manual',
+               })
+            }
+         })
+
+         if (vCamposOK) {
+            setTap(value)
+         } else {
+            toast.error('Preencha os campos obrigatórios')
+         }
+      } else {
+         if (methodPayment) {
+            setTap(value)
+         } else {
+            toast.warn('Selecione uma forma de pagamento', {
+               autoClose: 1500,
+            })
+         }
+      }
+   }
+
+   let title =
+      tap === 0
+         ? 'Acompanhar meu pedido'
+         : tap === 1
+         ? 'Informaçoes de envio'
+         : 'Informacoes de pagamento'
 
    const handlePersonalInfo = (e: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target
@@ -98,47 +147,11 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
       }
    }, [])
 
-   const {
-      setError,
-      formState: { errors },
-   } = useForm()
-
-   const handleChangeTap = (value: number, back?: boolean) => {
-      if (back) {
-         setTap(value)
-         return
+   useEffect(() => {
+      if (cart.length === 0 && isOpen) {
+         setIsOpen(false)
       }
-
-      if (value === 1) {
-         if (cart && cart.length > 0) {
-            setTap(value)
-         }
-      } else if (value === 2) {
-         let vCamposOK = true
-         campos_obrigatorios_personal_info.forEach((campo) => {
-            if (campoInvalido(personalInfo, null, campo.nome)) {
-               vCamposOK = false
-               setError(campo.nome, {
-                  type: 'manual',
-               })
-            }
-         })
-
-         if (vCamposOK) {
-            setTap(value)
-         } else {
-            toast.error('Preencha os campos obrigatórios')
-         }
-      } else {
-      }
-   }
-
-   let title =
-      tap === 0
-         ? 'Acompanhar meu pedido'
-         : tap === 1
-         ? 'Informaçoes de envio'
-         : 'Informacoes de pagamento'
+   }, [cart])
 
    return (
       <Drawer
@@ -162,7 +175,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                   title={title}
                   localName="Mcdonald's - Araçatuba Drive (vsa)"
                />
-               <Divider />
+               <Divider className="p-0 m-1" />
 
                {tap === 0 ? (
                   <div className="max-h-[65vh] overflow-y-auto">
@@ -203,7 +216,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                      </div>
                   </div>
                ) : tap === 1 ? (
-                  <div className="max-h-[65vh] overflow-y-auto flex flex-col gap-4">
+                  <div className="max-h-[55vh] overflow-y-auto flex flex-col gap-4 p-2">
                      <InputComponent
                         name="name"
                         handleChange={handlePersonalInfo}
@@ -246,7 +259,42 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                      />
                   </div>
                ) : (
-                  <> </>
+                  <div className="max-h-[55vh] overflow-y-auto">
+                     <div className="tabs w-full">
+                        <a
+                           className={`tab tab-bordered hover:tab-active tab-active w-1/2`}
+                        >
+                           Pague na entrega ou retirada
+                        </a>
+                        <a className="tab tab-bordered w-1/2">
+                           <span className="mr-1">Pague pelo app</span>{' '}
+                           <Badge className="badge-warning text-white">
+                              Em breve
+                           </Badge>
+                        </a>
+                     </div>
+                     <div className="flex flex-col gap-8 mt-5">
+                        <PaymentGroupComponent title="Dinheiro">
+                           <PaymentComponent
+                              method="Dinheiro"
+                              setMethodPayment={setMethodPayment}
+                              methodPayment={methodPayment}
+                           />
+                        </PaymentGroupComponent>
+                        <PaymentGroupComponent title="Cartao">
+                           <PaymentComponent
+                              method="Elo"
+                              setMethodPayment={setMethodPayment}
+                              methodPayment={methodPayment}
+                           />
+                           <PaymentComponent
+                              method="Mastercard"
+                              setMethodPayment={setMethodPayment}
+                              methodPayment={methodPayment}
+                           />
+                        </PaymentGroupComponent>
+                     </div>
+                  </div>
                )}
             </div>
 
