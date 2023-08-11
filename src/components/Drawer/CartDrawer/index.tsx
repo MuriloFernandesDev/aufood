@@ -6,13 +6,14 @@ import { IoTicketOutline } from 'react-icons/io5'
 import { MdKeyboardArrowRight } from 'react-icons/md'
 import Drawer from 'react-modern-drawer'
 import { toast } from 'react-toastify'
-import { useCart } from '../../hooks/useCart'
-import { campoInvalido, formatPrice } from '../../utils/Utils'
-import ItemCart from '../cart/itemCart'
-import InputComponent from '../forms/input'
-import PaymentComponent from './payment'
-import PaymentGroupComponent from './paymentGroup'
-import TitleCartDrawer from './titleCartDrawer'
+import { useCart } from '../../../hooks/useCart'
+import { handlePersonalInfoProps } from '../../../types'
+import { campoInvalido, formatPrice } from '../../../utils/Utils'
+import ItemCart from '../../cart/itemCart'
+import InputComponent from '../../forms/input'
+import PaymentComponent from './components/payment'
+import PaymentGroupComponent from './components/paymentGroup'
+import TitleCartDrawer from './components/titleCartDrawer'
 
 interface CartDrawerProps {
    isOpen: boolean
@@ -28,13 +29,6 @@ interface PersonalInfoProps {
    number?: number
    complement?: string
    deliveryMethod?: string
-}
-
-interface handlePersonalInfoProps {
-   target: {
-      name: string
-      value: string
-   }
 }
 
 const personalInfoDefault = {
@@ -247,7 +241,15 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                                  },
                               })
                            }
-                           className={`tab tab-bordered cursor-pointer hover:tab-active ${
+                           className={`tab ${
+                              campoInvalido(
+                                 personalInfo,
+                                 errors,
+                                 'deliveryMethod'
+                              )
+                                 ? 'tab-error'
+                                 : 'tab-bordered'
+                           } cursor-pointer hover:tab-active ${
                               personalInfo.deliveryMethod === 'pickup' &&
                               'tab-active'
                            } `}

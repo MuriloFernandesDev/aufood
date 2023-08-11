@@ -5,3 +5,10 @@ export interface IProduct {
    image: string
    quantity: number
 }
+
+export interface handlePersonalInfoProps {
+   target: {
+      name: string
+      value: string
+   }
+}
