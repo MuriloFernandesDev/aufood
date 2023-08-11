@@ -1,10 +1,4 @@
-import {
-   ChangeEvent,
-   Dispatch,
-   SetStateAction,
-   useEffect,
-   useState,
-} from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Badge, Divider } from 'react-daisyui'
 import { useForm } from 'react-hook-form'
 import { GrFormClose } from 'react-icons/gr'
@@ -33,6 +27,14 @@ interface PersonalInfoProps {
    address?: string
    number?: number
    complement?: string
+   deliveryMethod?: string
+}
+
+interface handlePersonalInfoProps {
+   target: {
+      name: string
+      value: string
+   }
 }
 
 const personalInfoDefault = {
@@ -43,6 +45,7 @@ const personalInfoDefault = {
    address: undefined,
    number: undefined,
    complement: undefined,
+   deliveryMethod: undefined,
 }
 
 const campos_obrigatorios_personal_info = [
@@ -51,6 +54,7 @@ const campos_obrigatorios_personal_info = [
    { nome: 'address' },
    { nome: 'number' },
    { nome: 'phone' },
+   { nome: 'deliveryMethod' },
 ]
 
 const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
@@ -119,7 +123,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
          ? 'Informaçoes de envio'
          : 'Informacoes de pagamento'
 
-   const handlePersonalInfo = (e: ChangeEvent<HTMLInputElement>) => {
+   const handlePersonalInfo = (e: handlePersonalInfoProps) => {
       const { name, value } = e.target
       setPersonalInfo((prevState) => {
          return {
@@ -217,6 +221,40 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                   </div>
                ) : tap === 1 ? (
                   <div className="max-h-[55vh] overflow-y-auto flex flex-col gap-4 p-2">
+                     <div className="tabs">
+                        <a
+                           onClick={() =>
+                              handlePersonalInfo({
+                                 target: {
+                                    name: 'deliveryMethod',
+                                    value: 'delivery',
+                                 },
+                              })
+                           }
+                           className={`tab tab-bordered cursor-pointer hover:tab-active ${
+                              personalInfo.deliveryMethod === 'delivery' &&
+                              'tab-active'
+                           } `}
+                        >
+                           <span className="mr-1">Trazer até mim</span>
+                        </a>
+                        <a
+                           onClick={() =>
+                              handlePersonalInfo({
+                                 target: {
+                                    name: 'deliveryMethod',
+                                    value: 'pickup',
+                                 },
+                              })
+                           }
+                           className={`tab tab-bordered cursor-pointer hover:tab-active ${
+                              personalInfo.deliveryMethod === 'pickup' &&
+                              'tab-active'
+                           } `}
+                        >
+                           <span className="mr-1">Irei buscar</span>
+                        </a>
+                     </div>
                      <InputComponent
                         name="name"
                         handleChange={handlePersonalInfo}
