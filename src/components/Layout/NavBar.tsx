@@ -30,7 +30,7 @@ export const NavBar = ({ changeCartDrawer }: NavBarProps) => {
    ]
 
    return (
-      <Navbar className="bg-primary w-full flex justify-center items-center fixed top-0 z-50 h-[8vh] border-b-[1px] border-secondary/70">
+      <Navbar className="bg-primary w-full flex justify-center items-center fixed top-0 z-50 md:h-[100px] border-b-[1px] border-secondary/70">
          <div className="flex justify-between items-center w-full max-w-container px-4 mx-auto">
             <div className="flex gap-10 items-center">
                <Link href="/">

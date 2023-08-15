@@ -158,9 +158,9 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
          overlayOpacity={0.2}
          direction={isMobile ? 'bottom' : 'right'}
          className={`${
-            isMobile ? 'rounded-t-3xl' : 'mt-[8vh]'
-         } bg-base-100 p-3 px-4 max-h-[92vh] pt-10 flex flex-col justify-between`}
-         size={isMobile ? '80vh' : '40vw'}
+            isMobile ? 'rounded-t-3xl' : 'mt-[100px]'
+         } bg-base-100 p-3 px-4 md:max-h-[92vh] max-h-auto pt-10 flex flex-col justify-between`}
+         size={isMobile ? '100vh' : '40vw'}
       >
          <>
             <div className="pb-4">
