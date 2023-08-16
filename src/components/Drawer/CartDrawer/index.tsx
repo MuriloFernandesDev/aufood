@@ -11,6 +11,7 @@ import { handlePersonalInfoProps } from '../../../types'
 import { campoInvalido, formatPrice } from '../../../utils/Utils'
 import ItemCart from '../../cart/itemCart'
 import InputComponent from '../../forms/input'
+import { allertFinallyDelivery } from './components/allertFinally'
 import PaymentComponent from './components/payment'
 import PaymentGroupComponent from './components/paymentGroup'
 import TitleCartDrawer from './components/titleCartDrawer'
@@ -101,7 +102,9 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
          }
       } else {
          if (methodPayment) {
-            setTap(value)
+            //se as informações estiverem corretas, finaliza o pedido
+            //salvar dados do pedido no banco e enviar para o whatsapp
+            allertFinallyDelivery('')
          } else {
             toast.warn('Selecione uma forma de pagamento', {
                autoClose: 1500,
