@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Badge, Divider } from 'react-daisyui'
 import { useForm } from 'react-hook-form'
+import { CgDanger } from 'react-icons/cg'
 import { GrFormClose } from 'react-icons/gr'
 import { IoTicketOutline } from 'react-icons/io5'
 import { MdKeyboardArrowRight } from 'react-icons/md'
@@ -11,6 +12,7 @@ import { handlePersonalInfoProps } from '../../../types'
 import { campoInvalido, formatPrice } from '../../../utils/Utils'
 import ItemCart from '../../cart/itemCart'
 import InputComponent from '../../forms/input'
+import RadioBox from '../../forms/radioBox'
 import { allertFinallyDelivery } from './components/allertFinally'
 import PaymentComponent from './components/payment'
 import PaymentGroupComponent from './components/paymentGroup'
@@ -218,7 +220,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                   </div>
                ) : tap === 1 ? (
                   <div className="max-h-[55vh] overflow-y-auto flex flex-col gap-4 p-2">
-                     <div className="tabs">
+                     {/* <div className="tabs">
                         <a
                            onClick={() =>
                               handlePersonalInfo({
@@ -259,7 +261,50 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                         >
                            <span className="mr-1">Irei buscar</span>
                         </a>
+                     </div> */}
+
+                     <div>
+                        <label className="label p-0">
+                           <span className="label-text">Método de entrega</span>
+                        </label>
+                        <div className="flex gap-3">
+                           <RadioBox
+                              value="pickup"
+                              name="deliveryMethod"
+                              label="Irei buscar"
+                              checkedValue={personalInfo.deliveryMethod ?? ''}
+                              handleChange={handlePersonalInfo}
+                              invalid={campoInvalido(
+                                 personalInfo,
+                                 errors,
+                                 'deliveryMethod'
+                              )}
+                           />
+                           <RadioBox
+                              value="delivery"
+                              name="deliveryMethod"
+                              label="Trazer até mim"
+                              checkedValue={personalInfo.deliveryMethod ?? ''}
+                              handleChange={handlePersonalInfo}
+                              invalid={campoInvalido(
+                                 personalInfo,
+                                 errors,
+                                 'deliveryMethod'
+                              )}
+                           />
+                        </div>
+
+                        {campoInvalido(
+                           personalInfo,
+                           errors,
+                           'deliveryMethod'
+                        ) && (
+                           <span className="label-text-alt text-error flex items-center gap-1 mt-1">
+                              <CgDanger /> Método de entrega obrigatório
+                           </span>
+                        )}
                      </div>
+
                      <InputComponent
                         name="name"
                         handleChange={handlePersonalInfo}
