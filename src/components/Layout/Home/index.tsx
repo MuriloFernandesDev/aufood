@@ -1,4 +1,3 @@
-import FooterCart from '@components/cart/FooterCart'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import Footer from './Footer'
@@ -23,7 +22,6 @@ const LayoutHome = ({ children }: LayoutHomeProps) => {
       <>
          <CartDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
          <NavBar changeCartDrawer={handleCartDrawer} />
-         <FooterCart changeCartDrawer={handleCartDrawer} />
          {children}
          <Footer />
       </>

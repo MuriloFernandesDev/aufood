@@ -4,7 +4,7 @@ import { FaStar } from 'react-icons/fa'
 const StoreCart = () => {
    return (
       <Link href="/McDonalds">
-         <div className="card card-side hover:scale-105 cursor-pointer hover:shadow-xl transition-all duration-300 items-center bg-base-100 gap-2 col-span-1 mt-4">
+         <div className="card flex flex-col md:flex-row md:hover:scale-105 cursor-pointer md:hover:shadow-xl transition-all duration-300 items-center bg-base-100 gap-2 col-span-2 md:col-span-1 mt-4">
             <img
                width={100}
                height={100}
