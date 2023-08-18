@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Button, Navbar } from 'react-daisyui'
+import { Navbar } from 'react-daisyui'
 import { AiOutlineMenu } from 'react-icons/ai'
-import { config } from '../../configs'
-import ButtonCart from '../cart/ButtonCart'
+import { IoLocationOutline } from 'react-icons/io5'
+import { config } from '../../../configs'
 
 interface NavBarProps {
    changeCartDrawer: () => void
@@ -16,15 +16,15 @@ export const NavBar = ({ changeCartDrawer }: NavBarProps) => {
          link: '#',
       },
       {
+         name: 'Restaurantes',
+         link: '#',
+      },
+      {
+         name: 'Frete Grátis',
+         link: '#',
+      },
+      {
          name: 'Promoções',
-         link: '#',
-      },
-      {
-         name: 'Funcionamento',
-         link: '#',
-      },
-      {
-         name: 'Contato',
          link: '#',
       },
    ]
@@ -78,15 +78,12 @@ export const NavBar = ({ changeCartDrawer }: NavBarProps) => {
                         </a>
                      </li>
                   ))}
-                  <li>
-                     <Button className="btn bg-primary text-base-100 font-bold border-none">
-                        Registre-se e ganhe desconto
-                     </Button>
-                  </li>
                </ul>
             </div>
             <div className="hidden md:block">
-               <ButtonCart changeCartDrawer={changeCartDrawer} />
+               <div className="flex items-center gap-1 text-base-100">
+                  <IoLocationOutline /> <h3>Rua Gilberto Trivelato, 502</h3>
+               </div>
             </div>
          </div>
       </Navbar>
