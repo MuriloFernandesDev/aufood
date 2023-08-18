@@ -48,7 +48,7 @@ const Home = () => {
 
          <div className="max-w-container px-4 mx-auto mb-10 lg:pt-0 z-20">
             <section>
-               <div className="flex my-10 pt-4 flex-col lg:flex-row justify-between items-center w-full text-secondary">
+               <div className="flex my-10 flex-col lg:flex-row justify-between items-center w-full text-secondary">
                   <div className="flex items-center gap-3">
                      <div className="mask mask-circle bg-primary p-3 flex justify-center items-center">
                         <Image
