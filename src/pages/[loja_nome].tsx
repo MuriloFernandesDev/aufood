@@ -1,3 +1,4 @@
+import { SaveColors } from '@utils'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
@@ -28,6 +29,15 @@ const Home = () => {
       return () => {
          window.removeEventListener('scroll', handleScroll)
       }
+   }, [])
+
+   useEffect(() => {
+      const colors = config.colors
+
+      SaveColors(colors.primary, 'primary')
+      SaveColors(colors.background, 'background')
+      SaveColors(colors.primary, 'price')
+      SaveColors(colors.secondary, 'secondary')
    }, [])
 
    return (

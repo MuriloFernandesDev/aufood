@@ -1,10 +1,19 @@
 import CategoriesComponent from '@components/Categories'
 import StoreCart from '@components/Home/StoreCard'
+import { useEffect } from 'react'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
 import { A11y, Navigation, Pagination, Scrollbar } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 const Home = () => {
+   useEffect(() => {
+      //adicionar as cores do site abaixo
+      // SaveColors(colors.primary, 'primary')
+      // SaveColors(colors.background, 'background')
+      // SaveColors(colors.primary, 'price')
+      // SaveColors(colors.secondary, 'secondary')
+   }, [])
+
    return (
       <div className="px-[1.1rem] max-w-container mt-[70px] md:mt-[130px] mx-auto">
          <section>

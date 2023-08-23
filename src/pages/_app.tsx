@@ -1,37 +1,30 @@
-import LayoutHome from '@components/Layout/Home'
-import Layout from '@components/Layout/Store'
+//** Imports NEXT
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+
+//** Imports DaisyUI/ReactToastify
 import { Theme } from 'react-daisyui'
-import 'react-modern-drawer/dist/index.css'
 import { ToastContainer } from 'react-toastify'
+
+//** Imports CSS
+import 'react-modern-drawer/dist/index.css'
 import 'react-toastify/dist/ReactToastify.css'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
+import '../styles/styles.scss'
 
-import 'swiper/css/scrollbar'
-import { config } from '../configs'
+//** Imports Contexts
 import { AuthProvider } from '../hooks/AuthContext'
 import { CartProvider } from '../hooks/useCart'
-import '../styles/styles.scss'
-import { SaveColors } from '../utils/Utils'
+
+//** Imports Components
+import LayoutHome from '@components/Layout/Home'
+import Layout from '@components/Layout/Store'
 
 function MyApp({ Component, pageProps }: AppProps) {
    const router = useRouter()
-
-   useEffect(() => {
-      const colors = config.colors
-
-      SaveColors(colors.primary, 'primary')
-      SaveColors(colors.background, 'background')
-      SaveColors(colors.primary, 'price')
-      SaveColors(colors.secondary, 'secondary')
-   }, [])
-
-   console.log(router)
 
    return (
       <AuthProvider>
