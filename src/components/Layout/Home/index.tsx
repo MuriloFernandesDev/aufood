@@ -19,12 +19,12 @@ const LayoutHome = ({ children }: LayoutHomeProps) => {
    }
 
    return (
-      <>
+      <div className="bg-base-100-home">
          <CartDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
          <NavBar changeCartDrawer={handleCartDrawer} />
          {children}
          <Footer />
-      </>
+      </div>
    )
 }
 

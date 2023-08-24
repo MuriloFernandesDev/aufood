@@ -28,8 +28,8 @@ export const NavBar = ({ changeCartDrawer }: NavBarProps) => {
    ]
 
    return (
-      <Navbar className="text-black w-full bg-white flex justify-center items-center fixed top-0 z-50 md:h-[100px] border-b-[1px] border-secondary/70">
-         <div className="flex justify-between items-center w-full max-w-container px-4 py-2 bg-white mx-auto">
+      <Navbar className="text-primary-home w-full bg-base-100-home flex justify-center items-center fixed top-0 z-50 md:h-[100px] border-b-[1px] border-secondary/70">
+         <div className="flex justify-between items-center w-full max-w-container px-4 py-2 bg-base-100-home mx-auto">
             <div className="flex gap-10 items-center">
                <Link href="/">
                   <img
@@ -44,7 +44,7 @@ export const NavBar = ({ changeCartDrawer }: NavBarProps) => {
                         <li key={i}>
                            <a
                               href={item.link}
-                              className="block px-2 rounded bg-transparent text-black"
+                              className="block px-2 rounded bg-transparent text-primary-home"
                               aria-current="page"
                            >
                               {item.name}
@@ -60,7 +60,7 @@ export const NavBar = ({ changeCartDrawer }: NavBarProps) => {
                </label>
                <ul
                   tabIndex={0}
-                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100-home rounded-box w-52"
                >
                   {navItens.map((item) => (
                      <li>

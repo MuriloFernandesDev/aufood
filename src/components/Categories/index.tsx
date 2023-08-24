@@ -8,9 +8,13 @@ import CategoriesItem2 from './item2'
 
 interface CategoriesComponentProps {
    className?: string
+   bgColor?: string
 }
 
-const CategoriesComponent = ({ className }: CategoriesComponentProps) => {
+const CategoriesComponent = ({
+   className,
+   bgColor,
+}: CategoriesComponentProps) => {
    const [slidesPerView, setSlidesPerView] = useState(3)
    const [spaceBetween, setSpaceBetween] = useState(10)
 
@@ -20,10 +24,10 @@ const CategoriesComponent = ({ className }: CategoriesComponentProps) => {
          if (width <= 640) {
             setSlidesPerView(3)
             setSpaceBetween(5)
-         } else if(width <= 1025){
+         } else if (width <= 1025) {
             setSlidesPerView(5)
             setSpaceBetween(10)
-         } else if(width <= 1280){
+         } else if (width <= 1280) {
             setSlidesPerView(8)
             setSpaceBetween(15)
          } else {
@@ -109,11 +113,19 @@ const CategoriesComponent = ({ className }: CategoriesComponentProps) => {
                </SwiperSlide>
             </Swiper>
          </div>
-         <div className="custom-pr btn btn-sm bg-primary btn-circle border-base-100 absolute top-0 left-0 mt-12 md:mt-[3.3%] z-10 ml-2">
-            <GrFormPrevious className='icon-base-100'/>
+         <div
+            className={`custom-pr btn btn-sm ${
+               bgColor ? bgColor : 'bg-primary'
+            } btn-circle border-base-100 absolute top-0 left-0 mt-12 md:mt-[3.3%] z-10 ml-2`}
+         >
+            <GrFormPrevious className="icon-base-100" />
          </div>
-         <div className="custom-nx btn btn-sm bg-primary btn-circle border-base-100 absolute top-0 right-0 mt-12 md:mt-[3.3%] z-10 mr-2">
-            <GrFormNext className='icon-base-100' />
+         <div
+            className={`custom-nx btn btn-sm ${
+               bgColor ? bgColor : 'bg-primary'
+            } btn-circle border-base-100 absolute top-0 right-0 mt-12 md:mt-[3.3%] z-10 mr-2`}
+         >
+            <GrFormNext className="icon-base-100" />
          </div>
       </div>
    )

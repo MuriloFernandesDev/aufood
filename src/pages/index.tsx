@@ -15,17 +15,17 @@ const Home = () => {
    }, [])
 
    return (
-      <div className="px-[1.1rem] max-w-container mt-[70px] md:mt-[130px] mx-auto">
-         <section>
-            <div className="divider divide-primary mb-6">
+      <div className="px-[1.1rem] max-w-container pt-[70px] md:pt-[130px] mx-auto bg-base-100-home">
+         <section className="bg-base-100-home">
+            <div className="divider divide-primary-home mb-6">
                <h4 className="text-lg font-bold uppercase">
                   Restaurantes por categoria
                </h4>
             </div>
-            <CategoriesComponent />
+            <CategoriesComponent bgColor="bg-primary-home" />
          </section>
 
-         <section>
+         <section className="mt-14">
             <Swiper
                centeredSlides={true}
                spaceBetween={30}
@@ -62,16 +62,16 @@ const Home = () => {
                   />
                </SwiperSlide>
 
-               <div className="custom-nav-promo-prev btn btn-sm bg-primary btn-circle border-base-100 absolute top-[50%] left-0 z-10 ml-2">
+               <div className="custom-nav-promo-prev btn btn-sm bg-primary-home btn-circle border-base-100 absolute top-[40%] left-0 z-10 ml-2">
                   <GrFormPrevious className="icon-base-100" />
                </div>
-               <div className="custom-nav-promo-next btn btn-sm bg-primary btn-circle border-base-100 absolute top-[50%] right-0 z-10 mr-2">
+               <div className="custom-nav-promo-next btn btn-sm bg-primary-home btn-circle border-base-100 absolute top-[40%] right-0 z-10 mr-2">
                   <GrFormNext className="icon-base-100" />
                </div>
             </Swiper>
          </section>
 
-         <section className="my-5">
+         <section className="mt-14">
             <h2>Lojas próximas</h2>
 
             <div className="grid grid-cols-4 gap-5">
@@ -85,7 +85,7 @@ const Home = () => {
             </div>
          </section>
 
-         <section className="my-5 mt-24">
+         <section className="my-14">
             <h2>Lojas em ofertas</h2>
 
             <div className="grid grid-cols-4 gap-5">

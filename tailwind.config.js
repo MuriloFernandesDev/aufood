@@ -14,7 +14,11 @@ module.exports = {
    ],
    theme: {
       extend: {
-         colors: colors,
+         colors: {
+            ...colors,
+            'primary-home': '#201942',
+            'base-100-home': '#f9f9f9',
+         },
          maxWidth: {
             container: '1200px',
          },
