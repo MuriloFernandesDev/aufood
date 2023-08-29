@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
 import Footer from './Footer'
 import { NavBar } from './NavBar'
 // import CartDrawer from '../Drawer/CartDrawer'
@@ -12,16 +11,9 @@ interface LayoutHomeProps {
 }
 
 const LayoutHome = ({ children }: LayoutHomeProps) => {
-   const [isOpen, setIsOpen] = useState(false)
-
-   const handleCartDrawer = () => {
-      setIsOpen((prevState) => !prevState)
-   }
-
    return (
       <div className="bg-base-100-home">
-         <CartDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
-         <NavBar changeCartDrawer={handleCartDrawer} />
+         <NavBar />
          {children}
          <Footer />
       </div>
