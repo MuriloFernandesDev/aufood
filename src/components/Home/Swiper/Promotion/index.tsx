@@ -4,7 +4,7 @@ import { A11y, Navigation, Pagination, Scrollbar } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 const PromotionComponent = () => {
-   const [sizeScreen, setSizeScreen] = useState(window.innerWidth)
+   const [sizeScreen, setSizeScreen] = useState(0)
 
    useEffect(() => {
       const handleResize = () => {
