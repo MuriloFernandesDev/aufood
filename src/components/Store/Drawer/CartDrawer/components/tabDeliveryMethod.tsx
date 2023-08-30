@@ -1,4 +1,4 @@
-import { handlePersonalInfoProps } from '../../../../types'
+import { handlePersonalInfoProps } from '@types'
 
 interface TabDeliveryMethodProps {
    handlePersonalInfo: (e: handlePersonalInfoProps) => void
