@@ -56,3 +56,28 @@ export const config = {
       ],
    },
 }
+
+export const infoApp = {
+   name: 'AuFood',
+   description: 'Aplicativo de delivery de comida',
+   version: '1.0.0',
+   logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/IFood_logo.svg/1200px-IFood_logo.svg.png',
+   cnpj: '00.000.000/0000-00',
+   address: {
+      street: 'Rua 1',
+      number: '123',
+      complement: 'Casa',
+      district: 'Centro',
+      city: 'São Paulo',
+      state: 'SP',
+      country: 'Brasil',
+      zip_code: '00000-000',
+   },
+   social_networks: {
+      facebook: 'https://www.facebook.com/',
+      instagram: 'https://www.instagram.com/',
+      twitter: 'https://twitter.com/',
+      youtube: 'https://www.youtube.com/',
+      linkedin: 'https://www.linkedin.com/',
+   },
+}

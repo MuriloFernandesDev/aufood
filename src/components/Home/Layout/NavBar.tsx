@@ -1,3 +1,4 @@
+import { infoApp } from 'configs'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { Navbar } from 'react-daisyui'
@@ -56,7 +57,8 @@ export const NavBar = () => {
                <div className="flex gap-10 items-center">
                   <Link href="/">
                      <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/IFood_logo.svg/1200px-IFood_logo.svg.png"
+                        src={infoApp.logo}
+                        alt={infoApp.name}
                         width={80}
                         height={30}
                      />
