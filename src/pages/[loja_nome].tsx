@@ -1,12 +1,12 @@
+import CategoriesComponent from '@components/Store/Categories'
+import InfoDrawer from '@components/Store/Drawer/InfoDrawer'
+import ProductCard from '@components/Store/ProductCard'
+import SearchHome from '@components/Store/Search'
 import { SaveColors } from '@utils'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { FaHamburger } from 'react-icons/fa'
-import CategoriesComponent from '../components/Categories'
-import InfoDrawer from '../components/Drawer/InfoDrawer'
-import ProductCard from '../components/ProductCard'
-import SearchHome from '../components/Search'
 import { config } from '../configs'
 
 /*

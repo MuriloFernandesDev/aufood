@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { FaClock } from 'react-icons/fa'
 import { GrFormClose } from 'react-icons/gr'
 import Drawer from 'react-modern-drawer'
-import { config } from '../../configs'
+import { config } from '../../../configs'
 
 interface InfoDrawerProps {
    isOpen: boolean

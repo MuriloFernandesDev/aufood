@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Button, Navbar } from 'react-daisyui'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { config } from '../../../configs'
-import ButtonCart from '../../cart/ButtonCart'
+import ButtonCart from '../cart/ButtonCart'
 
 interface NavBarProps {
    changeCartDrawer: () => void

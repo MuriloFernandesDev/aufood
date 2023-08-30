@@ -1,8 +1,8 @@
+import { useCart } from '@hooks/useCart'
+import { formatPrice } from '@utils'
 import { Divider } from 'react-daisyui'
 import { GoTrash } from 'react-icons/go'
 import { PiPencilSimpleLight } from 'react-icons/pi'
-import { useCart } from '../../hooks/useCart'
-import { formatPrice } from '../../utils/Utils'
 
 interface ItemCartProps {
    name: string

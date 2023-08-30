@@ -1,10 +1,5 @@
-import dynamic from 'next/dynamic'
 import Footer from './Footer'
 import { NavBar } from './NavBar'
-// import CartDrawer from '../Drawer/CartDrawer'
-const CartDrawer = dynamic(() => import('@components/Drawer/CartDrawer'), {
-   ssr: false,
-})
 
 interface LayoutHomeProps {
    children: React.ReactNode

@@ -1,6 +1,6 @@
+import { useCart } from '@hooks/useCart'
+import { formatPrice } from '@utils'
 import { HiOutlineShoppingBag } from 'react-icons/hi'
-import { useCart } from '../../hooks/useCart'
-import { formatPrice } from '../../utils/Utils'
 
 interface ButtonCartProps {
    changeCartDrawer: () => void

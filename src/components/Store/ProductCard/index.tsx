@@ -2,8 +2,8 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { FaHamburger } from 'react-icons/fa'
 import { FiClock } from 'react-icons/fi'
-import Lanche from '../../assets/images/LancheWpp.jpg'
-import { useCart } from '../../hooks/useCart'
+import Lanche from '../../../assets/images/LancheWpp.jpg'
+import { useCart } from '../../../hooks/useCart'
 
 interface ProductCardProps {
    name: string

@@ -16,12 +16,12 @@ import 'swiper/css/scrollbar'
 import '../styles/styles.scss'
 
 //** Imports Contexts
+import LayoutHome from '@components/Home/Layout'
+import Layout from '@components/Store/Layout'
 import { AuthProvider } from '../hooks/AuthContext'
 import { CartProvider } from '../hooks/useCart'
 
 //** Imports Components
-import LayoutHome from '@components/Layout/Home'
-import Layout from '@components/Layout/Store'
 
 function MyApp({ Component, pageProps }: AppProps) {
    const router = useRouter()

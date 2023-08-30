@@ -1,5 +1,5 @@
-import CategoriesComponent from '@components/Categories'
 import StoreCart from '@components/Home/StoreCard'
+import CategoriesComponent from '@components/Store/Categories'
 import { useEffect } from 'react'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
 import { A11y, Navigation, Pagination, Scrollbar } from 'swiper'

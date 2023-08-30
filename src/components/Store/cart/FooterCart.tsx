@@ -1,5 +1,5 @@
+import { useCart } from '@hooks/useCart'
 import { BiShoppingBag } from 'react-icons/bi'
-import { useCart } from '../../hooks/useCart'
 
 interface FooterCartProps {
    changeCartDrawer: () => void
