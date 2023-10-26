@@ -10,6 +10,7 @@
       "@react-icons/all-files": "^4.1.0",
       "axios": "^1.2.5",
       "daisyui": "^2.33.0",
+      "https": "^1.0.0",
       "next": "latest",
       "nookies": "^2.5.2",
       "postcss-custom-properties": "^13.2.0",

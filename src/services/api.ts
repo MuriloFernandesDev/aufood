@@ -1,17 +1,20 @@
 import axios from 'axios'
-import { parseCookies } from 'nookies'
+import https from 'https'
 
-export const link = process.env.API_URL
+export const link = process.env.NEXT_PUBLIC_API_URL
 
-export function setupAPIClient(ctx?: any) {
-   const { '@Irriga_plis:Token': token } = parseCookies(ctx)
+export function ApiService(ctx?: any) {
+   // const { '@Irriga_plis:Token': token } = parseCookies(ctx)
 
    const api = axios.create({
       baseURL: `${link}`,
       headers: {
          'Content-type': 'application/json',
-         Authorization: `Bearer ${token}`,
+         // Authorization: `Bearer ${token}`,
       },
+      httpsAgent: new https.Agent({
+         rejectUnauthorized: false, // Isso faz com que o Axios aceite certificados autoassinados
+      }),
    })
    return api
 }

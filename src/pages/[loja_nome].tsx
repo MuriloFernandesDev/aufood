@@ -1,12 +1,16 @@
 import CategoriesComponent from '@components/Store/Categories'
 import InfoDrawer from '@components/Store/Drawer/InfoDrawer'
+import Layout from '@components/Store/Layout'
 import ProductCard from '@components/Store/ProductCard'
 import SearchHome from '@components/Store/Search'
+import { IStore } from '@types'
 import { SaveColors } from '@utils'
+import { GetServerSidePropsContext } from 'next'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { FaHamburger } from 'react-icons/fa'
+import { ApiService } from 'services/api'
 import { config } from '../configs'
 
 /*
@@ -14,7 +18,18 @@ Drawer: https://www.npmjs.com/package/react-modern-drawer
 Modal: https://www.npmjs.com/package/react-modal
 */
 
-const Home = () => {
+interface IGetServerProps {
+   params: {
+      loja_nome: string
+   }
+   data: IStore | null
+   ctx: GetServerSidePropsContext
+}
+
+const Home = (props: IGetServerProps) => {
+   const { params, data } = props
+
+   console.log(data)
    const [isOpen, setIsOpen] = useState(false)
 
    const [scroll, setScroll] = useState(0)
@@ -41,7 +56,7 @@ const Home = () => {
    }, [])
 
    return (
-      <>
+      <Layout store={data!}>
          <header
             className={`px-[1.1rem] max-w-container mt-[70px] md:mt-[140px] mx-auto transition-all duration-300 md:opacity-100 ${
                scroll >= 270 ? 'opacity-0' : 'opacity-100'
@@ -50,8 +65,7 @@ const Home = () => {
             <div
                className="rounded-[4px] h-[250px] w-full text-[#f7f7f7] bg-cover bg-center bg-no-repeat"
                style={{
-                  backgroundImage:
-                     'url(https://images6.alphacoders.com/908/908160.jpg)',
+                  backgroundImage: `url(${data?.backgroundImage})`,
                }}
             />
          </header>
@@ -62,13 +76,13 @@ const Home = () => {
                   <div className="flex items-center gap-3">
                      <div className="mask mask-circle bg-primary p-3 flex justify-center items-center">
                         <Image
-                           src={config.logo}
+                           src={data?.logo ?? ''}
                            width={50}
                            height={50}
                            layout="fixed"
                         />
                      </div>
-                     <h1 className="text-3xl font-semibold ">{config.title}</h1>
+                     <h1 className="text-3xl font-semibold ">{data?.name}</h1>
                   </div>
                   <div className="flex flex-col-reverse lg:flex-row lg:h-7 text-sm mt-4 md:mt-0">
                      <div className="grid flex-grow place-items-center">
@@ -136,10 +150,34 @@ const Home = () => {
                </div>
             </section>
 
-            <InfoDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
+            <InfoDrawer isOpen={isOpen} setIsOpen={setIsOpen} store={data!} />
          </div>
-      </>
+      </Layout>
    )
 }
 
 export default Home
+
+export const getServerSideProps = async ({ params, ctx }: IGetServerProps) => {
+   const query = params.loja_nome
+
+   try {
+      const response = await ApiService(ctx)
+         .get(`/store/${query.replace(/ /g, '-')}`)
+         .then((res) => res?.data)
+
+      return {
+         props: {
+            params: query,
+            data: response,
+         },
+      }
+   } catch (err) {
+      return {
+         props: {
+            params: query,
+            data: null,
+         },
+      }
+   }
+}

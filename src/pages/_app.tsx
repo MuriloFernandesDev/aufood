@@ -16,8 +16,6 @@ import 'swiper/css/scrollbar'
 import '../styles/styles.scss'
 
 //** Imports Contexts
-import LayoutHome from '@components/Home/Layout'
-import Layout from '@components/Store/Layout'
 import { AuthProvider } from '../hooks/AuthContext'
 import { CartProvider } from '../hooks/useCart'
 
@@ -31,15 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
          <Theme dataTheme="light" className="bg-base-100">
             <CartProvider>
                <ToastContainer />
-               {router.asPath !== '/' ? (
-                  <Layout>
-                     <Component {...pageProps} />
-                  </Layout>
-               ) : (
-                  <LayoutHome>
-                     <Component {...pageProps} />
-                  </LayoutHome>
-               )}
+               <Component {...pageProps} />
             </CartProvider>
          </Theme>
       </AuthProvider>

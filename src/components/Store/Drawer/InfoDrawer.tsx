@@ -1,3 +1,4 @@
+import { IStore } from '@types'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { FaClock } from 'react-icons/fa'
 import { GrFormClose } from 'react-icons/gr'
@@ -7,9 +8,10 @@ import { config } from '../../../configs'
 interface InfoDrawerProps {
    isOpen: boolean
    setIsOpen: Dispatch<SetStateAction<boolean>>
+   store: IStore
 }
 
-const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
+const InfoDrawer = ({ isOpen, setIsOpen, store }: InfoDrawerProps) => {
    //tab 0 = sobre, tab 1 = horário, tab 2 = pagamentos
    const [tab, setTab] = useState(0)
 
@@ -92,25 +94,16 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
                   {tab == 0 ? (
                      <>
                         <div>
-                           <h3 className="text-xs">
-                              Líder no segmento de serviço rápido de
-                              alimentação, o McDonald's se destaca pela
-                              qualidade dos produtos e do atendimento. Nossos
-                              produtos são de alta qualidade e oferecem uma
-                              experiência incrível. No nosso cardápio você
-                              encontra os seus favoritos e pode criar as suas
-                              Méquizices como quiser. Peça agora da sua casa,
-                              trabalho ou de onde quiser. Vem matar a sua Fome
-                              de Méqui.
-                           </h3>
+                           <h3 className="text-xs">{store?.description}</h3>
                         </div>
                         <div className="flex flex-col gap-2 mt-2">
                            <p className="text-md mb-1">Endereço</p>
                            <div className="flex flex-col gap-2">
                               <p className="text-xs">
-                                 Av. Brasilia, 1750 - Jardim Nova Iorque
+                                 {store?.address}, {store?.numberAddress} -{' '}
+                                 {store?.street}
                               </p>
-                              <p className="text-xs">Aracatuba - SP</p>
+                              <p className="text-xs">{store?.city.name} - SP</p>
                               <p className="text-xs">CEP: 16018-000</p>
                            </div>
                         </div>
@@ -118,9 +111,10 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
                            <p className="text-md mb-1">Endereço</p>
                            <div className="flex flex-col gap-2">
                               <p className="text-xs">
-                                 Av. Brasilia, 1750 - Jardim Nova Iorque
+                                 {store?.address}, {store?.numberAddress} -{' '}
+                                 {store?.street}
                               </p>
-                              <p className="text-xs">Aracatuba - SP</p>
+                              <p className="text-xs">{store?.city.name} - SP</p>
                               <p className="text-xs">CEP: 16018-000</p>
                            </div>
                         </div>

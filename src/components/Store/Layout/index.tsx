@@ -1,3 +1,4 @@
+import { IStore } from '@types'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import FooterCart from '../cart/FooterCart'
@@ -10,9 +11,10 @@ const CartDrawer = dynamic(() => import('../Drawer/CartDrawer'), {
 
 interface LayoutProps {
    children: React.ReactNode
+   store: IStore
 }
 
-const LayoutStore = ({ children }: LayoutProps) => {
+const LayoutStore = ({ children, store }: LayoutProps) => {
    const [isOpen, setIsOpen] = useState(false)
 
    const handleCartDrawer = () => {
@@ -22,10 +24,10 @@ const LayoutStore = ({ children }: LayoutProps) => {
    return (
       <>
          <CartDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
-         <NavBar changeCartDrawer={handleCartDrawer} />
+         <NavBar store={store} changeCartDrawer={handleCartDrawer} />
          <FooterCart changeCartDrawer={handleCartDrawer} />
          {children}
-         <Footer />
+         <Footer store={store} />
       </>
    )
 }

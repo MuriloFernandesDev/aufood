@@ -1,15 +1,16 @@
+import { IStore } from '@types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button, Navbar } from 'react-daisyui'
 import { AiOutlineMenu } from 'react-icons/ai'
-import { config } from '../../../configs'
 import ButtonCart from '../cart/ButtonCart'
 
 interface NavBarProps {
    changeCartDrawer: () => void
+   store: IStore
 }
 
-export const NavBar = ({ changeCartDrawer }: NavBarProps) => {
+export const NavBar = ({ changeCartDrawer, store }: NavBarProps) => {
    const navItens = [
       {
          name: 'Início',
@@ -36,7 +37,7 @@ export const NavBar = ({ changeCartDrawer }: NavBarProps) => {
                <Link href="/">
                   <div>
                      <Image
-                        src={config.logo}
+                        src={store.logo}
                         width={100}
                         height={40}
                         layout="fixed"
