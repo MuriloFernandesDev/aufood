@@ -1,5 +1,5 @@
 export interface IProduct {
-   product_id: number
+   id: number
    name: string
    price: number
    image: string
@@ -52,6 +52,9 @@ export interface IStore {
    street: string
    whatsapp: string
    city: ICity
+   colorBackground: string
+   colorPrimary: string
+   colorSecondary: string
 }
 
 export interface ICity {

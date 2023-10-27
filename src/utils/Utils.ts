@@ -5,14 +5,14 @@ export function SaveColors(color: string, name: string) {
 }
 
 export function setCookies(name: string, value: string) {
-   setCookie(null, `@AuFood:${name}`, value, {
+   setCookie(null, `${name}`, value, {
       maxAge: 30 * 24 * 60 * 60,
       path: '/',
    })
 }
 
 export function getCookie(name: string) {
-   const value = `@AuFood:${name}`
+   const value = `${name}`
 
    const { [value]: cookie } = parseCookies()
 

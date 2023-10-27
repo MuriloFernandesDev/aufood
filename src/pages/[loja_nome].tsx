@@ -27,12 +27,14 @@ interface IGetServerProps {
    ctx: GetServerSidePropsContext
 }
 
-interface ProductList {
+export interface ProductList {
    name: string
    id: number
    price: number
    timeDelivery: string
    productCategory?: IProductCategory
+   image: string
+   category: string
 }
 
 interface ProductOnCategory {
@@ -68,12 +70,10 @@ const Home = (props: IGetServerProps) => {
    }, [])
 
    useEffect(() => {
-      const colors = config.colors
-
-      SaveColors(colors.primary, 'primary')
-      SaveColors(colors.background, 'background')
-      SaveColors(colors.primary, 'price')
-      SaveColors(colors.secondary, 'secondary')
+      SaveColors(data.colorPrimary, 'primary')
+      SaveColors(data.colorBackground, 'background')
+      SaveColors(data.colorPrimary, 'price')
+      SaveColors(data.colorSecondary, 'secondary')
 
       getDataStore(data!)
       api.get(`/product/list_all/${data.id}`).then((res) => {
@@ -86,7 +86,7 @@ const Home = (props: IGetServerProps) => {
    }, [])
 
    return (
-      <Layout store={data!}>
+      <Layout>
          <header
             className={`px-[1.1rem] max-w-container mt-[70px] md:mt-[140px] mx-auto transition-all duration-300 md:opacity-100 ${
                scroll >= 270 ? 'opacity-0' : 'opacity-100'
@@ -152,7 +152,7 @@ const Home = (props: IGetServerProps) => {
                            </h3>
                         </span>
 
-                        <div className="grid grid-cols-1 md:grid-cols-4 w-full gap-3 mt-3">
+                        <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-3 mt-3">
                            {category.listProduct.map((product) => {
                               return (
                                  <ProductCard
@@ -160,6 +160,7 @@ const Home = (props: IGetServerProps) => {
                                     category={category.categoryName}
                                     name={product.name}
                                     price={product.price}
+                                    image={product.image}
                                     timeDelivery={product.timeDelivery}
                                  />
                               )
@@ -176,7 +177,7 @@ const Home = (props: IGetServerProps) => {
                      <h3 className="text-2xl font-semibold">Todos</h3>
                   </span>
 
-                  <div className="grid grid-cols-1 md:grid-cols-4 w-full gap-3 mt-3">
+                  <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-3 mt-3">
                      {allProducts.map((product) => {
                         return (
                            <ProductCard
@@ -185,6 +186,7 @@ const Home = (props: IGetServerProps) => {
                               name={product.name}
                               price={product.price}
                               timeDelivery={product.timeDelivery.toString()}
+                              image={product.image}
                            />
                         )
                      })}

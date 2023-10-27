@@ -25,12 +25,12 @@ function MyApp({ Component, pageProps }: AppProps) {
    return (
       <AuthProvider>
          <Theme dataTheme="light" className="bg-base-100">
-            <CartProvider>
-               <StoreProvider>
+            <StoreProvider>
+               <CartProvider>
                   <ToastContainer />
                   <Component {...pageProps} />
-               </StoreProvider>
-            </CartProvider>
+               </CartProvider>
+            </StoreProvider>
          </Theme>
       </AuthProvider>
    )

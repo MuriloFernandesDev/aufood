@@ -7,31 +7,33 @@ import {
    useState,
 } from 'react'
 import { toast } from 'react-toastify'
+import { api } from 'services/api'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { IProduct } from '../types'
 import { getCookie, setCookies } from '../utils/Utils'
+import { useStore } from './useStore'
 
 interface CartProviderProps {
    children: ReactNode
 }
 
 interface UpdateProductAmount {
-   product_id: number
+   id: number
    quantity: number
 }
 
 interface CartContextData {
    cart: IProduct[]
    addProduct: (
-      product_id: number,
+      id: number,
       price: number,
       image: string,
       title: string,
       quantity: number
    ) => Promise<void>
-   removeProduct: (product_id: number) => void
-   updateProductAmount: ({ product_id, quantity }: UpdateProductAmount) => void
+   removeProduct: (id: number) => void
+   updateProductAmount: ({ id, quantity }: UpdateProductAmount) => void
    somaTotal: number
    cartSize: number
 }
@@ -41,16 +43,47 @@ const CartContext = createContext<CartContextData>({} as CartContextData)
 export function CartProvider({ children }: CartProviderProps): JSX.Element {
    const [somaTotal, setSomaTotal] = useState(0)
    const [cartSize, setCartSize] = useState(0)
+   const { store } = useStore()
+   const [cart, setCart] = useState<IProduct[]>([])
 
-   const [cart, setCart] = useState<IProduct[]>(() => {
-      const storageCart = getCookie('Cart')
-      const storage = storageCart ? JSON.parse(storageCart) : null
+   const prevCartRef = useRef<IProduct[]>()
+   const cartPreviousValue = prevCartRef.current ?? cart
 
-      if (storage) {
-         return storage
+   useEffect(() => {
+      if (store) {
+         const storageCart = getCookie(
+            `@Cart_${store?.name?.replace(/ /g, '_')}`
+         )
+         const storage: IProduct[] | null = storageCart
+            ? JSON.parse(storageCart)
+            : null
+
+         if (storage) {
+            api.get(`/product/list_product_cart/${store.id}`, {
+               params: {
+                  list_id: storage.map((product) => product.id),
+               },
+            }).then((res) => {
+               const products = res.data
+               const updatedCart = storage.map((product) => {
+                  const productFind = products.find(
+                     (p: IProduct) => p.id === product.id
+                  )
+                  if (productFind) {
+                     return {
+                        ...productFind,
+                        quantity: product.quantity,
+                     }
+                  } else {
+                     return product
+                  }
+               })
+
+               setCart(updatedCart)
+            })
+         }
       }
-      return []
-   })
+   }, [store])
 
    useEffect(() => {
       setCartSize(cart.length)
@@ -61,19 +94,21 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       setSomaTotal(total)
    }, [cart])
 
-   const prevCartRef = useRef<IProduct[]>()
    useEffect(() => {
       prevCartRef.current = cart
    })
-   const cartPreviousValue = prevCartRef.current ?? cart
+
    useEffect(() => {
       if (cartPreviousValue !== cart) {
-         setCookies('Cart', JSON.stringify(cart))
+         setCookies(
+            `@Cart_${store.name.replace(/ /g, '_')}`,
+            JSON.stringify(cart)
+         )
       }
    }, [cart, cartPreviousValue])
 
    const addProduct = async (
-      product_id: number,
+      id: number,
       price: number,
       image: string,
       name: string,
@@ -84,9 +119,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
          const updatedCart = [...cart]
 
          // Verificando se ja existe o produto no carrinho
-         const productExists = updatedCart.find(
-            (product) => product.product_id === product_id
-         )
+         const productExists = updatedCart.find((product) => product.id === id)
 
          //verificando se o produto existe no carrinho
          if (productExists) {
@@ -99,7 +132,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
          } else {
             //se nao, adiciona ao carrinho
             const newProduct = {
-               product_id,
+               id,
                price,
                image,
                name,
@@ -122,7 +155,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
    }
 
    // Função para remover um produto do carrinho
-   const removeProduct = (product_id: number) => {
+   const removeProduct = (id: number) => {
       try {
          const MySwal = withReactContent(Swal)
          MySwal.fire({
@@ -135,9 +168,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
             reverseButtons: true,
          }).then((result) => {
             if (result.isConfirmed) {
-               setCart(
-                  cart.filter((product) => product.product_id !== product_id)
-               )
+               setCart(cart.filter((product) => product.id !== id))
                toast.warning('Produto removido do carrinho', {
                   autoClose: 2000,
                })
@@ -150,7 +181,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
    // Função para atualizar a quantidade de um produto no carrinho
    const updateProductAmount = async ({
-      product_id,
+      id,
       quantity,
    }: UpdateProductAmount) => {
       try {
@@ -160,9 +191,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
          }
 
          const updatedCart = [...cart]
-         const productExists = updatedCart.find(
-            (product) => product.product_id === product_id
-         )
+         const productExists = updatedCart.find((product) => product.id === id)
          if (productExists) {
             productExists.quantity = quantity
             setCart(updatedCart)

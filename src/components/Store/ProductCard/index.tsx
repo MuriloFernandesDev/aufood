@@ -1,3 +1,4 @@
+import { ProductList } from '@pages/[loja_nome]'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { Badge } from 'react-daisyui'
@@ -7,15 +8,6 @@ import { toast } from 'react-toastify'
 import Lanche from '../../../assets/images/LancheWpp.jpg'
 import { useCart } from '../../../hooks/useCart'
 
-interface ProductCardProps {
-   name: string
-   price: number
-   id: number
-   image?: string
-   category: string
-   timeDelivery: string
-}
-
 const ProductCard = ({
    name,
    price,
@@ -23,7 +15,7 @@ const ProductCard = ({
    image,
    category,
    timeDelivery,
-}: ProductCardProps) => {
+}: ProductList) => {
    const [openModal, setOpenModal] = useState(false)
    const [qtdProduct, setQtdProduct] = useState(1)
    const modalRef = useRef<HTMLDivElement>(null)
@@ -43,7 +35,7 @@ const ProductCard = ({
    }
 
    const handleAddProduct = () => {
-      addProduct(id, 100, 'imagem.png', name, qtdProduct)
+      addProduct(id, 100, image, name, qtdProduct)
       setOpenModal(false)
    }
 
@@ -74,12 +66,15 @@ const ProductCard = ({
             className="card w-full bg-primary text-base-100 shadow-lg md:hover:scale-105 transition-all duration-300 cursor-pointer"
          >
             <picture className="relative">
-               <Image src={Lanche} layout="responsive" />
-               <span className="badge bg-base-100 text-primary absolute bottom-0 left-0 m-1 ml-5">
+               <img
+                  src={image}
+                  className="min-h-[150px] max-h-[150px] w-full"
+               />
+               <Badge className="text-primary absolute bottom-0 left-0 m-1 p-3 ml-5">
                   <FaHamburger size={15} className="mr-1" /> {category}
-               </span>
+               </Badge>
             </picture>
-            <div className="card-body p-5">
+            <div className="card-body p-3">
                <div className="flex flex-col gap-1">
                   <h3>{name}</h3>
 
