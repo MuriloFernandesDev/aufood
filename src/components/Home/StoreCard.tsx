@@ -1,9 +1,9 @@
-import { IStore } from '@types'
+import { IStoreListAll } from '@index'
 import Link from 'next/link'
 import { FaStar } from 'react-icons/fa'
 
-const StoreCart = (props: IStore) => {
-   const { logo, name } = props
+const StoreCart = (props: IStoreListAll) => {
+   const { logo, name, rating, qtdRating = 0 } = props
 
    return (
       <Link href={`/${name.replace(/ /g, '-')}`}>
@@ -14,7 +14,7 @@ const StoreCart = (props: IStore) => {
             <div className="card-body p-0 flex flex-col gap-1 text-xs">
                <p className="text-sm">{name}</p>
                <span className="flex items-center gap-1 text-yellow-500 font-bold">
-                  <FaStar /> 4.8
+                  <FaStar /> {qtdRating > 0 ? rating : 'Nenhuma avaliação'}
                </span>
                <span>30-40min - Frete Grátis</span>
             </div>

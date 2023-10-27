@@ -6,6 +6,26 @@ export interface IProduct {
    quantity: number
 }
 
+export interface IProductData {
+   id: number
+   name: string
+   description: string
+   qtdPeopleServe: number
+   timeDelivery: number
+   image: string
+   listStoreId: string
+   productCategoryId: number
+   productCategory: IProductCategory
+}
+
+export interface IProductCategory {
+   id: number
+   name: string
+   icon: string
+   image: string
+   products: IProduct[]
+}
+
 export interface handlePersonalInfoProps {
    target: {
       name: string

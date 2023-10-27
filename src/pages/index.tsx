@@ -5,14 +5,19 @@ import CategoriesComponent from '@components/Store/Categories'
 import { IStore } from '@types'
 import { useEffect, useState } from 'react'
 import { FaTruckLoading } from 'react-icons/fa'
-import { ApiService } from 'services/api'
+import { api } from 'services/api'
+
+export interface IStoreListAll extends IStore {
+   rating?: string
+   qtdRating?: number
+}
 
 const Home = () => {
-   const [listAllStores, setListAllStores] = useState<IStore[] | null>(null)
+   const [listAllStores, setListAllStores] = useState<IStoreListAll[] | null>(
+      null
+   )
 
    useEffect(() => {
-      const api = ApiService()
-
       api.get('/store/list_all')
          .then((response) => {
             setListAllStores(response.data)
@@ -21,8 +26,6 @@ const Home = () => {
             setListAllStores([])
          })
    }, [])
-
-   console.log(listAllStores)
 
    return (
       <LayoutHome>

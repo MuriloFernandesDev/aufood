@@ -1,7 +1,9 @@
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
+import { Badge } from 'react-daisyui'
 import { FaHamburger } from 'react-icons/fa'
-import { FiClock } from 'react-icons/fi'
+import { FiAlertCircle, FiClock } from 'react-icons/fi'
+import { toast } from 'react-toastify'
 import Lanche from '../../../assets/images/LancheWpp.jpg'
 import { useCart } from '../../../hooks/useCart'
 
@@ -66,7 +68,9 @@ const ProductCard = ({
    return (
       <>
          <div
-            onClick={handleModal}
+            onClick={() =>
+               price > 0 ? handleModal() : toast.warn('Produto indisponivel')
+            }
             className="card w-full bg-primary text-base-100 shadow-lg md:hover:scale-105 transition-all duration-300 cursor-pointer"
          >
             <picture className="relative">
@@ -79,7 +83,15 @@ const ProductCard = ({
                <div className="flex flex-col gap-1">
                   <h3>{name}</h3>
 
-                  <span className="font-semibold">R$ {price}</span>
+                  <span className="font-semibold">
+                     {price > 0 ? (
+                        `R$ ${price}`
+                     ) : (
+                        <Badge color="warning" className="text-white">
+                           <FiAlertCircle className="mr-1" /> Indisponivel
+                        </Badge>
+                     )}
+                  </span>
 
                   <span className="flex items-center gap-1">
                      <FiClock /> {timeDelivery}

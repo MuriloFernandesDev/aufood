@@ -8,8 +8,6 @@ interface FooterCartProps {
 const FooterCart = ({ changeCartDrawer }: FooterCartProps) => {
    const { somaTotal, cartSize } = useCart()
 
-   console.log(cartSize)
-
    if (cartSize > 0) {
       return (
          <button

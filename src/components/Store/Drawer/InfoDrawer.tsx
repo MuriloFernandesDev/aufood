@@ -1,4 +1,4 @@
-import { IStore } from '@types'
+import { useStore } from '@hooks/useStore'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { FaClock } from 'react-icons/fa'
 import { GrFormClose } from 'react-icons/gr'
@@ -8,12 +8,13 @@ import { config } from '../../../configs'
 interface InfoDrawerProps {
    isOpen: boolean
    setIsOpen: Dispatch<SetStateAction<boolean>>
-   store: IStore
 }
 
-const InfoDrawer = ({ isOpen, setIsOpen, store }: InfoDrawerProps) => {
+const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
    //tab 0 = sobre, tab 1 = horário, tab 2 = pagamentos
    const [tab, setTab] = useState(0)
+
+   const { store } = useStore()
 
    //verifica se o dispositivo é mobile
    const [isMobile, setIsMobile] = useState(false)
@@ -103,7 +104,9 @@ const InfoDrawer = ({ isOpen, setIsOpen, store }: InfoDrawerProps) => {
                                  {store?.address}, {store?.numberAddress} -{' '}
                                  {store?.street}
                               </p>
-                              <p className="text-xs">{store?.city.name} - SP</p>
+                              <p className="text-xs">
+                                 {store?.city?.name} - SP
+                              </p>
                               <p className="text-xs">CEP: 16018-000</p>
                            </div>
                         </div>
@@ -114,7 +117,9 @@ const InfoDrawer = ({ isOpen, setIsOpen, store }: InfoDrawerProps) => {
                                  {store?.address}, {store?.numberAddress} -{' '}
                                  {store?.street}
                               </p>
-                              <p className="text-xs">{store?.city.name} - SP</p>
+                              <p className="text-xs">
+                                 {store?.city?.name} - SP
+                              </p>
                               <p className="text-xs">CEP: 16018-000</p>
                            </div>
                         </div>

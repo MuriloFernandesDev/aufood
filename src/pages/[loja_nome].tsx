@@ -3,14 +3,15 @@ import InfoDrawer from '@components/Store/Drawer/InfoDrawer'
 import Layout from '@components/Store/Layout'
 import ProductCard from '@components/Store/ProductCard'
 import SearchHome from '@components/Store/Search'
-import { IStore } from '@types'
+import { useStore } from '@hooks/useStore'
+import { IProductCategory, IStore } from '@types'
 import { SaveColors } from '@utils'
 import { GetServerSidePropsContext } from 'next'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { FaHamburger } from 'react-icons/fa'
-import { ApiService } from 'services/api'
+import { ApiService, api } from 'services/api'
 import { config } from '../configs'
 
 /*
@@ -26,13 +27,33 @@ interface IGetServerProps {
    ctx: GetServerSidePropsContext
 }
 
+interface ProductList {
+   name: string
+   id: number
+   price: number
+   timeDelivery: string
+   productCategory?: IProductCategory
+}
+
+interface ProductOnCategory {
+   categoryName: string
+   categoryId: number
+   listProduct: ProductList[]
+}
+
 const Home = (props: IGetServerProps) => {
    const { params, data } = props
 
-   console.log(data)
-   const [isOpen, setIsOpen] = useState(false)
+   if (!data) return <div>Loja não encontrada</div>
 
+   const [isOpen, setIsOpen] = useState(false)
    const [scroll, setScroll] = useState(0)
+   const [allProducts, setAllProducts] = useState<ProductList[]>([])
+   const [allProductsCategory, setAllProductsCategory] = useState<
+      ProductOnCategory[]
+   >([])
+
+   const { getDataStore } = useStore()
 
    useEffect(() => {
       const handleScroll = () => {
@@ -53,6 +74,15 @@ const Home = (props: IGetServerProps) => {
       SaveColors(colors.background, 'background')
       SaveColors(colors.primary, 'price')
       SaveColors(colors.secondary, 'secondary')
+
+      getDataStore(data!)
+      api.get(`/product/list_all/${data.id}`).then((res) => {
+         setAllProducts(res.data)
+      })
+
+      api.get(`/product/list_all_on_category/${data.id}`).then((res) => {
+         setAllProductsCategory(res.data)
+      })
    }, [])
 
    return (
@@ -111,8 +141,58 @@ const Home = (props: IGetServerProps) => {
                </div>
                <CategoriesComponent />
             </section>
+            {allProductsCategory.length > 0 &&
+               allProductsCategory.map((category) => {
+                  return (
+                     <section id="lanche" className="mt-10">
+                        <span className="flex items-center text-primary">
+                           <FaHamburger size={20} className="mr-1" />
+                           <h3 className="text-2xl font-semibold">
+                              {category.categoryName}
+                           </h3>
+                        </span>
 
-            <section id="lanche" className="mt-10">
+                        <div className="grid grid-cols-1 md:grid-cols-4 w-full gap-3 mt-3">
+                           {category.listProduct.map((product) => {
+                              return (
+                                 <ProductCard
+                                    id={product.id}
+                                    category={category.categoryName}
+                                    name={product.name}
+                                    price={product.price}
+                                    timeDelivery={product.timeDelivery}
+                                 />
+                              )
+                           })}
+                        </div>
+                     </section>
+                  )
+               })}
+
+            {allProducts.length > 0 && (
+               <section id="lanche" className="mt-10">
+                  <span className="flex items-center text-primary">
+                     <FaHamburger size={20} className="mr-1" />
+                     <h3 className="text-2xl font-semibold">Todos</h3>
+                  </span>
+
+                  <div className="grid grid-cols-1 md:grid-cols-4 w-full gap-3 mt-3">
+                     {allProducts.map((product) => {
+                        return (
+                           <ProductCard
+                              id={product.id}
+                              category={product.productCategory!.name}
+                              name={product.name}
+                              price={product.price}
+                              timeDelivery={product.timeDelivery.toString()}
+                           />
+                        )
+                     })}
+                  </div>
+               </section>
+            )}
+
+            {/* <section id="lanche" className="mt-10">
                <span className="flex items-center text-primary">
                   <FaHamburger size={20} className="mr-1" />
                   <h3 className="text-2xl font-semibold"> Lanches</h3>
@@ -148,9 +228,9 @@ const Home = (props: IGetServerProps) => {
                      timeDelivery="25-30min"
                   />
                </div>
-            </section>
+            </section> */}
 
-            <InfoDrawer isOpen={isOpen} setIsOpen={setIsOpen} store={data!} />
+            <InfoDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
          </div>
       </Layout>
    )

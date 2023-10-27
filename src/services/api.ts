@@ -18,3 +18,5 @@ export function ApiService(ctx?: any) {
    })
    return api
 }
+
+export const api = ApiService()
