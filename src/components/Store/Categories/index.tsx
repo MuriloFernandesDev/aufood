@@ -1,5 +1,8 @@
+import { useStore } from '@hooks/useStore'
+import { IProductCategory } from '@types'
 import { useEffect, useState } from 'react'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
+import { api } from 'services/api'
 import { Navigation } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -15,8 +18,23 @@ const CategoriesComponent = ({
    className,
    bgColor,
 }: CategoriesComponentProps) => {
+   const { store } = useStore()
    const [slidesPerView, setSlidesPerView] = useState(3)
    const [spaceBetween, setSpaceBetween] = useState(10)
+   const [loading, setLoading] = useState(true)
+   const [categories, setCategories] = useState<IProductCategory[]>([])
+
+   useEffect(() => {
+      if (!store.id) return
+      api.get(`/ProductCategory/list_categories_store/${store.id}`)
+         .then(async (response) => {
+            await new Promise((resolve) => setTimeout(resolve, 1000))
+            setCategories(response.data)
+         })
+         .finally(() => {
+            setLoading(false)
+         })
+   }, [store])
 
    useEffect(() => {
       const handleResize = () => {
@@ -60,57 +78,26 @@ const CategoriesComponent = ({
                   nextEl: '.custom-nx',
                }}
                modules={[Navigation]}
-               initialSlide={5} //initialSlide será o meio da lista que vier do banco de dados
+               initialSlide={categories.length > 0 ? categories.length / 2 : 4}
                className="py-4 max-w-xs sm:max-w-xl md:max-w-2xl lg:max-w-5xl xl:max-w-none cursor-pointer"
             >
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
-               <SwiperSlide className="rounded-lg">
-                  <CategoriesItem2 />
-               </SwiperSlide>
+               {loading ? (
+                  <>
+                     {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
+                        <SwiperSlide key={i} className="rounded-lg">
+                           <div className="animate-pulse flex space-x-4">
+                              <div className="bg-primary/80 h-20 w-20 rounded-md"></div>
+                           </div>
+                        </SwiperSlide>
+                     ))}
+                  </>
+               ) : (
+                  categories.map((category, index) => (
+                     <SwiperSlide key={index} className="rounded-lg">
+                        <CategoriesItem2 {...category} />
+                     </SwiperSlide>
+                  ))
+               )}
             </Swiper>
          </div>
          <div

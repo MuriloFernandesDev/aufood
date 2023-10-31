@@ -46,7 +46,7 @@ interface ProductOnCategory {
 const Home = (props: IGetServerProps) => {
    const { params, data } = props
 
-   if (!data) return <div>Loja não encontrada</div>
+   if (!data) return <div>Loja {params.loja_nome} não encontrada</div>
 
    const [isOpen, setIsOpen] = useState(false)
    const [scroll, setScroll] = useState(0)
@@ -142,9 +142,13 @@ const Home = (props: IGetServerProps) => {
                <CategoriesComponent />
             </section>
             {allProductsCategory.length > 0 &&
-               allProductsCategory.map((category) => {
+               allProductsCategory.map((category, index) => {
                   return (
-                     <section id="lanche" className="mt-10">
+                     <section
+                        key={index}
+                        id={`${category.categoryName}`}
+                        className="mt-10"
+                     >
                         <span className="flex items-center text-primary">
                            <FaHamburger size={20} className="mr-1" />
                            <h3 className="text-2xl font-semibold">
@@ -178,9 +182,10 @@ const Home = (props: IGetServerProps) => {
                   </span>
 
                   <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-3 mt-3">
-                     {allProducts.map((product) => {
+                     {allProducts.map((product, index) => {
                         return (
                            <ProductCard
+                              key={index}
                               id={product.id}
                               category={product.productCategory!.name}
                               name={product.name}
@@ -193,45 +198,6 @@ const Home = (props: IGetServerProps) => {
                   </div>
                </section>
             )}
-
-            {/* <section id="lanche" className="mt-10">
-               <span className="flex items-center text-primary">
-                  <FaHamburger size={20} className="mr-1" />
-                  <h3 className="text-2xl font-semibold"> Lanches</h3>
-               </span>
-
-               <div className="grid grid-cols-1 md:grid-cols-4 w-full gap-3 mt-3">
-                  <ProductCard
-                     id={4}
-                     category="Lanches"
-                     name="X-Bacon - Artesanal"
-                     price={29.99}
-                     timeDelivery="25-30min"
-                  />
-                  <ProductCard
-                     id={3}
-                     category="Hot-dog"
-                     name="X-Bacon - Artesanal"
-                     price={29.99}
-                     timeDelivery="25-30min"
-                  />
-                  <ProductCard
-                     id={2}
-                     category="Lanches"
-                     name="X-Bacon - Artesanal"
-                     price={29.99}
-                     timeDelivery="25-30min"
-                  />
-                  <ProductCard
-                     id={1}
-                     category="Lanches"
-                     name="X-Bacon - Artesanal"
-                     price={29.99}
-                     timeDelivery="25-30min"
-                  />
-               </div>
-            </section> */}
-
             <InfoDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
          </div>
       </Layout>

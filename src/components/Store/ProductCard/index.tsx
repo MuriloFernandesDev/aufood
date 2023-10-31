@@ -70,7 +70,7 @@ const ProductCard = ({
                   src={image}
                   className="min-h-[150px] max-h-[150px] w-full"
                />
-               <Badge className="text-primary absolute bottom-0 left-0 m-1 p-3 ml-5">
+               <Badge className="text-white border-none absolute bottom-0 left-0 m-1 p-3 ml-5 bg-red-600">
                   <FaHamburger size={15} className="mr-1" /> {category}
                </Badge>
             </picture>
@@ -82,7 +82,7 @@ const ProductCard = ({
                      {price > 0 ? (
                         `R$ ${price}`
                      ) : (
-                        <Badge color="warning" className="text-white">
+                        <Badge color="warning" className="text-white badge">
                            <FiAlertCircle className="mr-1" /> Indisponivel
                         </Badge>
                      )}
