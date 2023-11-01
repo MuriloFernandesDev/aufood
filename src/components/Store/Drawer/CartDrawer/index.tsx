@@ -186,9 +186,9 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                         {cart &&
                            cart.map((item) => (
                               <ItemCart
-                                 key={item.product_id}
+                                 key={item.id}
                                  price={item.price}
-                                 id={item.product_id}
+                                 id={item.id}
                                  name={item.name}
                                  description="2x Duplo Burger com Queijo,2x McFritas Media,2x Coca-Cola Original 400ml,2x Não quero levar"
                               />

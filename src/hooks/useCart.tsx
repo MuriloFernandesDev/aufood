@@ -1,17 +1,17 @@
+import { api } from '@api'
+import { IProduct } from '@types'
+import { getCookie, setCookies } from '@utils'
 import {
-   createContext,
    ReactNode,
+   createContext,
    useContext,
    useEffect,
    useRef,
    useState,
 } from 'react'
 import { toast } from 'react-toastify'
-import { api } from 'services/api'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import { IProduct } from '../types'
-import { getCookie, setCookies } from '../utils/Utils'
 import { useStore } from './useStore'
 
 interface CartProviderProps {

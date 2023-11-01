@@ -1,5 +1,5 @@
+import LanchePng from '@images/lancheCategorias.png'
 import Image from 'next/image'
-import LanchePng from '../../../assets/images/lancheCategorias.png'
 
 interface CardOfDayProps {
    className?: string

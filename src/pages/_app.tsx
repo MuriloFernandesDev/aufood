@@ -15,9 +15,9 @@ import 'swiper/css/scrollbar'
 import '../styles/styles.scss'
 
 //** Imports Contexts
+import { AuthProvider } from '@hooks/AuthContext'
+import { CartProvider } from '@hooks/useCart'
 import { StoreProvider } from '@hooks/useStore'
-import { AuthProvider } from '../hooks/AuthContext'
-import { CartProvider } from '../hooks/useCart'
 
 //** Imports Components
 

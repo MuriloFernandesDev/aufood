@@ -1,3 +1,4 @@
+import { api } from '@api'
 import LayoutHome from '@components/Home/Layout'
 import StoreCart from '@components/Home/StoreCard'
 import PromotionComponent from '@components/Home/Swiper/Promotion'
@@ -5,7 +6,6 @@ import CategoriesComponent from '@components/Store/Categories'
 import { IStore } from '@types'
 import { useEffect, useState } from 'react'
 import { FaTruckLoading } from 'react-icons/fa'
-import { api } from 'services/api'
 
 export interface IStoreListAll extends IStore {
    rating?: string

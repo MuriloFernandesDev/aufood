@@ -1,8 +1,8 @@
+import { api } from '@api'
 import { useStore } from '@hooks/useStore'
 import { IProductCategory } from '@types'
 import { useState } from 'react'
 import { BiSearch } from 'react-icons/bi'
-import { api } from 'services/api'
 
 interface SearchHomeProps {
    className?: string | undefined

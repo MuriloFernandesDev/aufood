@@ -1,3 +1,5 @@
+import { useCart } from '@hooks/useCart'
+import Lanche from '@images/LancheWpp.jpg'
 import { ProductList } from '@pages/[loja_nome]'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
@@ -5,8 +7,6 @@ import { Badge } from 'react-daisyui'
 import { FaHamburger } from 'react-icons/fa'
 import { FiAlertCircle, FiClock } from 'react-icons/fi'
 import { toast } from 'react-toastify'
-import Lanche from '../../../assets/images/LancheWpp.jpg'
-import { useCart } from '../../../hooks/useCart'
 
 const ProductCard = ({
    name,

@@ -1,3 +1,4 @@
+import { ApiService, api } from '@api'
 import CategoriesComponent from '@components/Store/Categories'
 import InfoDrawer from '@components/Store/Drawer/InfoDrawer'
 import Layout from '@components/Store/Layout'
@@ -11,7 +12,6 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { FaHamburger } from 'react-icons/fa'
-import { ApiService, api } from 'services/api'
 import { config } from '../configs'
 
 /*

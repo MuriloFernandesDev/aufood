@@ -1,6 +1,6 @@
+import { api } from '@api'
 import { IStore } from '@types'
 import { createContext, ReactNode, useContext, useState } from 'react'
-import { api } from 'services/api'
 
 interface StoreProviderProps {
    children: ReactNode

@@ -1,5 +1,5 @@
+import lanchePng from '@images/lancheCategorias.png'
 import Image from 'next/image'
-import lanchePng from '../../../assets/images/lancheCategorias.png'
 
 const CategorieItem1 = () => {
    return (
