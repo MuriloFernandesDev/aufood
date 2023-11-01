@@ -87,8 +87,8 @@ export const NavBar = () => {
                      tabIndex={0}
                      className="dropdown-content z-[1] menu p-2 shadow bg-primary-home rounded-box w-52"
                   >
-                     {navItens.map((item) => (
-                        <li>
+                     {navItens.map((item, index) => (
+                        <li key={index}>
                            <a
                               href={item.link}
                               className="block py-2 px-2 rounded bg-transparent"
