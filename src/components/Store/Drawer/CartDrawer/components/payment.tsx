@@ -1,25 +1,35 @@
+import { ICart } from '@types'
+import { PaymentNumberForString } from '@utils'
+import { Dispatch, SetStateAction } from 'react'
 import { BiMoney } from 'react-icons/bi'
 
 interface PaymentComponentProps {
-   method: string
-   paymentMethod: string
-   setPaymentMethod: (method: string) => void
+   method: number
+   paymentMethod?: number
+   setCart: Dispatch<SetStateAction<ICart>>
 }
 
 const PaymentComponent = ({
    method,
    paymentMethod,
-   setPaymentMethod,
+   setCart,
 }: PaymentComponentProps) => {
+   const handleChange = () => {
+      setCart((prev) => ({
+         ...prev,
+         paymentMethod: method,
+      }))
+   }
+
    return (
       <button
-         onClick={() => setPaymentMethod(method)}
+         onClick={handleChange}
          className={`btn ${
             paymentMethod === method ? 'btn-primary' : 'btn-outline'
          } flex gap-2 text-start justify-start items-center font-semibold`}
       >
          <BiMoney />
-         <span>{method}</span>
+         <span>{PaymentNumberForString(method)}</span>
       </button>
    )
 }

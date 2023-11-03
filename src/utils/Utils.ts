@@ -41,18 +41,18 @@ export const campoInvalido = (
    )
 }
 
-export function PaymentStringForNumber(paymentMethod: string) {
+export function PaymentNumberForString(paymentMethod: number) {
    switch (paymentMethod) {
-      case 'Dinheiro':
-         return 2
-      case 'Debito':
-         return 1
-      case 'Credito':
-         return 0
-      case 'Pix':
-         return 3
-      case 'Voucher':
-         return 4
+      case 2:
+         return 'Dinheiro'
+      case 1:
+         return 'Debito'
+      case 0:
+         return 'Credito'
+      case 3:
+         return 'Pix'
+      case 4:
+         return 'Voucher'
    }
 }
 

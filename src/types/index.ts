@@ -10,8 +10,8 @@ export interface ICart {
    id?: number
    totalPrice?: number
    date?: string
-   paymentMethod?: string
-   deliveryMethod?: string
+   paymentMethod?: number
+   deliveryMethod?: number
    consumerId?: number
    storeId?: number
    consumerAddressId?: number

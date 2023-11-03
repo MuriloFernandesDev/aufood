@@ -24,7 +24,11 @@ const DeliveryMethod = ({
                value={0}
                name="deliveryMethod"
                label="Irei buscar"
-               checkedValue={personalInfo.deliveryMethod ?? ''}
+               checkedValue={
+                  personalInfo.deliveryMethod
+                     ? personalInfo.deliveryMethod.toString()
+                     : ''
+               }
                handleChange={handleCart}
                invalid={campoInvalido(personalInfo, errors, 'deliveryMethod')}
             />
@@ -32,7 +36,11 @@ const DeliveryMethod = ({
                value={1}
                name="deliveryMethod"
                label="Trazer até mim"
-               checkedValue={personalInfo.deliveryMethod ?? ''}
+               checkedValue={
+                  personalInfo.deliveryMethod
+                     ? personalInfo.deliveryMethod.toString()
+                     : ''
+               }
                handleChange={handleCart}
                invalid={campoInvalido(personalInfo, errors, 'deliveryMethod')}
             />

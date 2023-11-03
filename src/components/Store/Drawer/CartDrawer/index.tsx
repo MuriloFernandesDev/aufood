@@ -3,9 +3,10 @@ import ItemCart from '@components/Store/cart/itemCart'
 import InputCode from '@components/forms/InputCode'
 import InputComponent from '@components/forms/input'
 import { useCart } from '@hooks/useCart'
+import { useStore } from '@hooks/useStore'
 import { api } from '@services/api'
 import { EventTarget, ICart, IConsumer, IConsumerAddress } from '@types'
-import { PaymentStringForNumber, campoInvalido, formatPrice } from '@utils'
+import { campoInvalido, formatPrice } from '@utils'
 import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react'
 import { Badge, Button, Divider, Form } from 'react-daisyui'
 import { useForm } from 'react-hook-form'
@@ -42,9 +43,6 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
    const [isMobile, setIsMobile] = useState(false)
    const [modalCode, setModalCode] = useState(false)
    const [code, setCode] = useState(['', '', '', ''])
-   const [consumerConfirm, setConsumerConfirm] = useState<IConsumer>(
-      {} as IConsumer
-   )
 
    const [paymentMethod, setPaymentMethod] = useState('')
    const [tap, setTap] = useState(1)
@@ -56,6 +54,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
    const [cart, setCart] = useState<ICart>({} as ICart)
 
    const { cart: CartHook, somaTotal } = useCart()
+   const { store } = useStore()
    const MySwal = withReactContent(Swal)
    const {
       setError,
@@ -119,7 +118,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                            .then((res) => {
                               if (res.data == true) {
                                  setModalCode(true)
-                                 setConsumerConfirm(data_consumer)
+                                 setConsumer(data_consumer)
                               }
                            })
                            .catch(() => {
@@ -186,14 +185,12 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
             toast.error('Preencha os campos obrigatórios')
          }
       } else {
-         if (paymentMethod) {
+         if (cart.paymentMethod) {
             api.post('/cart', {
-               ...cart,
-               consumer: {
-                  ...consumer,
-                  consumerAddress: [consumerAddress],
-               },
-               paymentMethod: PaymentStringForNumber(paymentMethod),
+               cart,
+               consumer,
+               consumerAddress,
+               storeId: store.id,
                products: CartHook.map((item) => {
                   const product = []
 
@@ -222,17 +219,10 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
       e.preventDefault()
 
       const codeConfirm = code.join('')
-      api.post(
-         `/consumer/confirm_consumer_code/${consumerConfirm?.id}/${codeConfirm}`
-      )
+      api.post(`/consumer/confirm_consumer_code/${consumer?.id}/${codeConfirm}`)
          .then((res) => {
             if (res.data) {
-               setConsumerConfirm(res.data)
-               setConsumer(() => ({
-                  name: consumerConfirm.name,
-                  phone: consumerConfirm.phone,
-                  email: consumerConfirm.email,
-               }))
+               setConsumer(res.data)
 
                setTap(22)
                setModalCode(false)
@@ -419,7 +409,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                            personalInfo={cart}
                         />
                         <ChooseAddress
-                           address={consumerConfirm.consumerAddress!}
+                           address={consumer.consumerAddress!}
                            setConsumerAddress={setConsumerAddress}
                            setTap={setTap}
                            consumerAddress={consumerAddress}
@@ -496,31 +486,31 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                         <div className="flex flex-col gap-8 mt-5">
                            <PaymentGroupComponent title="Dinheiro">
                               <PaymentComponent
-                                 method="Dinheiro"
-                                 setPaymentMethod={setPaymentMethod}
-                                 paymentMethod={paymentMethod}
+                                 method={2}
+                                 setCart={setCart}
+                                 paymentMethod={cart.paymentMethod}
                               />
                            </PaymentGroupComponent>
                            <PaymentGroupComponent title="Cartao">
                               <PaymentComponent
-                                 method="Debito"
-                                 setPaymentMethod={setPaymentMethod}
-                                 paymentMethod={paymentMethod}
+                                 method={1}
+                                 setCart={setCart}
+                                 paymentMethod={cart.paymentMethod}
                               />
                               <PaymentComponent
-                                 method="Credito"
-                                 setPaymentMethod={setPaymentMethod}
-                                 paymentMethod={paymentMethod}
+                                 method={0}
+                                 setCart={setCart}
+                                 paymentMethod={cart.paymentMethod}
                               />
                               <PaymentComponent
-                                 method="Pix"
-                                 setPaymentMethod={setPaymentMethod}
-                                 paymentMethod={paymentMethod}
+                                 method={3}
+                                 setCart={setCart}
+                                 paymentMethod={cart.paymentMethod}
                               />
                               <PaymentComponent
-                                 method="Voucher"
-                                 setPaymentMethod={setPaymentMethod}
-                                 paymentMethod={paymentMethod}
+                                 method={4}
+                                 setCart={setCart}
+                                 paymentMethod={cart.paymentMethod}
                               />
                            </PaymentGroupComponent>
                         </div>
