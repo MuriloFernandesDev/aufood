@@ -2,7 +2,7 @@ import { ChangeEvent } from 'react'
 import { Input } from 'react-daisyui'
 import { CgDanger } from 'react-icons/cg'
 
-type nameTypes = 'name' | 'phone' | 'email' | 'cep' | 'address' | 'number'
+type nameTypes = 'name' | 'phone' | 'email' | 'zipCode' | 'street' | 'number'
 
 interface InputComponentProps {
    handleChange: (event: ChangeEvent<HTMLInputElement>) => void

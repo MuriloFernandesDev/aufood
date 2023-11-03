@@ -1,9 +1,9 @@
-import { handlePersonalInfoProps } from '@types'
+import { EventTarget } from '@types'
 
 interface RadioBoxProps {
    label: string
-   value: string
-   handleChange: (event: handlePersonalInfoProps) => void
+   value: string | number
+   handleChange: (event: EventTarget) => void
    checkedValue: string
    name: string
    invalid: boolean

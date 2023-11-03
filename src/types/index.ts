@@ -6,6 +6,43 @@ export interface IProduct {
    quantity: number
 }
 
+export interface ICart {
+   id?: number
+   totalPrice?: number
+   date?: string
+   paymentMethod?: string
+   deliveryMethod?: string
+   consumerId?: number
+   storeId?: number
+   consumerAddressId?: number
+   consumer?: IConsumer
+   consumerAddress?: IConsumerAddress
+   store?: IStore
+}
+
+export interface IConsumer {
+   id?: number
+   phone?: string
+   phoneConfirmed?: boolean
+   name?: string
+   email?: string
+   consumerAddress?: IConsumerAddress[]
+}
+
+export interface IConsumerAddress {
+   id: number
+   cep: string
+   street: string
+   number: string
+   complement: string
+   neighborhood: string
+   cityId: number
+   zipCode: string
+   city: ICity
+   consumerId: number
+   consumer: IConsumer
+}
+
 export interface IProductData {
    id: number
    name: string
@@ -26,10 +63,10 @@ export interface IProductCategory {
    products: IProduct[]
 }
 
-export interface handlePersonalInfoProps {
+export interface EventTarget {
    target: {
       name: string
-      value: string
+      value: any
    }
 }
 

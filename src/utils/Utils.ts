@@ -40,3 +40,27 @@ export const campoInvalido = (
          (!tipo && dados[campo]?.length === 0))
    )
 }
+
+export function PaymentStringForNumber(paymentMethod: string) {
+   switch (paymentMethod) {
+      case 'Dinheiro':
+         return 2
+      case 'Debito':
+         return 1
+      case 'Credito':
+         return 0
+      case 'Pix':
+         return 3
+      case 'Voucher':
+         return 4
+   }
+}
+
+export function DeliveryStringForNumber(deliveryMethod: string) {
+   switch (deliveryMethod) {
+      case 'delivery':
+         return 0
+      case 'pickup':
+         return 1
+   }
+}

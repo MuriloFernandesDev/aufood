@@ -2,20 +2,20 @@ import { BiMoney } from 'react-icons/bi'
 
 interface PaymentComponentProps {
    method: string
-   methodPayment: string
-   setMethodPayment: (method: string) => void
+   paymentMethod: string
+   setPaymentMethod: (method: string) => void
 }
 
 const PaymentComponent = ({
    method,
-   methodPayment,
-   setMethodPayment,
+   paymentMethod,
+   setPaymentMethod,
 }: PaymentComponentProps) => {
    return (
       <button
-         onClick={() => setMethodPayment(method)}
+         onClick={() => setPaymentMethod(method)}
          className={`btn ${
-            methodPayment === method ? 'btn-primary' : 'btn-outline'
+            paymentMethod === method ? 'btn-primary' : 'btn-outline'
          } flex gap-2 text-start justify-start items-center font-semibold`}
       >
          <BiMoney />
