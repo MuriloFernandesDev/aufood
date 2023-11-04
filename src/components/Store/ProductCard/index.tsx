@@ -1,6 +1,5 @@
-import { useCart } from '@hooks/useCart'
 import { ProductList } from '@pages/[loja_nome]'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Badge } from 'react-daisyui'
 import { FaHamburger } from 'react-icons/fa'
 import { FiAlertCircle, FiClock } from 'react-icons/fi'
@@ -16,51 +15,14 @@ const ProductCard = ({
    timeDelivery,
 }: ProductList) => {
    const [openModal, setOpenModal] = useState(false)
-   const [qtdProduct, setQtdProduct] = useState(1)
-   const modalRef = useRef<HTMLDivElement>(null)
-   const { addProduct } = useCart()
-
-   const handleModal = () => {
-      setOpenModal(!openModal)
-   }
-
-   const handleClickOutside = (event: MouseEvent) => {
-      if (
-         modalRef.current &&
-         !modalRef.current.contains(event.target as Node)
-      ) {
-         setOpenModal(false)
-      }
-   }
-
-   const handleAddProduct = () => {
-      addProduct(id, 100, image, name, qtdProduct)
-      setOpenModal(false)
-   }
-
-   const changeQtdProduct = (type: string) => {
-      if (type === 'add') {
-         setQtdProduct(qtdProduct + 1)
-      } else {
-         if (qtdProduct > 1) {
-            setQtdProduct(qtdProduct - 1)
-         }
-      }
-   }
-
-   useEffect(() => {
-      document.addEventListener('mousedown', handleClickOutside)
-
-      return () => {
-         document.removeEventListener('mousedown', handleClickOutside)
-      }
-   }, [])
 
    return (
       <>
          <div
             onClick={() =>
-               price > 0 ? handleModal() : toast.warn('Produto indisponivel')
+               price > 0
+                  ? setOpenModal(true)
+                  : toast.warn('Produto indisponivel')
             }
             className="card w-full bg-primary text-base-100 shadow-lg md:hover:scale-105 transition-all duration-300 cursor-pointer"
          >
