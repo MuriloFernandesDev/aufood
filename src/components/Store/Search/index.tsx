@@ -1,4 +1,5 @@
 import { api } from '@api'
+import { useCart } from '@hooks/useCart'
 import { useStore } from '@hooks/useStore'
 import { IProductCategory } from '@types'
 import { useState } from 'react'
@@ -13,6 +14,7 @@ const SearchHome = ({ className }: SearchHomeProps) => {
    const [inputFocused, setInputFocused] = useState(false)
    const [value, setValue] = useState('')
    const { store } = useStore()
+   const { addProduct } = useCart()
 
    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target

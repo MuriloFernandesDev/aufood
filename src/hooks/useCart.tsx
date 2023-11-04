@@ -36,6 +36,7 @@ interface CartContextData {
    updateProductAmount: ({ id, quantity }: UpdateProductAmount) => void
    somaTotal: number
    cartSize: number
+   ClearCart: () => void
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData)
@@ -107,6 +108,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       }
    }, [cart, cartPreviousValue])
 
+   // Função para adicionar um produto ao carrinho
    const addProduct = async (
       id: number,
       price: number,
@@ -204,6 +206,11 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       }
    }
 
+   // Função para limpar o carrinho
+   const ClearCart = () => {
+      setCart([])
+   }
+
    return (
       <CartContext.Provider
          value={{
@@ -213,6 +220,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
             updateProductAmount,
             somaTotal,
             cartSize,
+            ClearCart,
          }}
       >
          {children}

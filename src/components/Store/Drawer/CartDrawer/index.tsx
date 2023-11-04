@@ -52,7 +52,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
    )
    const [cart, setCart] = useState<ICart>({} as ICart)
 
-   const { cart: CartHook, somaTotal } = useCart()
+   const { cart: CartHook, somaTotal, ClearCart } = useCart()
    const { store } = useStore()
    const MySwal = withReactContent(Swal)
    const {
@@ -208,6 +208,16 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                            return product
                         }).flat(),
                      })
+
+                     setTap(0)
+                     setCart({} as ICart)
+                     setConsumer({} as IConsumer)
+                     setConsumerAddress({} as IConsumerAddress)
+                     setPaymentMethod('')
+                     setModalCode(false)
+                     setCode(['', '', '', ''])
+                     ClearCart()
+                     setIsOpen(false)
 
                      MySwal.fire({
                         icon: 'success',
