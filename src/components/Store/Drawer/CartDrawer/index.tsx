@@ -19,7 +19,6 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import ChooseAddress from './components/ChooseAddress'
 import DeliveryMethod from './components/DeliveryMethod'
-import { allertFinallyDelivery } from './components/allertFinally'
 import PaymentComponent from './components/payment'
 import PaymentGroupComponent from './components/paymentGroup'
 import TitleCartDrawer from './components/titleCartDrawer'
@@ -186,27 +185,46 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
          }
       } else {
          if (cart.paymentMethod) {
-            api.post('/cart', {
-               cart,
-               consumer,
-               consumerAddress,
-               storeId: store.id,
-               products: CartHook.map((item) => {
-                  const product = []
+            MySwal.fire({
+               title: 'Estamos processando o seu pedido!',
+               html: "<p style='color: var(--color-primary)'>Geralmente não demora muito</p>",
+               allowOutsideClick: false,
+               didOpen: async () => {
+                  Swal.showLoading()
 
-                  for (let i = 0; i < item.quantity; i++) {
-                     product.push({ id: item.id })
+                  try {
+                     await api.post('/cart', {
+                        cart,
+                        consumer,
+                        consumerAddress,
+                        storeId: store.id,
+                        products: CartHook.map((item) => {
+                           const product = []
+
+                           for (let i = 0; i < item.quantity; i++) {
+                              product.push({ id: item.id })
+                           }
+
+                           return product
+                        }).flat(),
+                     })
+
+                     MySwal.fire({
+                        icon: 'success',
+                        title: 'Tudo certo!',
+                        text: 'Preparamos uma mensagem para confirmar o pedido, iremos te redirecionar para o WhatsApp para você encaminha-la.',
+                     })
+                  } catch {
+                     MySwal.fire({
+                        icon: 'error',
+                        title: 'Ops...',
+                        text: 'Algo deu errado!',
+                     })
+                  } finally {
+                     MySwal.hideLoading()
                   }
-
-                  return product
-               }).flat(),
+               },
             })
-               .then((res) => {
-                  allertFinallyDelivery('')
-               })
-               .catch(() => {
-                  toast.error('Ocorreu um erro ao finalizar o pedido')
-               })
          } else {
             toast.warn('Selecione uma forma de pagamento', {
                autoClose: 1500,

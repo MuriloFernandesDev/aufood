@@ -34,8 +34,8 @@ export const allertFinallyDelivery = (message: string) => {
             // Exibir um alerta de erro, se necessário
             MySwal.fire({
                icon: 'error',
-               title: 'Erro na Requisição',
-               text: 'Ocorreu um erro ao processar a entrega.',
+               title: 'Ops...',
+               text: 'Algo deu errado!',
             })
          } finally {
             // MySwal.close()
