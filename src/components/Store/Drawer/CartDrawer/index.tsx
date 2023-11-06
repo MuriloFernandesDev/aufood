@@ -198,15 +198,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                         consumer,
                         consumerAddress,
                         storeId: store.id,
-                        products: CartHook.map((item) => {
-                           const product = []
-
-                           for (let i = 0; i < item.quantity; i++) {
-                              product.push({ id: item.id })
-                           }
-
-                           return product
-                        }).flat(),
+                        products: CartHook,
                      })
 
                      setTap(0)
