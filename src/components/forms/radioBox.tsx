@@ -4,7 +4,7 @@ interface RadioBoxProps {
    label: string
    value: string | number
    handleChange: (event: EventTarget) => void
-   checkedValue: string
+   checkedValue: string | number | undefined
    name: string
    invalid: boolean
 }
@@ -33,7 +33,7 @@ const RadioBox = ({
                name="radio-10"
                className={`radio ${
                   invalid && 'border border-red-600'
-               } checked:bg-blue-500`}
+               } checked:bg-primary`}
                checked={checkedValue === value}
             />
             <span className="label-text">{label}</span>

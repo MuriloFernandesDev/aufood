@@ -1,6 +1,7 @@
 import { api } from '@api'
 import { IProduct } from '@types'
 import { getCookie, setCookies } from '@utils'
+import { useRouter } from 'next/router'
 import {
    ReactNode,
    createContext,
@@ -46,6 +47,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
    const [cartSize, setCartSize] = useState(0)
    const { store } = useStore()
    const [cart, setCart] = useState<IProduct[]>([])
+   const route = useRouter()
 
    const prevCartRef = useRef<IProduct[]>()
    const cartPreviousValue = prevCartRef.current ?? cart
@@ -84,7 +86,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
             })
          }
       }
-   }, [store])
+   }, [store, route.asPath])
 
    useEffect(() => {
       setCartSize(cart.length)

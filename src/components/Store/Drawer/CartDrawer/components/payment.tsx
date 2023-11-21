@@ -1,4 +1,4 @@
-import { ICart } from '@types'
+import { IOrder } from '@types'
 import { PaymentNumberForString } from '@utils'
 import { Dispatch, SetStateAction } from 'react'
 import { BiMoney } from 'react-icons/bi'
@@ -6,16 +6,16 @@ import { BiMoney } from 'react-icons/bi'
 interface PaymentComponentProps {
    method: number
    paymentMethod?: number
-   setCart: Dispatch<SetStateAction<ICart>>
+   setOrder: Dispatch<SetStateAction<IOrder>>
 }
 
 const PaymentComponent = ({
    method,
    paymentMethod,
-   setCart,
+   setOrder,
 }: PaymentComponentProps) => {
    const handleChange = () => {
-      setCart((prev) => ({
+      setOrder((prev) => ({
          ...prev,
          paymentMethod: method,
       }))

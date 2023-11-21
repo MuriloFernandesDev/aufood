@@ -6,7 +6,7 @@ export interface IProduct {
    quantity: number
 }
 
-export interface ICart {
+export interface IOrder {
    id?: number
    totalPrice?: number
    date?: string

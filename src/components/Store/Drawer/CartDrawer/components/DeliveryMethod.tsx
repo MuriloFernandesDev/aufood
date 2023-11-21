@@ -21,26 +21,18 @@ const DeliveryMethod = ({
          </label>
          <div className="flex gap-3">
             <RadioBox
-               value={0}
+               value={1}
                name="deliveryMethod"
                label="Irei buscar"
-               checkedValue={
-                  personalInfo.deliveryMethod
-                     ? personalInfo.deliveryMethod.toString()
-                     : ''
-               }
+               checkedValue={personalInfo.deliveryMethod}
                handleChange={handleCart}
                invalid={campoInvalido(personalInfo, errors, 'deliveryMethod')}
             />
             <RadioBox
-               value={1}
+               value={2}
                name="deliveryMethod"
                label="Trazer até mim"
-               checkedValue={
-                  personalInfo.deliveryMethod
-                     ? personalInfo.deliveryMethod.toString()
-                     : ''
-               }
+               checkedValue={personalInfo.deliveryMethod}
                handleChange={handleCart}
                invalid={campoInvalido(personalInfo, errors, 'deliveryMethod')}
             />

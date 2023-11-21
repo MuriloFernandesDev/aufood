@@ -5,7 +5,7 @@ import InputComponent from '@components/forms/input'
 import { useCart } from '@hooks/useCart'
 import { useStore } from '@hooks/useStore'
 import { api } from '@services/api'
-import { EventTarget, ICart, IConsumer, IConsumerAddress } from '@types'
+import { EventTarget, IConsumer, IConsumerAddress, IOrder } from '@types'
 import { campoInvalido, formatPrice } from '@utils'
 import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react'
 import { Badge, Button, Divider, Form } from 'react-daisyui'
@@ -36,21 +36,20 @@ const RequiredConsumerAddressFields = [
 
 const RequiredConsumerFields = [{ nome: 'name' }, { nome: 'phone' }]
 
-const RequiredCartFields = [{ nome: 'deliveryMethod' }]
+const requiredOrderFields = [{ nome: 'deliveryMethod' }]
 
 const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
    const [isMobile, setIsMobile] = useState(false)
    const [modalCode, setModalCode] = useState(false)
    const [code, setCode] = useState(['', '', '', ''])
 
-   const [paymentMethod, setPaymentMethod] = useState('')
    const [tap, setTap] = useState(1)
 
    const [consumer, setConsumer] = useState<IConsumer>({} as IConsumer)
    const [consumerAddress, setConsumerAddress] = useState<IConsumerAddress>(
       {} as IConsumerAddress
    )
-   const [cart, setCart] = useState<ICart>({} as ICart)
+   const [order, setOrder] = useState<IOrder>({} as IOrder)
 
    const { cart: CartHook, somaTotal, ClearCart } = useCart()
    const { store } = useStore()
@@ -136,7 +135,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                })
          }
       } else if (value === 22) {
-         if (!cart.deliveryMethod) {
+         if (!order.deliveryMethod) {
             setError('deliveryMethod', {
                type: 'manual',
             })
@@ -160,8 +159,8 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                }
             })
 
-         RequiredCartFields.forEach((campo) => {
-            if (campoInvalido(cart, null, campo.nome)) {
+         requiredOrderFields.forEach((campo) => {
+            if (campoInvalido(order, null, campo.nome)) {
                vCamposOK = false
                setError(campo.nome, {
                   type: 'manual',
@@ -184,7 +183,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
             toast.error('Preencha os campos obrigatórios')
          }
       } else {
-         if (cart.paymentMethod) {
+         if (order.paymentMethod) {
             MySwal.fire({
                title: 'Estamos processando o seu pedido!',
                html: "<p style='color: var(--color-primary)'>Geralmente não demora muito</p>",
@@ -193,8 +192,8 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                   Swal.showLoading()
 
                   try {
-                     await api.post('/cart', {
-                        cart,
+                     await api.post('/order', {
+                        order,
                         consumer,
                         consumerAddress,
                         storeId: store.id,
@@ -202,10 +201,9 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                      })
 
                      setTap(0)
-                     setCart({} as ICart)
+                     setOrder({} as IOrder)
                      setConsumer({} as IConsumer)
                      setConsumerAddress({} as IConsumerAddress)
-                     setPaymentMethod('')
                      setModalCode(false)
                      setCode(['', '', '', ''])
                      ClearCart()
@@ -280,7 +278,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
 
    const handleCart = (e: EventTarget) => {
       const { name, value } = e.target
-      setCart((prevState) => {
+      setOrder((prevState) => {
          return {
             ...prevState,
             [name]: value,
@@ -426,7 +424,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                         <DeliveryMethod
                            errors={errors}
                            handleCart={handleCart}
-                           personalInfo={cart}
+                           personalInfo={order}
                         />
                         <ChooseAddress
                            address={consumer.consumerAddress!}
@@ -440,7 +438,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                         <DeliveryMethod
                            errors={errors}
                            handleCart={handleCart}
-                           personalInfo={cart}
+                           personalInfo={order}
                         />
 
                         <InputComponent
@@ -506,31 +504,31 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                         <div className="flex flex-col gap-8 mt-5">
                            <PaymentGroupComponent title="Dinheiro">
                               <PaymentComponent
-                                 method={2}
-                                 setCart={setCart}
-                                 paymentMethod={cart.paymentMethod}
+                                 method={3}
+                                 setOrder={setOrder}
+                                 paymentMethod={order.paymentMethod}
                               />
                            </PaymentGroupComponent>
                            <PaymentGroupComponent title="Cartao">
                               <PaymentComponent
+                                 method={2}
+                                 setOrder={setOrder}
+                                 paymentMethod={order.paymentMethod}
+                              />
+                              <PaymentComponent
                                  method={1}
-                                 setCart={setCart}
-                                 paymentMethod={cart.paymentMethod}
-                              />
-                              <PaymentComponent
-                                 method={0}
-                                 setCart={setCart}
-                                 paymentMethod={cart.paymentMethod}
-                              />
-                              <PaymentComponent
-                                 method={3}
-                                 setCart={setCart}
-                                 paymentMethod={cart.paymentMethod}
+                                 setOrder={setOrder}
+                                 paymentMethod={order.paymentMethod}
                               />
                               <PaymentComponent
                                  method={4}
-                                 setCart={setCart}
-                                 paymentMethod={cart.paymentMethod}
+                                 setOrder={setOrder}
+                                 paymentMethod={order.paymentMethod}
+                              />
+                              <PaymentComponent
+                                 method={5}
+                                 setOrder={setOrder}
+                                 paymentMethod={order.paymentMethod}
                               />
                            </PaymentGroupComponent>
                         </div>

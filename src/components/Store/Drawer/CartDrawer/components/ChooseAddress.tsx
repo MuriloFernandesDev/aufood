@@ -33,7 +33,9 @@ const ChooseAddress = ({
                   <div
                      onClick={() => handleAddress(ad)}
                      className={`${
-                        consumerAddress.id == ad.id ? 'bg-info/50' : ''
+                        consumerAddress.id == ad.id
+                           ? 'bg-primary/50 text-primary-content'
+                           : ''
                      } border-primary/10 border-[1px] shadow-primary/10 hover:shadow-md p-2 flex items-center gap-3 cursor-pointer rounded-lg`}
                   >
                      <MdHouse size={25} />
