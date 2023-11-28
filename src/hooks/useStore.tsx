@@ -21,9 +21,11 @@ export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
    const getDataStore = async (store: IStore) => {
       setStore(store)
 
-      api.get(`/store/avaliation/${store.id}`).then((res) => {
-         setRatingStore(res.data.rating)
-      })
+      api.get(`/store/avaliation/${store.id}`)
+         .then((res) => {
+            setRatingStore(res.data.rating)
+         })
+         .catch(() => {})
    }
 
    return (

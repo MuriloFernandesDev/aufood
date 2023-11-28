@@ -12,6 +12,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { FaHamburger } from 'react-icons/fa'
+import { toast } from 'react-toastify'
 import { config } from '../configs'
 
 /*
@@ -76,13 +77,26 @@ const Home = (props: IGetServerProps) => {
       SaveColors(data.colorSecondary, 'secondary')
 
       getDataStore(data!)
-      api.get(`/product/list_all/${data.id}`).then((res) => {
-         setAllProducts(res.data)
-      })
 
-      api.get(`/product/list_all_on_category/${data.id}`).then((res) => {
-         setAllProductsCategory(res.data)
-      })
+      api.get(`/product/list_all/${data.id}`)
+         .then((res) => {
+            setAllProducts(res.data)
+         })
+         .catch((err) => {
+            if (err.response.status === 404) {
+               toast.warn('Nenhum produto encontrado')
+            }
+         })
+
+      api.get(`/product/list_all_on_category/${data.id}`)
+         .then((res) => {
+            setAllProductsCategory(res.data)
+         })
+         .catch((err) => {
+            // if (err.response.status === 404) {
+            //    toast.warn('Nenhum produto encontrado')
+            // }
+         })
    }, [])
 
    return (

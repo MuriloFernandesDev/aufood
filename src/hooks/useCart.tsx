@@ -66,24 +66,26 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
                params: {
                   list_id: storage.map((product) => product.id),
                },
-            }).then((res) => {
-               const products = res.data
-               const updatedCart = storage.map((product) => {
-                  const productFind = products.find(
-                     (p: IProduct) => p.id === product.id
-                  )
-                  if (productFind) {
-                     return {
-                        ...productFind,
-                        quantity: product.quantity,
-                     }
-                  } else {
-                     return product
-                  }
-               })
-
-               setCart(updatedCart)
             })
+               .then((res) => {
+                  const products = res.data
+                  const updatedCart = storage.map((product) => {
+                     const productFind = products.find(
+                        (p: IProduct) => p.id === product.id
+                     )
+                     if (productFind) {
+                        return {
+                           ...productFind,
+                           quantity: product.quantity,
+                        }
+                     } else {
+                        return product
+                     }
+                  })
+
+                  setCart(updatedCart)
+               })
+               .catch(() => {})
          }
       }
    }, [store, route.asPath])

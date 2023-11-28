@@ -1,6 +1,22 @@
 import { parseCookies, setCookie } from 'nookies'
 
+const hexToRgb = (hex: string) => {
+   // Remove o '#' do início, se presente
+   hex = hex.replace('#', '')
+
+   // Converte o valor hexadecimal para valores RGB
+   const r = parseInt(hex.substring(0, 2), 16)
+   const g = parseInt(hex.substring(2, 4), 16)
+   const b = parseInt(hex.substring(4, 6), 16)
+
+   return `${r}, ${g}, ${b}`
+}
+
 export function SaveColors(color: string, name: string) {
+   if (color.includes('#')) {
+      color = hexToRgb(color)
+   }
+
    document.documentElement.style.setProperty('--color-' + name, color)
 }
 
