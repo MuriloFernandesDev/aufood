@@ -8,7 +8,6 @@ import { useStore } from '@hooks/useStore'
 import { IProductCategory, IStore } from '@types'
 import { SaveColors } from '@utils'
 import { GetServerSidePropsContext } from 'next'
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { FaHamburger } from 'react-icons/fa'
@@ -119,12 +118,7 @@ const Home = (props: IGetServerProps) => {
                <div className="flex my-10 flex-col lg:flex-row justify-between items-center w-full text-secondary">
                   <div className="flex items-center gap-3">
                      <div className="mask mask-circle bg-primary p-3 flex justify-center items-center">
-                        <Image
-                           src={data?.logo ?? ''}
-                           width={50}
-                           height={50}
-                           layout="fixed"
-                        />
+                        <img src={data?.logo ?? ''} width={50} height={50} />
                      </div>
                      <h1 className="text-3xl font-semibold ">{data?.name}</h1>
                   </div>

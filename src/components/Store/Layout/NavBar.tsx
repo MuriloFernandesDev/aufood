@@ -1,5 +1,4 @@
 import { IStore } from '@types'
-import Image from 'next/image'
 import Link from 'next/link'
 import { Button, Navbar } from 'react-daisyui'
 import { AiOutlineMenu } from 'react-icons/ai'
@@ -36,12 +35,7 @@ export const NavBar = ({ changeCartDrawer, store }: NavBarProps) => {
             <div className="flex gap-10 items-center">
                <Link href="/">
                   <div>
-                     <Image
-                        src={store.logo}
-                        width={100}
-                        height={40}
-                        layout="fixed"
-                     />
+                     <img src={store.logo} width={100} height={40} />
                   </div>
                </Link>
                <div className="items-center bg-primary justify-between hidden w-full md:flex md:w-auto md:order-1">

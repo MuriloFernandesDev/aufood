@@ -29,8 +29,8 @@ interface CartDrawerProps {
 }
 
 const RequiredConsumerAddressFields = [
-   { nome: 'cep' },
-   { nome: 'address' },
+   { nome: 'zipCode' },
+   { nome: 'street' },
    { nome: 'number' },
 ]
 
@@ -152,6 +152,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
          if (!consumerAddress.id)
             RequiredConsumerAddressFields.forEach((campo) => {
                if (campoInvalido(consumerAddress, null, campo.nome)) {
+                  console.log(campo)
                   vCamposOK = false
                   setError(campo.nome, {
                      type: 'manual',
@@ -162,6 +163,8 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
          requiredOrderFields.forEach((campo) => {
             if (campoInvalido(order, null, campo.nome)) {
                vCamposOK = false
+
+               console.log(campo)
                setError(campo.nome, {
                   type: 'manual',
                })
@@ -171,6 +174,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
          RequiredConsumerFields.forEach((campo) => {
             if (campoInvalido(consumer, null, campo.nome)) {
                vCamposOK = false
+               console.log(campo)
                setError(campo.nome, {
                   type: 'manual',
                })
