@@ -39,25 +39,32 @@ const RequiredConsumerFields = [{ nome: 'name' }, { nome: 'phone' }]
 const requiredOrderFields = [{ nome: 'deliveryMethod' }]
 
 const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
-   const [isMobile, setIsMobile] = useState(false)
-   const [modalCode, setModalCode] = useState(false)
-   const [code, setCode] = useState(['', '', '', ''])
-
-   const [tap, setTap] = useState(1)
-
-   const [consumer, setConsumer] = useState<IConsumer>({} as IConsumer)
-   const [consumerAddress, setConsumerAddress] = useState<IConsumerAddress>(
-      {} as IConsumerAddress
-   )
-   const [order, setOrder] = useState<IOrder>({} as IOrder)
-
-   const { cart: CartHook, somaTotal, ClearCart } = useCart()
+   const { cart, somaTotal, ClearCart } = useCart()
    const { store } = useStore()
    const MySwal = withReactContent(Swal)
    const {
       setError,
       formState: { errors },
    } = useForm()
+
+   //Verifica se o usuario esta em um dispositivo mobile
+   const [isMobile, setIsMobile] = useState(false)
+
+   //State para controlar o modal de codigo de confirmação
+   const [modalCode, setModalCode] = useState(false)
+
+   //State para controlar o código de confirmação
+   const [code, setCode] = useState(['', '', '', ''])
+
+   //State para controlar o tap do drawer
+   const [tap, setTap] = useState(1)
+
+   //States para controlar os dados do consumidor
+   const [consumer, setConsumer] = useState<IConsumer>({} as IConsumer)
+   const [consumerAddress, setConsumerAddress] = useState<IConsumerAddress>(
+      {} as IConsumerAddress
+   )
+   const [order, setOrder] = useState<IOrder>({} as IOrder)
 
    //função para abrir e fechar o drawer
    const toggleDrawer = async () => {
@@ -73,7 +80,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
          return
       }
 
-      if (CartHook && CartHook.length <= 0) {
+      if (cart && cart.length <= 0) {
          toast.warn('Seu carrinho está vazio')
          return
       }
@@ -201,7 +208,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                         consumer,
                         consumerAddress,
                         storeId: store.id,
-                        products: CartHook,
+                        products: cart,
                      })
 
                      setTap(0)
@@ -319,10 +326,10 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
    }, [])
 
    useEffect(() => {
-      if (CartHook.length === 0 && isOpen) {
+      if (cart.length === 0 && isOpen) {
          setIsOpen(false)
       }
-   }, [CartHook])
+   }, [cart])
 
    return (
       <>
@@ -359,8 +366,8 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
             overlayOpacity={0.2}
             direction={isMobile ? 'bottom' : 'right'}
             className={`${
-               isMobile ? 'rounded-t-3xl' : 'mt-[100px]'
-            } bg-base-100 p-3 px-4 md:max-h-[92vh] max-h-auto pt-10 flex flex-col justify-between`}
+               isMobile ? 'rounded-t-3xl' : ''
+            } bg-base-100 p-3 px-4 max-h-auto pt-10 flex flex-col justify-between`}
             size={isMobile ? '100vh' : '40vw'}
          >
             <>
@@ -379,8 +386,8 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                   {tap === 1 ? (
                      <div className="max-h-[65vh] overflow-y-auto">
                         <div className="flex flex-col gap-4">
-                           {CartHook &&
-                              CartHook.map((item) => (
+                           {cart &&
+                              cart.map((item) => (
                                  <ItemCart
                                     key={item.id}
                                     price={item.price}
