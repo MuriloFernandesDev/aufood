@@ -149,6 +149,32 @@ const Home = (props: IGetServerProps) => {
                </div>
                <CategoriesComponent />
             </section>
+
+            {allProducts.length > 0 && (
+               <section id="lanche" className="mt-10">
+                  <span className="flex items-center text-primary">
+                     <FaHamburger size={20} className="mr-1" />
+                     <h3 className="text-2xl font-semibold">Todos</h3>
+                  </span>
+
+                  <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-3 mt-3">
+                     {allProducts.map((product, index) => {
+                        return (
+                           <ProductCard
+                              key={index}
+                              id={product.id}
+                              category={product.productCategory!.name}
+                              name={product.name}
+                              price={product.price}
+                              timeDelivery={product.timeDelivery.toString()}
+                              image={product.image}
+                           />
+                        )
+                     })}
+                  </div>
+               </section>
+            )}
+
             {allProductsCategory.length > 0 &&
                allProductsCategory.map((category, index) => {
                   return (
@@ -182,30 +208,6 @@ const Home = (props: IGetServerProps) => {
                   )
                })}
 
-            {allProducts.length > 0 && (
-               <section id="lanche" className="mt-10">
-                  <span className="flex items-center text-primary">
-                     <FaHamburger size={20} className="mr-1" />
-                     <h3 className="text-2xl font-semibold">Todos</h3>
-                  </span>
-
-                  <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-3 mt-3">
-                     {allProducts.map((product, index) => {
-                        return (
-                           <ProductCard
-                              key={index}
-                              id={product.id}
-                              category={product.productCategory!.name}
-                              name={product.name}
-                              price={product.price}
-                              timeDelivery={product.timeDelivery.toString()}
-                              image={product.image}
-                           />
-                        )
-                     })}
-                  </div>
-               </section>
-            )}
             <InfoDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
          </div>
       </Layout>
