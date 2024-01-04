@@ -52,8 +52,8 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
          overlayOpacity={0}
          direction={isMobile ? 'bottom' : 'right'}
          className={`${
-            isMobile ? 'rounded-t-3xl' : 'mt-[8vh]'
-         } bg-base-100 p-2 max-h-[92vh]`}
+            isMobile && 'rounded-t-3xl'
+         } bg-base-100 p-2 max-h-[100vh]`}
          size={isMobile ? 450 : '40vw'}
       >
          <>

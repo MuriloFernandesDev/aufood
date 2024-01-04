@@ -211,7 +211,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                         products: cart,
                      })
 
-                     setTap(0)
+                     setTap(1)
                      setOrder({} as IOrder)
                      setConsumer({} as IConsumer)
                      setConsumerAddress({} as IConsumerAddress)
