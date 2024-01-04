@@ -13,18 +13,12 @@ export interface IStoreListAll extends IStore {
 }
 
 const Home = () => {
-   const [listAllStores, setListAllStores] = useState<IStoreListAll[] | null>(
-      null
-   )
+   const [listAllStores, setListAllStores] = useState<IStoreListAll[]>([])
 
    useEffect(() => {
-      api.get('/store/list_all')
-         .then((response) => {
-            setListAllStores(response.data)
-         })
-         .catch((err) => {
-            setListAllStores([])
-         })
+      api.get('/store/list_all').then((response) => {
+         setListAllStores(response.data)
+      })
    }, [])
 
    return (

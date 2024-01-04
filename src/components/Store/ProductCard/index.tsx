@@ -6,14 +6,7 @@ import { FiAlertCircle, FiClock } from 'react-icons/fi'
 import { toast } from 'react-toastify'
 import ModalAddProduct from '../Product/ModalAddProduct'
 
-const ProductCard = ({
-   name,
-   price,
-   id,
-   image,
-   category,
-   timeDelivery,
-}: ProductList) => {
+const ProductCard = ({ name, price, id, image, category }: ProductList) => {
    const [openModal, setOpenModal] = useState(false)
 
    return (
@@ -48,10 +41,6 @@ const ProductCard = ({
                         </Badge>
                      )}
                   </span>
-
-                  <span className="flex items-center gap-1">
-                     <FiClock /> {timeDelivery}
-                  </span>
                </div>
             </div>
          </div>
@@ -63,7 +52,6 @@ const ProductCard = ({
                image,
                name,
                price,
-               timeDelivery,
             }}
             setOpenModal={setOpenModal}
          />

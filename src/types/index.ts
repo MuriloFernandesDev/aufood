@@ -8,25 +8,25 @@ export interface IProduct {
 
 export interface IOrder {
    id?: number
-   totalPrice?: number
+   total_price?: number
    date?: string
-   paymentMethod?: number
-   deliveryMethod?: number
-   consumerId?: number
-   storeId?: number
-   consumerAddressId?: number
+   payment_method?: number
+   delivery_method?: number
+   consumer_id?: number
+   store_id?: number
+   consumer_address_id?: number
    consumer?: IConsumer
-   consumerAddress?: IConsumerAddress
+   consumer_address?: IConsumerAddress
    store?: IStore
 }
 
 export interface IConsumer {
    id?: number
    phone?: string
-   phoneConfirmed?: boolean
+   phone_confirmed?: boolean
    name?: string
    email?: string
-   consumerAddress?: IConsumerAddress[]
+   consumer_address?: IConsumerAddress[]
 }
 
 export interface IConsumerAddress {
@@ -36,10 +36,10 @@ export interface IConsumerAddress {
    number: string
    complement: string
    neighborhood: string
-   cityId: number
+   city_id: number
    zipCode: string
    city: ICity
-   consumerId: number
+   consumer_id: number
    consumer: IConsumer
 }
 
@@ -47,12 +47,10 @@ export interface IProductData {
    id: number
    name: string
    description: string
-   qtdPeopleServe: number
-   timeDelivery: number
    image: string
-   listStoreId: string
-   productCategoryId: number
-   productCategory: IProductCategory
+   list_store_id: string
+   product_category_id: number
+   product_category: IProductCategory
 }
 
 export interface IProductCategory {
@@ -72,26 +70,24 @@ export interface EventTarget {
 
 export interface IStore {
    address: string
-   backgroundImage: string
+   background_image: string
    cep: string
-   cityId: number
+   city_id: number
    cnpj: string
    description: string
    email: string
-   facebookUrl: string
    id: number
-   instagramUrl: string
    logo: string
    name: string
-   numberAddress: string
+   number_address: string
    phone: string
-   storeCategoryStores: null
+   store_category_stores: null
    street: string
    whatsapp: string
    city: ICity
-   colorBackground: string
-   colorPrimary: string
-   colorSecondary: string
+   color_background: string
+   color_primary: string
+   color_secondary: string
 }
 
 export interface ICity {

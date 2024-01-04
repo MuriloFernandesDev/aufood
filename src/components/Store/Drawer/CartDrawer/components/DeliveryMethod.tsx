@@ -1,10 +1,10 @@
 import RadioBox from '@components/forms/radioBox'
-import { EventTarget, ICart } from '@types'
+import { EventTarget, IOrder } from '@types'
 import { campoInvalido } from '@utils'
 import { CgDanger } from 'react-icons/cg'
 
 interface DeliveryMethodProps {
-   personalInfo: ICart
+   personalInfo: IOrder
    handleCart: (e: EventTarget) => void
    errors: any
 }
@@ -22,23 +22,23 @@ const DeliveryMethod = ({
          <div className="flex gap-3">
             <RadioBox
                value={1}
-               name="deliveryMethod"
+               name="delivery_method"
                label="Irei buscar"
-               checkedValue={personalInfo.deliveryMethod}
+               checkedValue={personalInfo.delivery_method}
                handleChange={handleCart}
-               invalid={campoInvalido(personalInfo, errors, 'deliveryMethod')}
+               invalid={campoInvalido(personalInfo, errors, 'delivery_method')}
             />
             <RadioBox
                value={2}
-               name="deliveryMethod"
+               name="delivery_method"
                label="Trazer até mim"
-               checkedValue={personalInfo.deliveryMethod}
+               checkedValue={personalInfo.delivery_method}
                handleChange={handleCart}
-               invalid={campoInvalido(personalInfo, errors, 'deliveryMethod')}
+               invalid={campoInvalido(personalInfo, errors, 'delivery_method')}
             />
          </div>
 
-         {campoInvalido(personalInfo, errors, 'deliveryMethod') && (
+         {campoInvalido(personalInfo, errors, 'delivery_method') && (
             <span className="label-text-alt text-error flex items-center gap-1 mt-1">
                <CgDanger /> Método de entrega obrigatório
             </span>

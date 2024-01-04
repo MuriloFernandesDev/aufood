@@ -31,16 +31,15 @@ export interface ProductList {
    name: string
    id: number
    price: number
-   timeDelivery: string
-   productCategory?: IProductCategory
+   product_category?: IProductCategory
    image: string
    category: string
 }
 
 interface ProductOnCategory {
-   categoryName: string
-   categoryId: number
-   listProduct: ProductList[]
+   category_name: string
+   category_id: number
+   list_product: ProductList[]
 }
 
 const Home = (props: IGetServerProps) => {
@@ -70,10 +69,10 @@ const Home = (props: IGetServerProps) => {
    }, [])
 
    useEffect(() => {
-      SaveColors(data.colorPrimary, 'primary')
-      SaveColors(data.colorBackground, 'background')
-      SaveColors(data.colorPrimary, 'price')
-      SaveColors(data.colorSecondary, 'secondary')
+      SaveColors(data.color_primary, 'primary')
+      SaveColors(data.color_background, 'background')
+      SaveColors(data.color_primary, 'price')
+      SaveColors(data.color_secondary, 'secondary')
 
       getDataStore(data!)
 
@@ -108,7 +107,7 @@ const Home = (props: IGetServerProps) => {
             <div
                className="rounded-[4px] h-[250px] w-full text-[#f7f7f7] bg-cover bg-center bg-no-repeat"
                style={{
-                  backgroundImage: `url(${data?.backgroundImage})`,
+                  backgroundImage: `url(${data?.background_image})`,
                }}
             />
          </header>
@@ -163,10 +162,9 @@ const Home = (props: IGetServerProps) => {
                            <ProductCard
                               key={index}
                               id={product.id}
-                              category={product.productCategory!.name}
+                              category={product.product_category!.name}
                               name={product.name}
                               price={product.price}
-                              timeDelivery={product.timeDelivery.toString()}
                               image={product.image}
                            />
                         )
@@ -180,26 +178,25 @@ const Home = (props: IGetServerProps) => {
                   return (
                      <section
                         key={index}
-                        id={`${category.categoryName}`}
+                        id={`${category.category_name}`}
                         className="mt-10"
                      >
                         <span className="flex items-center text-primary">
                            <FaHamburger size={20} className="mr-1" />
                            <h3 className="text-2xl font-semibold">
-                              {category.categoryName}
+                              {category.category_name}
                            </h3>
                         </span>
 
                         <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-3 mt-3">
-                           {category.listProduct.map((product) => {
+                           {category.list_product.map((product) => {
                               return (
                                  <ProductCard
                                     id={product.id}
-                                    category={category.categoryName}
+                                    category={category.category_name}
                                     name={product.name}
                                     price={product.price}
                                     image={product.image}
-                                    timeDelivery={product.timeDelivery}
                                  />
                               )
                            })}

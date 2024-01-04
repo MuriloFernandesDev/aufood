@@ -36,7 +36,7 @@ const RequiredConsumerAddressFields = [
 
 const RequiredConsumerFields = [{ nome: 'name' }, { nome: 'phone' }]
 
-const requiredOrderFields = [{ nome: 'deliveryMethod' }]
+const requiredOrderFields = [{ nome: 'delivery_method' }]
 
 const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
    const { cart, somaTotal, ClearCart } = useCart()
@@ -142,8 +142,8 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                })
          }
       } else if (value === 22) {
-         if (!order.deliveryMethod) {
-            setError('deliveryMethod', {
+         if (!order.delivery_method) {
+            setError('delivery_method', {
                type: 'manual',
             })
 
@@ -194,7 +194,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
             toast.error('Preencha os campos obrigatórios')
          }
       } else {
-         if (order.paymentMethod) {
+         if (order.payment_method) {
             MySwal.fire({
                title: 'Estamos processando o seu pedido!',
                html: "<p style='color: var(--color-primary)'>Geralmente não demora muito</p>",
@@ -438,7 +438,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                            personalInfo={order}
                         />
                         <ChooseAddress
-                           address={consumer.consumerAddress!}
+                           address={consumer.consumer_address!}
                            setConsumerAddress={setConsumerAddress}
                            setTap={setTap}
                            consumerAddress={consumerAddress}
@@ -517,29 +517,29 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                               <PaymentComponent
                                  method={3}
                                  setOrder={setOrder}
-                                 paymentMethod={order.paymentMethod}
+                                 payment_method={order.payment_method}
                               />
                            </PaymentGroupComponent>
                            <PaymentGroupComponent title="Cartao">
                               <PaymentComponent
                                  method={2}
                                  setOrder={setOrder}
-                                 paymentMethod={order.paymentMethod}
+                                 payment_method={order.payment_method}
                               />
                               <PaymentComponent
                                  method={1}
                                  setOrder={setOrder}
-                                 paymentMethod={order.paymentMethod}
+                                 payment_method={order.payment_method}
                               />
                               <PaymentComponent
                                  method={4}
                                  setOrder={setOrder}
-                                 paymentMethod={order.paymentMethod}
+                                 payment_method={order.payment_method}
                               />
                               <PaymentComponent
                                  method={5}
                                  setOrder={setOrder}
-                                 paymentMethod={order.paymentMethod}
+                                 payment_method={order.payment_method}
                               />
                            </PaymentGroupComponent>
                         </div>

@@ -1,14 +1,14 @@
-import { handlePersonalInfoProps } from '@types'
+import { EventTarget } from '@types'
 
 interface TabDeliveryMethodProps {
-   handlePersonalInfo: (e: handlePersonalInfoProps) => void
-   deliveryMethod: string
+   handlePersonalInfo: (e: EventTarget) => void
+   delivery_method: string
    value: string
 }
 
 const TabDeliveryMethod = ({
    handlePersonalInfo,
-   deliveryMethod,
+   delivery_method,
    value,
 }: TabDeliveryMethodProps) => {
    return (
@@ -16,13 +16,13 @@ const TabDeliveryMethod = ({
          onClick={() =>
             handlePersonalInfo({
                target: {
-                  name: 'deliveryMethod',
+                  name: 'delivery_method',
                   value: value,
                },
             })
          }
          className={`tab tab-bordered cursor-pointer hover:tab-active ${
-            deliveryMethod === value && 'tab-active'
+            delivery_method === value && 'tab-active'
          } `}
       >
          <span className="mr-1">Trazer até mim</span>

@@ -101,7 +101,7 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
                            <p className="text-md mb-1">Endereço</p>
                            <div className="flex flex-col gap-2">
                               <p className="text-xs">
-                                 {store?.address}, {store?.numberAddress} -{' '}
+                                 {store?.address}, {store?.number_address} -{' '}
                                  {store?.street}
                               </p>
                               <p className="text-xs">
@@ -114,7 +114,7 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
                            <p className="text-md mb-1">Endereço</p>
                            <div className="flex flex-col gap-2">
                               <p className="text-xs">
-                                 {store?.address}, {store?.numberAddress} -{' '}
+                                 {store?.address}, {store?.number_address} -{' '}
                                  {store?.street}
                               </p>
                               <p className="text-xs">

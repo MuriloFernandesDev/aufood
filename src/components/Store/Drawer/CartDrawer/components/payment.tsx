@@ -5,19 +5,19 @@ import { BiMoney } from 'react-icons/bi'
 
 interface PaymentComponentProps {
    method: number
-   paymentMethod?: number
+   payment_method?: number
    setOrder: Dispatch<SetStateAction<IOrder>>
 }
 
 const PaymentComponent = ({
    method,
-   paymentMethod,
+   payment_method,
    setOrder,
 }: PaymentComponentProps) => {
    const handleChange = () => {
       setOrder((prev) => ({
          ...prev,
-         paymentMethod: method,
+         payment_method: method,
       }))
    }
 
@@ -25,7 +25,7 @@ const PaymentComponent = ({
       <button
          onClick={handleChange}
          className={`btn ${
-            paymentMethod === method ? 'btn-primary' : 'btn-outline'
+            payment_method === method ? 'btn-primary' : 'btn-outline'
          } flex gap-2 text-start justify-start items-center font-semibold`}
       >
          <BiMoney />
