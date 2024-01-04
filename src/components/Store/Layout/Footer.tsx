@@ -1,6 +1,6 @@
 import { IStore } from '@types'
 import { infoApp } from 'configs'
-import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa'
+import { FaWhatsapp } from 'react-icons/fa'
 
 interface FooterProps {
    store: IStore
@@ -27,14 +27,8 @@ const Footer = ({ store }: FooterProps) => {
             <div>
                <span className="footer-title">Social</span>
                <div className="grid grid-flow-col gap-4">
-                  <a href={`https://${store.facebookUrl}`} target="_blank">
-                     <FaFacebook size={30} />
-                  </a>
                   <a href={`https://${store.whatsapp}`} target="_blank">
                      <FaWhatsapp size={30} />
-                  </a>
-                  <a href={`https://${store.instagramUrl}`} target="_blank">
-                     <FaInstagram size={30} />
                   </a>
                </div>
             </div>

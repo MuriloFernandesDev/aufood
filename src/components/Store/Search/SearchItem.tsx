@@ -8,7 +8,7 @@ interface SearchItemProps {
 
 const SearchItem = ({ props }: SearchItemProps) => {
    const [openModal, setOpenModal] = useState(false)
-   const { category, id, image, name, price, timeDelivery } = props
+   const { category, id, image, name, price } = props
 
    return (
       <>
@@ -40,7 +40,6 @@ const SearchItem = ({ props }: SearchItemProps) => {
                image,
                name,
                price,
-               timeDelivery,
             }}
             setOpenModal={setOpenModal}
          />
