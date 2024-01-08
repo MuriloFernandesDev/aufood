@@ -20,7 +20,7 @@ const SearchHome = ({ className }: SearchHomeProps) => {
       setValue(value)
 
       if (value.length > 0) {
-         api.get(`/product/search_product_store/${store.id}`, {
+         api.get(`/product/store/search_product_store/${store.id}`, {
             params: {
                q: value,
             },
