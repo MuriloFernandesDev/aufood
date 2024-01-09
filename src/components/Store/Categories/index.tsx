@@ -26,7 +26,7 @@ const CategoriesComponent = ({
 
    useEffect(() => {
       if (!store.id) return
-      api.get(`/ProductCategory/store/list_categories_store/${store.id}`)
+      api.get(`/ProductCategory/list_categories_store/${store.id}`)
          .then(async (response) => {
             await new Promise((resolve) => setTimeout(resolve, 1000))
             setCategories(response.data)

@@ -92,7 +92,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
             toast.warn('Preencha o telefone')
             return
          } else {
-            api.get(`/consumer/store/get_consumer_by_phone/${consumer.phone}`)
+            api.get(`/consumer/get_consumer_by_phone/${consumer.phone}`)
                .then((res) => {
                   const { data: data_consumer } = res
                   //abrir um modal para o usuario escolher se ele ja tem cadastro ou nao, mostrar os dados dele
@@ -118,7 +118,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                   }).then((result) => {
                      if (result.isConfirmed) {
                         api.post(
-                           `/consumer/store/confirm_consumer/${data_consumer.id}`
+                           `/consumer/confirm_consumer/${data_consumer.id}`
                         )
                            .then((res) => {
                               if (res.data == true) {
@@ -203,7 +203,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                   Swal.showLoading()
 
                   try {
-                     await api.post('/order/store', {
+                     await api.post('/order', {
                         order,
                         consumer,
                         consumerAddress,
@@ -248,9 +248,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
       e.preventDefault()
 
       const codeConfirm = code.join('')
-      api.post(
-         `/consumer/store/confirm_consumer_code/${consumer?.id}/${codeConfirm}`
-      )
+      api.post(`/consumer/confirm_consumer_code/${consumer?.id}/${codeConfirm}`)
          .then((res) => {
             if (res.data) {
                setConsumer(res.data)

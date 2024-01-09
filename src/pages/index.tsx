@@ -16,7 +16,7 @@ const Home = () => {
    const [listAllStores, setListAllStores] = useState<IStoreListAll[]>([])
 
    useEffect(() => {
-      api.get('/store/store/list_all').then((response) => {
+      api.get('/store/list_all').then((response) => {
          setListAllStores(response.data)
       })
    }, [])

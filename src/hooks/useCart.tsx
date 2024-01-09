@@ -62,7 +62,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
             : null
 
          if (storage) {
-            api.get(`/product/store/list_product_cart/${store.id}`, {
+            api.get(`/product/list_product_cart/${store.id}`, {
                params: {
                   list_id: storage.map((product) => product.id),
                },

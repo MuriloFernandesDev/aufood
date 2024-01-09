@@ -76,7 +76,7 @@ const Home = (props: IGetServerProps) => {
 
       getDataStore(data!)
 
-      api.get(`/product/store/list_all/${data.id}`)
+      api.get(`/product/list_all/${data.id}`)
          .then((res) => {
             setAllProducts(res.data)
          })
@@ -86,7 +86,7 @@ const Home = (props: IGetServerProps) => {
             }
          })
 
-      api.get(`/product/store/list_all_on_category/${data.id}`)
+      api.get(`/product/list_all_on_category/${data.id}`)
          .then((res) => {
             setAllProductsCategory(res.data)
          })
