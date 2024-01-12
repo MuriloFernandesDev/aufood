@@ -62,8 +62,8 @@ export const NavBar = ({ changeCartDrawer, store }: NavBarProps) => {
                   tabIndex={0}
                   className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                >
-                  {navItens.map((item) => (
-                     <li>
+                  {navItens.map((item, i) => (
+                     <li key={i}>
                         <a
                            href={item.link}
                            className="block py-2 px-2 text-primary rounded bg-transparent"
