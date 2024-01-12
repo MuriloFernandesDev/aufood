@@ -218,7 +218,7 @@ export const getServerSideProps = async ({ params, ctx }: IGetServerProps) => {
 
    try {
       const response = await ApiService(ctx)
-         .get(`/store/${query.replace(/ /g, '-')}`)
+         .get(`/store/search/${query.replace(/ /g, '-')}`)
          .then((res) => res?.data)
 
       return {
