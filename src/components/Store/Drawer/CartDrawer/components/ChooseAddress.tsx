@@ -42,7 +42,7 @@ const ChooseAddress = ({
                      <div>
                         <h1>{ad.zipCode}</h1>
                         <h1>
-                           {ad.street}, {ad.number} - {ad.city.name}
+                           {ad.street}, {ad.number}
                         </h1>
                      </div>
                   </div>

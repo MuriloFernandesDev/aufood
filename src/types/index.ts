@@ -31,7 +31,6 @@ export interface IConsumer {
 
 export interface IConsumerAddress {
    id: number
-   cep: string
    street: string
    number: string
    complement: string
@@ -71,7 +70,7 @@ export interface EventTarget {
 export interface IStore {
    address: string
    background_image: string
-   cep: string
+   zip: string
    city_id: number
    cnpj: string
    description: string

@@ -202,38 +202,113 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                didOpen: async () => {
                   Swal.showLoading()
 
-                  try {
-                     await api.post('/order', {
-                        order,
-                        consumer,
-                        consumerAddress,
-                        storeId: store.id,
-                        products: cart,
-                     })
+                  api.post('/order', {
+                     order,
+                     consumer,
+                     consumerAddress,
+                     storeId: store.id,
+                     products: cart,
+                  })
+                     .then(({ data }) => {
+                        setTap(1)
+                        setOrder({} as IOrder)
+                        setConsumer({} as IConsumer)
+                        setConsumerAddress({} as IConsumerAddress)
+                        setModalCode(false)
+                        setCode(['', '', '', ''])
+                        ClearCart()
+                        setIsOpen(false)
 
-                     setTap(1)
-                     setOrder({} as IOrder)
-                     setConsumer({} as IConsumer)
-                     setConsumerAddress({} as IConsumerAddress)
-                     setModalCode(false)
-                     setCode(['', '', '', ''])
-                     ClearCart()
-                     setIsOpen(false)
+                        MySwal.fire({
+                           icon: 'success',
+                           title: 'Tudo certo!',
+                           text: 'Preparamos uma mensagem para confirmar o pedido, iremos te redirecionar para o WhatsApp para você encaminha-la.',
+                           showConfirmButton: false,
+                           timer: 3000,
+                        }).then(() => {
+                           const orderDetails = `
+                        Meu pedido #${data.id}
+                        
+                        ${cart.map((item) => {
+                           return `${item.quantity}x ${
+                              item.name
+                           } - ${formatPrice(item.price)} ${
+                              order.delivery_method === 1
+                                 ? 'Retirada'
+                                 : 'Delivery'
+                           }.`
+                        })}
+                        
+                        Quantidade: ${cart.length}
+                        Valor: ${formatPrice(somaTotal)}
 
-                     MySwal.fire({
-                        icon: 'success',
-                        title: 'Tudo certo!',
-                        text: 'Preparamos uma mensagem para confirmar o pedido, iremos te redirecionar para o WhatsApp para você encaminha-la.',
+                        ------------------------------
+                        
+                        Nome: ${consumer.name}
+
+                        ------------------------------
+
+                        Celular: ${consumer.phone}
+
+                        ------------------------------
+
+                        Formas de Pagamento: ${
+                           order.payment_method === 1
+                              ? 'Dinheiro'
+                              : order.payment_method === 2
+                              ? 'Cartão de Crédito'
+                              : order.payment_method === 3
+                              ? 'Cartão de Débito'
+                              : order.payment_method === 4
+                              ? 'Pix'
+                              : 'PicPay'
+                        }
+                        ${
+                           order.delivery_method === 1
+                              ? `Retirada no local: ${
+                                   store.address +
+                                   ', ' +
+                                   store.number_address +
+                                   ', ' +
+                                   store.street +
+                                   ', ' +
+                                   store.city.name +
+                                   ', ' +
+                                   store.zip
+                                }`
+                              : 'Delivery'
+                        }
+                        
+                        ------------------------------
+
+                        Subtotal: R$ ${formatPrice(somaTotal)}
+                        Valor Total: R$ ${formatPrice(somaTotal)}
+                        
+                        Obrigado!
+                        `
+
+                           // Hora prevista para ${
+                           //    order.delivery_method === 1 ? 'retirada' : 'entrega'
+                           // }: 22:23
+
+                           const encodedMessage =
+                              encodeURIComponent(orderDetails)
+
+                           const whatsappUrl = `https://api.whatsapp.com/send?phone=5518996344123&text=${encodedMessage}`
+
+                           window.open(whatsappUrl, '_blank')
+                        })
                      })
-                  } catch {
-                     MySwal.fire({
-                        icon: 'error',
-                        title: 'Ops...',
-                        text: 'Algo deu errado!',
+                     .catch(() => {
+                        MySwal.fire({
+                           icon: 'error',
+                           title: 'Ops...',
+                           text: 'Algo deu errado!',
+                        })
                      })
-                  } finally {
-                     MySwal.hideLoading()
-                  }
+                     .finally(() => {
+                        MySwal.hideLoading()
+                     })
                },
             })
          } else {
