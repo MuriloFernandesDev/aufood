@@ -27,7 +27,7 @@ const Home = () => {
             <section className="bg-base-100-home">
                <div className="divider divide-primary-home mb-6">
                   <h4 className="text-lg font-bold uppercase">
-                     Restaurantes por categoria
+                     Lojas por categoria
                   </h4>
                </div>
                <CategoriesComponent bgColor="bg-primary-home" />

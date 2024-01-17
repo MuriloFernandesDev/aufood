@@ -4,11 +4,10 @@ import { Badge } from 'react-daisyui'
 import { FaHamburger } from 'react-icons/fa'
 import { FiAlertCircle } from 'react-icons/fi'
 import { toast } from 'react-toastify'
-import ModalAddProduct from '../Product/ModalAddProduct'
+import ModalAddProduct from './ModalAddProduct'
 
 const ProductCard = (props: ProductList) => {
    const [openModal, setOpenModal] = useState(false)
-
    const { name, price, image, category } = props
 
    return (

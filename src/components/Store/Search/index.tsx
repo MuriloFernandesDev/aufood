@@ -11,7 +11,6 @@ interface SearchHomeProps {
 
 const SearchHome = ({ className }: SearchHomeProps) => {
    const [options, setOptions] = useState<ProductList[]>([])
-   // const [inputFocused, setInputFocused] = useState(false)
    const [value, setValue] = useState('')
    const { store } = useStore()
 
@@ -33,26 +32,8 @@ const SearchHome = ({ className }: SearchHomeProps) => {
       }
    }
 
-   // const handleFocus = () => {
-   //    setInputFocused(true)
-
-   //    if (value == '') {
-   //       setOptions([])
-   //    }
-   // }
-
-   // const handleBlur = () => {
-   //    setInputFocused(false)
-   //    setValue('')
-   //    setOptions([])
-   // }
-
    return (
-      <div
-         // onFocus={handleFocus}
-         // onBlur={handleBlur}
-         className="inline-flex flex-col justify-center relative text-gray-500 w-full"
-      >
+      <div className="inline-flex flex-col justify-center relative text-gray-500 w-full">
          <div
             className={`flex items-center w-full p-2 justify-between bg-primary text-base-100 rounded-md ${className}`}
          >

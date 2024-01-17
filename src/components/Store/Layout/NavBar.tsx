@@ -1,33 +1,37 @@
+import { useCart } from '@hooks/useCart'
 import { IStore } from '@types'
+import { formatPrice } from '@utils'
 import Link from 'next/link'
 import { Button, Navbar } from 'react-daisyui'
 import { AiOutlineMenu } from 'react-icons/ai'
-import ButtonCart from '../cart/ButtonCart'
+import { HiOutlineShoppingBag } from 'react-icons/hi'
 
 interface NavBarProps {
    changeCartDrawer: () => void
    store: IStore
 }
 
+const navItens = [
+   {
+      name: 'Início',
+      link: '#',
+   },
+   {
+      name: 'Promoções',
+      link: '#',
+   },
+   {
+      name: 'Funcionamento',
+      link: '#',
+   },
+   {
+      name: 'Contato',
+      link: '#',
+   },
+]
+
 export const NavBar = ({ changeCartDrawer, store }: NavBarProps) => {
-   const navItens = [
-      {
-         name: 'Início',
-         link: '#',
-      },
-      {
-         name: 'Promoções',
-         link: '#',
-      },
-      {
-         name: 'Funcionamento',
-         link: '#',
-      },
-      {
-         name: 'Contato',
-         link: '#',
-      },
-   ]
+   const { cartSize, somaTotal } = useCart()
 
    return (
       <Navbar className="bg-primary w-full flex justify-center items-center fixed top-0 z-50 md:h-[100px] border-b-[1px] border-secondary/70">
@@ -81,7 +85,21 @@ export const NavBar = ({ changeCartDrawer, store }: NavBarProps) => {
                </ul>
             </div>
             <div className="hidden md:block">
-               <ButtonCart changeCartDrawer={changeCartDrawer} />
+               <button
+                  className="btn btn-my-cart gap-1"
+                  onClick={changeCartDrawer}
+               >
+                  <span>
+                     <HiOutlineShoppingBag
+                        size={30}
+                        className="icon-base-100"
+                     />
+                  </span>
+                  <span className="flex flex-col items-start gap-1">
+                     <p>{formatPrice(somaTotal)}</p>
+                     <p>{`${cartSize} ite${cartSize === 1 ? 'm' : 'ns'}`}</p>
+                  </span>
+               </button>
             </div>
          </div>
       </Navbar>

@@ -1,5 +1,4 @@
 import ModalOpen from '@components/Modal/ModalOpen'
-import ItemCart from '@components/Store/cart/itemCart'
 import InputCode from '@components/forms/InputCode'
 import InputComponent from '@components/forms/input'
 import { useCart } from '@hooks/useCart'
@@ -10,7 +9,9 @@ import { campoInvalido, formatPrice } from '@utils'
 import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react'
 import { Badge, Button, Divider, Form } from 'react-daisyui'
 import { useForm } from 'react-hook-form'
+import { GoTrash } from 'react-icons/go'
 import { GrFormClose } from 'react-icons/gr'
+import { PiPencilSimpleLight } from 'react-icons/pi'
 import Drawer from 'react-modern-drawer'
 import { toast } from 'react-toastify'
 import Swal from 'sweetalert2'
@@ -37,8 +38,9 @@ const RequiredConsumerFields = [{ nome: 'name' }, { nome: 'phone' }]
 const requiredOrderFields = [{ nome: 'delivery_method' }]
 
 const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
-   const { cart, somaTotal, ClearCart } = useCart()
+   const { cart, somaTotal, ClearCart, removeProduct } = useCart()
    const { store } = useStore()
+
    const MySwal = withReactContent(Swal)
    const {
       setError,
@@ -465,13 +467,25 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                         <div className="flex flex-col gap-4">
                            {cart &&
                               cart.map((item) => (
-                                 <ItemCart
-                                    key={item.id}
-                                    price={item.price}
-                                    id={item.id}
-                                    name={item.name}
-                                    description={item.description ?? ''}
-                                 />
+                                 <div className="flex flex-col gap-2">
+                                    <div className="flex justify-between items-center">
+                                       <h2>{item.name}</h2>
+                                       <span>{formatPrice(item.price)}</span>
+                                    </div>
+                                    <span>{item.description}</span>
+                                    <div className="flex gap-2">
+                                       <button className="flex gap-[2px] items-center">
+                                          <PiPencilSimpleLight /> Alterar
+                                       </button>
+                                       <button
+                                          onClick={() => removeProduct(item.id)}
+                                          className="cursor-pointer flex gap-[2px] items-center text-red-800 font-bold opacity-50"
+                                       >
+                                          <GoTrash /> Remover
+                                       </button>
+                                    </div>
+                                    <Divider />
+                                 </div>
                               ))}
                         </div>
 
