@@ -10,6 +10,7 @@ export interface ProductList {
 
 export interface IProductCart extends ProductList {
    product_id: number
+   observation?: string
 }
 
 export interface IOrder {

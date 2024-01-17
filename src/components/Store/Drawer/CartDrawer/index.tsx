@@ -214,81 +214,63 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                      }),
                   })
                      .then(({ data }) => {
-                        setTap(1)
-                        setOrder({} as IOrder)
-                        setConsumer({} as IConsumer)
-                        setConsumerAddress({} as IConsumerAddress)
-                        setModalCode(false)
-                        setCode(['', '', '', ''])
-                        ClearCart()
-                        setIsOpen(false)
+                        // setTap(1)
+                        // setOrder({} as IOrder)
+                        // setConsumer({} as IConsumer)
+                        // setConsumerAddress({} as IConsumerAddress)
+                        // setModalCode(false)
+                        // setCode(['', '', '', ''])
+                        // ClearCart()
+                        // setIsOpen(false)
 
                         MySwal.fire({
                            icon: 'success',
                            title: 'Tudo certo!',
                            text: 'Preparamos uma mensagem para confirmar o pedido, iremos te redirecionar para o WhatsApp para você encaminha-la.',
                            showConfirmButton: false,
-                           timer: 3000,
+                           timer: 1000,
                         }).then(() => {
-                           const orderDetails = `
-                        Meu pedido #${data.id}
-                        
-                        ${cart.map((item) => {
-                           return `1x ${item.name} - ${formatPrice(
-                              item.price
-                           )} ${
+                           //criar uma mensagem com os dados do pedido e enviar para o whatsapp formatado com os espaços e quebras de linha
+                           const orderDetails = `\nMeu pedido #${data.id}
+                           ${cart.map((item, index) => {
+                              return `\n1x ${item.name} - ${formatPrice(
+                                 item.price
+                              )} \n${item?.observation ?? ''}`
+                           })}
+                           \nQuantidade de produtos: ${cart.length}
+                           \nValor: ${formatPrice(somaTotal)}
+                           \n------------------------------
+                           \nNome: ${consumer.name}
+                           \nCelular: ${consumer.phone}
+                           \n------------------------------
+                           \nFormas de Pagamento: ${
+                              order.payment_method === 1
+                                 ? 'Dinheiro'
+                                 : order.payment_method === 2
+                                 ? 'Cartão de Crédito'
+                                 : order.payment_method === 3
+                                 ? 'Cartão de Débito'
+                                 : order.payment_method === 4
+                                 ? 'Pix'
+                                 : 'PicPay'
+                           }
+                           ${
                               order.delivery_method === 1
-                                 ? 'Retirada'
-                                 : 'Delivery'
-                           }.`
-                        })}
-                        
-                        Quantidade: ${cart.length}
-                        Valor: ${formatPrice(somaTotal)}
-
-                        ------------------------------
-                        
-                        Nome: ${consumer.name}
-
-                        ------------------------------
-
-                        Celular: ${consumer.phone}
-
-                        ------------------------------
-
-                        Formas de Pagamento: ${
-                           order.payment_method === 1
-                              ? 'Dinheiro'
-                              : order.payment_method === 2
-                              ? 'Cartão de Crédito'
-                              : order.payment_method === 3
-                              ? 'Cartão de Débito'
-                              : order.payment_method === 4
-                              ? 'Pix'
-                              : 'PicPay'
-                        }
-                        ${
-                           order.delivery_method === 1
-                              ? `Retirada no local: ${
-                                   store.address +
-                                   ', ' +
-                                   store.number_address +
-                                   ', ' +
-                                   store.street +
-                                   ', ' +
-                                   store.city.name +
-                                   ', ' +
-                                   store.zip
-                                }`
-                              : 'Delivery'
-                        }
-                        
-                        ------------------------------
-
-                        Subtotal: R$ ${formatPrice(somaTotal)}
-                        Valor Total: R$ ${formatPrice(somaTotal)}
-                        
-                        Obrigado!
+                                 ? `\nRetirada no local: ${
+                                      store.street +
+                                      ', ' +
+                                      store.number_address +
+                                      ', ' +
+                                      store.city.name +
+                                      ', ' +
+                                      store.zip
+                                   }`
+                                 : '\nDelivery'
+                           }
+                           \n------------------------------
+                           \nSubtotal: R$ ${formatPrice(somaTotal)}
+                           \nValor Total: R$ ${formatPrice(somaTotal)}
+                           \nObrigado!
                         `
 
                            // Hora prevista para ${
