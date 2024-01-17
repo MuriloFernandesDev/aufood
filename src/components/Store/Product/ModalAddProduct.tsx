@@ -1,25 +1,20 @@
 import { useCart } from '@hooks/useCart'
 import Lanche from '@images/LancheWpp.jpg'
-import { ProductList } from '@pages/[loja_nome]'
+import { ProductList } from '@types'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
 interface ModalProps {
    openModal: boolean
    setOpenModal: (value: boolean) => void
-   propsProduct: ProductList
+   product: ProductList
 }
 
-const ModalAddProduct = ({
-   openModal,
-   setOpenModal,
-   propsProduct,
-}: ModalProps) => {
-   const { name, price, id, image, description } = propsProduct
+const ModalAddProduct = ({ openModal, setOpenModal, product }: ModalProps) => {
+   const { name, price, description } = product
 
    const modalRef = useRef<HTMLDivElement>(null)
    const [qtdProduct, setQtdProduct] = useState(1)
-   // const [observation, setObservation] = useState('')
    const { addProduct } = useCart()
 
    const handleClickOutside = (event: MouseEvent) => {
@@ -28,7 +23,6 @@ const ModalAddProduct = ({
          !modalRef.current.contains(event.target as Node)
       ) {
          setOpenModal(false)
-         // setObservation('')
       }
    }
 
@@ -47,7 +41,7 @@ const ModalAddProduct = ({
    }
 
    const handleAddProduct = () => {
-      addProduct({ id, quantity: qtdProduct })
+      addProduct({ ...product, quantity: qtdProduct })
       setOpenModal(false)
    }
 

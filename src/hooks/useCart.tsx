@@ -1,5 +1,5 @@
 import { api } from '@api'
-import { IProduct } from '@types'
+import { IProductCart, ProductList } from '@types'
 import { getCookie, setCookies } from '@utils'
 import { useRouter } from 'next/router'
 import {
@@ -19,16 +19,14 @@ interface CartProviderProps {
    children: ReactNode
 }
 
-interface IAddProduct {
-   id: number
+interface IProductQuantity extends ProductList {
    quantity: number
 }
 
 interface CartContextData {
-   cart: IProduct[]
-   addProduct: ({ id, quantity }: IAddProduct) => Promise<void>
+   cart: IProductCart[]
+   addProduct: (props: IProductQuantity) => Promise<void>
    removeProduct: (id: number) => void
-   updateProductAmount: ({ id, quantity }: IAddProduct) => void
    somaTotal: number
    cartSize: number
    ClearCart: () => void
@@ -40,10 +38,10 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
    const [somaTotal, setSomaTotal] = useState(0)
    const [cartSize, setCartSize] = useState(0)
    const { store } = useStore()
-   const [cart, setCart] = useState<IProduct[]>([])
+   const [cart, setCart] = useState<IProductCart[]>([])
    const route = useRouter()
 
-   const prevCartRef = useRef<IProduct[]>()
+   const prevCartRef = useRef<IProductCart[]>()
    const cartPreviousValue = prevCartRef.current ?? cart
 
    useEffect(() => {
@@ -51,7 +49,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
          const storageCart = getCookie(
             `@Cart_${store?.name?.replace(/ /g, '_')}`
          )
-         const storage: IProduct[] | null = storageCart
+         const storage: IProductCart[] | null = storageCart
             ? JSON.parse(storageCart)
             : null
 
@@ -100,29 +98,23 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
    }, [cart, cartPreviousValue])
 
    // Função para adicionar um produto ao carrinho
-   const addProduct = async ({ id, quantity }: IAddProduct) => {
+   const addProduct = async (props: IProductQuantity) => {
+      const { id, quantity } = props
+
       try {
          //Criando um novo array para manipular o cart
          const updatedCart = [...cart]
 
-         const response = await api
-            .get('/product/info_product/' + id)
-            .then(({ data }) => {
-               return data
-            })
-
-         if (response === null) throw Error()
-
          //percorrer quantidade de produtos no carrinho e criar um objeto para cada produto
          for (let i = 0; i < quantity; i++) {
             updatedCart.push({
-               ...response,
+               ...props,
                id: Math.random(),
                product_id: id,
             })
          }
 
-         toast.success(`${response.name} adicionado ao carrinho`, {
+         toast.success(`${props.name} adicionado ao carrinho`, {
             autoClose: 1500,
          })
 
@@ -159,37 +151,6 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       }
    }
 
-   // Função para atualizar a quantidade de um produto no carrinho
-   const updateProductAmount = async ({ id, quantity }: IAddProduct) => {
-      try {
-         //Se a quantidade recebida for 0 ou menos finaliza direto
-         if (quantity <= 0) {
-            return
-         }
-
-         const updatedCart = [...cart]
-         const productExists = updatedCart.find(
-            (product) => product.product_id === id
-         )
-         if (productExists) {
-            updatedCart.push({
-               id: Math.random(),
-               product_id: id,
-               price: productExists.price,
-               image: productExists.image,
-               name: productExists.name,
-            })
-
-            setCart(updatedCart)
-            return
-         } else {
-            throw Error()
-         }
-      } catch {
-         toast.error('Erro na alteração de quantidade do produto')
-      }
-   }
-
    // Função para limpar o carrinho
    const ClearCart = () => {
       setCart([])
@@ -201,7 +162,6 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
             cart,
             addProduct,
             removeProduct,
-            updateProductAmount,
             somaTotal,
             cartSize,
             ClearCart,

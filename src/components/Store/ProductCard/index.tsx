@@ -1,4 +1,4 @@
-import { ProductList } from '@pages/[loja_nome]'
+import { ProductList } from '@types'
 import { useState } from 'react'
 import { Badge } from 'react-daisyui'
 import { FaHamburger } from 'react-icons/fa'
@@ -48,7 +48,7 @@ const ProductCard = (props: ProductList) => {
          </div>
          <ModalAddProduct
             openModal={openModal}
-            propsProduct={props}
+            product={props}
             setOpenModal={setOpenModal}
          />
       </>

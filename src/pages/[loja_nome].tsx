@@ -5,7 +5,7 @@ import Layout from '@components/Store/Layout'
 import ProductCard from '@components/Store/ProductCard'
 import SearchHome from '@components/Store/Search'
 import { useStore } from '@hooks/useStore'
-import { IProductCategory, IStore } from '@types'
+import { IStore, ProductList } from '@types'
 import { SaveColors } from '@utils'
 import { GetServerSidePropsContext } from 'next'
 import { useEffect, useState } from 'react'
@@ -24,22 +24,6 @@ interface IGetServerProps {
    }
    data: IStore | null
    ctx: GetServerSidePropsContext
-}
-
-export interface ProductList {
-   name: string
-   id: number
-   price: number
-   product_category?: IProductCategory
-   image: string
-   category: string
-   description: string
-}
-
-interface ProductOnCategory {
-   category_name: string
-   category_id: number
-   list_product: ProductList[]
 }
 
 const Home = (props: IGetServerProps) => {

@@ -1,4 +1,4 @@
-import { ProductList } from '@pages/[loja_nome]'
+import { ProductList } from '@types'
 import { useState } from 'react'
 import ModalAddProduct from '../Product/ModalAddProduct'
 
@@ -34,7 +34,7 @@ const SearchItem = ({ props }: SearchItemProps) => {
 
          <ModalAddProduct
             openModal={openModal}
-            propsProduct={props}
+            product={props}
             setOpenModal={setOpenModal}
          />
       </>

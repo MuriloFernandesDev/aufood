@@ -1,6 +1,6 @@
 import { api } from '@api'
 import { useStore } from '@hooks/useStore'
-import { ProductList } from '@pages/[loja_nome]'
+import { ProductList } from '@types'
 import { useState } from 'react'
 import { BiSearch } from 'react-icons/bi'
 import SearchItem from './SearchItem'

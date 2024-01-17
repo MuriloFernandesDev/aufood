@@ -1,10 +1,15 @@
-export interface IProduct {
-   id: number
-   product_id: number
+export interface ProductList {
    name: string
+   id: number
    price: number
+   product_category?: IProductCategory
    image: string
+   category?: string
    description?: string
+}
+
+export interface IProductCart extends ProductList {
+   product_id: number
 }
 
 export interface IOrder {
@@ -58,7 +63,7 @@ export interface IProductCategory {
    name: string
    icon: string
    image: string
-   products: IProduct[]
+   products: IProductCart[]
 }
 
 export interface EventTarget {
