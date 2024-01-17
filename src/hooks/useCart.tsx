@@ -24,15 +24,6 @@ interface IAddProduct {
    quantity: number
 }
 
-// export interface IAddProduct {
-//    id: number
-//    price: number
-//    image: string
-//    name: string
-//    quantity: number
-//    observation?: string
-// }
-
 interface CartContextData {
    cart: IProduct[]
    addProduct: ({ id, quantity }: IAddProduct) => Promise<void>

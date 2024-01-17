@@ -8,7 +8,7 @@ interface SearchItemProps {
 
 const SearchItem = ({ props }: SearchItemProps) => {
    const [openModal, setOpenModal] = useState(false)
-   const { category, id, image, name, price } = props
+   const { image, name } = props
 
    return (
       <>
@@ -34,13 +34,7 @@ const SearchItem = ({ props }: SearchItemProps) => {
 
          <ModalAddProduct
             openModal={openModal}
-            propsProduct={{
-               category,
-               id,
-               image,
-               name,
-               price,
-            }}
+            propsProduct={props}
             setOpenModal={setOpenModal}
          />
       </>
