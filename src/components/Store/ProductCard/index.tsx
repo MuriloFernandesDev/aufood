@@ -2,12 +2,14 @@ import { ProductList } from '@pages/[loja_nome]'
 import { useState } from 'react'
 import { Badge } from 'react-daisyui'
 import { FaHamburger } from 'react-icons/fa'
-import { FiAlertCircle, FiClock } from 'react-icons/fi'
+import { FiAlertCircle } from 'react-icons/fi'
 import { toast } from 'react-toastify'
 import ModalAddProduct from '../Product/ModalAddProduct'
 
-const ProductCard = ({ name, price, id, image, category }: ProductList) => {
+const ProductCard = (props: ProductList) => {
    const [openModal, setOpenModal] = useState(false)
+
+   const { name, price, image, category } = props
 
    return (
       <>
@@ -46,13 +48,7 @@ const ProductCard = ({ name, price, id, image, category }: ProductList) => {
          </div>
          <ModalAddProduct
             openModal={openModal}
-            propsProduct={{
-               category,
-               id,
-               image,
-               name,
-               price,
-            }}
+            propsProduct={props}
             setOpenModal={setOpenModal}
          />
       </>

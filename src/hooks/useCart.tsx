@@ -19,22 +19,25 @@ interface CartProviderProps {
    children: ReactNode
 }
 
-interface UpdateProductAmount {
+interface IAddProduct {
    id: number
    quantity: number
 }
 
+// export interface IAddProduct {
+//    id: number
+//    price: number
+//    image: string
+//    name: string
+//    quantity: number
+//    observation?: string
+// }
+
 interface CartContextData {
    cart: IProduct[]
-   addProduct: (
-      id: number,
-      price: number,
-      image: string,
-      title: string,
-      quantity: number
-   ) => Promise<void>
+   addProduct: ({ id, quantity }: IAddProduct) => Promise<void>
    removeProduct: (id: number) => void
-   updateProductAmount: ({ id, quantity }: UpdateProductAmount) => void
+   updateProductAmount: ({ id, quantity }: IAddProduct) => void
    somaTotal: number
    cartSize: number
    ClearCart: () => void
@@ -64,28 +67,21 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
          if (storage) {
             api.get(`/product/list_product_cart/${store.id}`, {
                params: {
-                  list_id: storage.map((product) => product.id),
+                  list_id: JSON.stringify(
+                     storage.map((product) => product.product_id).flat()
+                  ),
                },
-            })
-               .then((res) => {
-                  const products = res.data
-                  const updatedCart = storage.map((product) => {
-                     const productFind = products.find(
-                        (p: IProduct) => p.id === product.id
-                     )
-                     if (productFind) {
-                        return {
-                           ...productFind,
-                           quantity: product.quantity,
-                        }
-                     } else {
-                        return product
+            }).then((res) => {
+               setCart(
+                  res.data.map((w: any) => {
+                     return {
+                        ...w,
+                        id: Math.random(),
+                        product_id: w.id,
                      }
                   })
-
-                  setCart(updatedCart)
-               })
-               .catch(() => {})
+               )
+            })
          }
       }
    }, [store, route.asPath])
@@ -93,7 +89,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
    useEffect(() => {
       setCartSize(cart.length)
       const total = cart.reduce((sumTotal, product) => {
-         return sumTotal + product.price * product.quantity
+         return sumTotal + product.price
       }, 0)
 
       setSomaTotal(total)
@@ -113,46 +109,33 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
    }, [cart, cartPreviousValue])
 
    // Função para adicionar um produto ao carrinho
-   const addProduct = async (
-      id: number,
-      price: number,
-      image: string,
-      name: string,
-      quantity: number
-   ) => {
+   const addProduct = async ({ id, quantity }: IAddProduct) => {
       try {
          //Criando um novo array para manipular o cart
          const updatedCart = [...cart]
 
-         // Verificando se ja existe o produto no carrinho
-         const productExists = updatedCart.find((product) => product.id === id)
-
-         //verificando se o produto existe no carrinho
-         if (productExists) {
-            //se existe atualiza a quantidade
-            productExists.quantity = (productExists.quantity ?? 0) + quantity
-
-            toast.success(`Mais ${quantity} ${name} adicionado ao carrinho`, {
-               autoClose: 2000,
+         const response = await api
+            .get('/product/info_product/' + id)
+            .then(({ data }) => {
+               return data
             })
-         } else {
-            //se nao, adiciona ao carrinho
-            const newProduct = {
-               id,
-               price,
-               image,
-               name,
-               quantity,
-            }
-            updatedCart.push(newProduct)
 
-            toast.success(`${name} adicionado ao carrinho`, {
-               autoClose: 2000,
+         if (response === null) throw Error()
+
+         //percorrer quantidade de produtos no carrinho e criar um objeto para cada produto
+         for (let i = 0; i < quantity; i++) {
+            updatedCart.push({
+               ...response,
+               id: Math.random(),
+               product_id: id,
             })
          }
 
-         //Atualizando o Carrinho
+         toast.success(`${response.name} adicionado ao carrinho`, {
+            autoClose: 1500,
+         })
 
+         //Atualizando o Carrinho
          setCart(updatedCart)
       } catch {
          //Caso dê algum erro exibir uma notificação
@@ -186,10 +169,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
    }
 
    // Função para atualizar a quantidade de um produto no carrinho
-   const updateProductAmount = async ({
-      id,
-      quantity,
-   }: UpdateProductAmount) => {
+   const updateProductAmount = async ({ id, quantity }: IAddProduct) => {
       try {
          //Se a quantidade recebida for 0 ou menos finaliza direto
          if (quantity <= 0) {
@@ -197,9 +177,18 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
          }
 
          const updatedCart = [...cart]
-         const productExists = updatedCart.find((product) => product.id === id)
+         const productExists = updatedCart.find(
+            (product) => product.product_id === id
+         )
          if (productExists) {
-            productExists.quantity = quantity
+            updatedCart.push({
+               id: Math.random(),
+               product_id: id,
+               price: productExists.price,
+               image: productExists.image,
+               name: productExists.name,
+            })
+
             setCart(updatedCart)
             return
          } else {

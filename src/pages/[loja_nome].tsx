@@ -11,7 +11,6 @@ import { GetServerSidePropsContext } from 'next'
 import { useEffect, useState } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { FaHamburger } from 'react-icons/fa'
-import { toast } from 'react-toastify'
 import { config } from '../configs'
 
 /*
@@ -34,6 +33,7 @@ export interface ProductList {
    product_category?: IProductCategory
    image: string
    category: string
+   description: string
 }
 
 interface ProductOnCategory {
@@ -50,9 +50,6 @@ const Home = (props: IGetServerProps) => {
    const [isOpen, setIsOpen] = useState(false)
    const [scroll, setScroll] = useState(0)
    const [allProducts, setAllProducts] = useState<ProductList[]>([])
-   const [allProductsCategory, setAllProductsCategory] = useState<
-      ProductOnCategory[]
-   >([])
 
    const { getDataStore } = useStore()
 
@@ -76,25 +73,9 @@ const Home = (props: IGetServerProps) => {
 
       getDataStore(data!)
 
-      api.get(`/product/list_all/${data.id}`)
-         .then((res) => {
-            setAllProducts(res.data)
-         })
-         .catch((err) => {
-            if (err.response.status === 404) {
-               toast.warn('Nenhum produto encontrado')
-            }
-         })
-
-      api.get(`/product/list_all_on_category/${data.id}`)
-         .then((res) => {
-            setAllProductsCategory(res.data)
-         })
-         .catch((err) => {
-            // if (err.response.status === 404) {
-            //    toast.warn('Nenhum produto encontrado')
-            // }
-         })
+      api.get(`/product/list_all/${data.id}`).then((res) => {
+         setAllProducts(res.data)
+      })
    }, [])
 
    return (
@@ -158,52 +139,11 @@ const Home = (props: IGetServerProps) => {
 
                   <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-3 mt-3">
                      {allProducts.map((product, index) => {
-                        return (
-                           <ProductCard
-                              key={index}
-                              id={product.id}
-                              category={product.product_category!.name}
-                              name={product.name}
-                              price={product.price}
-                              image={product.image}
-                           />
-                        )
+                        return <ProductCard key={index} {...product} />
                      })}
                   </div>
                </section>
             )}
-
-            {allProductsCategory.length > 0 &&
-               allProductsCategory.map((category, index) => {
-                  return (
-                     <section
-                        key={index}
-                        id={`${category.category_name}`}
-                        className="mt-10"
-                     >
-                        <span className="flex items-center text-primary">
-                           <FaHamburger size={20} className="mr-1" />
-                           <h3 className="text-2xl font-semibold">
-                              {category.category_name}
-                           </h3>
-                        </span>
-
-                        <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-3 mt-3">
-                           {category.list_product.map((product) => {
-                              return (
-                                 <ProductCard
-                                    id={product.id}
-                                    category={category.category_name}
-                                    name={product.name}
-                                    price={product.price}
-                                    image={product.image}
-                                 />
-                              )
-                           })}
-                        </div>
-                     </section>
-                  )
-               })}
 
             <InfoDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
          </div>

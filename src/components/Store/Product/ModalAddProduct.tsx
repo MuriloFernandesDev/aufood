@@ -15,10 +15,11 @@ const ModalAddProduct = ({
    setOpenModal,
    propsProduct,
 }: ModalProps) => {
-   const { name, price, id, image } = propsProduct
+   const { name, price, id, image, description } = propsProduct
 
    const modalRef = useRef<HTMLDivElement>(null)
    const [qtdProduct, setQtdProduct] = useState(1)
+   // const [observation, setObservation] = useState('')
    const { addProduct } = useCart()
 
    const handleClickOutside = (event: MouseEvent) => {
@@ -27,6 +28,7 @@ const ModalAddProduct = ({
          !modalRef.current.contains(event.target as Node)
       ) {
          setOpenModal(false)
+         // setObservation('')
       }
    }
 
@@ -45,7 +47,7 @@ const ModalAddProduct = ({
    }
 
    const handleAddProduct = () => {
-      addProduct(id, 100, image, name, qtdProduct)
+      addProduct({ id, quantity: qtdProduct })
       setOpenModal(false)
    }
 
@@ -64,7 +66,7 @@ const ModalAddProduct = ({
          }`}
       >
          <div
-            className="modal-box bg-base-100 pt-2 pr-0 min-h-[50%]"
+            className="modal-box bg-base-100 p-4 min-h-[50%] flex flex-col justify-between"
             ref={modalRef}
          >
             <button
@@ -74,20 +76,16 @@ const ModalAddProduct = ({
                ✕
             </button>
             <h3 className="font-bold text-lg text-center">{name}</h3>
-            <div className="flex justify-between items-center mt-4 gap-4">
+            <div className="flex items-center my-4 gap-4">
                <div className="relative w-[50%]">
                   <Image src={Lanche} layout="responsive" />
                </div>
                <div className="flex flex-col items-start gap-5 overflow-y-auto max-h-[300px]">
-                  <h2>
-                     1 frango crocante, salada fresca (alface) e maionese Bk.
-                     Acompanha batata frita e bebida.
-                  </h2>
-                  <h3>Serve 1 pessoa</h3>
+                  <h2>{description}</h2>
                   <span>R$ {price}</span>
                </div>
             </div>
-            <div className="absolute bottom-0 left-0 p-6 w-full flex justify-between items-center">
+            <div className="flex justify-between items-center mt-4">
                <div className="btn-group btn-group-horizontal">
                   <button
                      className={`btn ${

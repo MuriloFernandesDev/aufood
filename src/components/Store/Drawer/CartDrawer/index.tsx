@@ -11,8 +11,6 @@ import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react'
 import { Badge, Button, Divider, Form } from 'react-daisyui'
 import { useForm } from 'react-hook-form'
 import { GrFormClose } from 'react-icons/gr'
-import { IoTicketOutline } from 'react-icons/io5'
-import { MdKeyboardArrowRight } from 'react-icons/md'
 import Drawer from 'react-modern-drawer'
 import { toast } from 'react-toastify'
 import Swal from 'sweetalert2'
@@ -71,7 +69,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
       setIsOpen((prevState) => !prevState)
 
       await new Promise((resolve) => setTimeout(resolve, 1000))
-      setTap(0)
+      setTap(1)
    }
 
    const handleChangeTap = (value: number, back?: boolean) => {
@@ -207,7 +205,11 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                      consumer,
                      consumerAddress,
                      storeId: store.id,
-                     products: cart,
+                     products: cart.map((w) => {
+                        return {
+                           id: w.product_id,
+                        }
+                     }),
                   })
                      .then(({ data }) => {
                         setTap(1)
@@ -230,9 +232,9 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                         Meu pedido #${data.id}
                         
                         ${cart.map((item) => {
-                           return `${item.quantity}x ${
-                              item.name
-                           } - ${formatPrice(item.price)} ${
+                           return `1x ${item.name} - ${formatPrice(
+                              item.price
+                           )} ${
                               order.delivery_method === 1
                                  ? 'Retirada'
                                  : 'Delivery'
@@ -468,12 +470,12 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                                     price={item.price}
                                     id={item.id}
                                     name={item.name}
-                                    description="2x Duplo Burger com Queijo,2x McFritas Media,2x Coca-Cola Original 400ml,2x Não quero levar"
+                                    description={item.description ?? ''}
                                  />
                               ))}
                         </div>
 
-                        <div className="flex justify-between items-center cursor-pointer">
+                        {/* <div className="flex justify-between items-center cursor-pointer">
                            <div className="flex items-center gap-2">
                               <IoTicketOutline size={40} />
                               <div className="flex flex-col">
@@ -482,17 +484,17 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                               </div>
                            </div>
                            <MdKeyboardArrowRight size={30} />
-                        </div>
-                        <Divider />
+                        </div> 
+                        <Divider />*/}
 
                         <div className="flex flex-col gap-3">
                            <div className="flex items-center justify-between">
                               <span>Subtotal</span>
-                              <span>R$ 50,00</span>
+                              <span>{formatPrice(somaTotal)}</span>
                            </div>
                            <div className="flex items-center justify-between">
                               <span>Taxa de entrega</span>
-                              <span>R$ 5,00</span>
+                              <span>{formatPrice(0)}</span>
                            </div>
                         </div>
                      </div>
