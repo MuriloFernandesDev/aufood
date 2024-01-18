@@ -6,7 +6,7 @@ interface StoreProviderProps {
 }
 
 interface StoreContextData {
-   getDataStore: (store: IStore) => Promise<void>
+   getDataStore: (store: IStore) => void
    store: IStore
 }
 
@@ -15,7 +15,7 @@ const StoreContext = createContext<StoreContextData>({} as StoreContextData)
 export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
    const [store, setStore] = useState<IStore>({} as IStore)
 
-   const getDataStore = async (store: IStore) => {
+   const getDataStore = (store: IStore) => {
       setStore(store)
    }
 
