@@ -1,11 +1,9 @@
-import { useCart } from '@hooks/useCart'
 import { useStore } from '@hooks/useStore'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { BiShoppingBag } from 'react-icons/bi'
 import Footer from './Footer'
 import { NavBar } from './NavBar'
-// import CartDrawer from '../Drawer/CartDrawer'
 const CartDrawer = dynamic(() => import('../Drawer/CartDrawer'), {
    ssr: false,
 })
@@ -18,7 +16,6 @@ const LayoutStore = ({ children }: LayoutProps) => {
    const [isOpen, setIsOpen] = useState(false)
 
    const { store } = useStore()
-   const { somaTotal } = useCart()
 
    const handleCartDrawer = () => {
       setIsOpen((prevState) => !prevState)

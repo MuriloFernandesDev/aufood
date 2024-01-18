@@ -15,24 +15,19 @@ import 'swiper/css/scrollbar'
 import '../styles/styles.scss'
 
 //** Imports Contexts
-import { AuthProvider } from '@hooks/AuthContext'
 import { CartProvider } from '@hooks/useCart'
 import { StoreProvider } from '@hooks/useStore'
 
-//** Imports Components
-
 function MyApp({ Component, pageProps }: AppProps) {
    return (
-      <AuthProvider>
-         <Theme dataTheme="light" className="bg-base-100">
-            <StoreProvider>
-               <CartProvider>
-                  <ToastContainer />
-                  <Component {...pageProps} />
-               </CartProvider>
-            </StoreProvider>
-         </Theme>
-      </AuthProvider>
+      <Theme dataTheme="light" className="bg-base-100">
+         <StoreProvider>
+            <CartProvider>
+               <ToastContainer />
+               <Component {...pageProps} />
+            </CartProvider>
+         </StoreProvider>
+      </Theme>
    )
 }
 

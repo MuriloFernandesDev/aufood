@@ -446,13 +446,14 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                                        <span>{formatPrice(item.price)}</span>
                                     </div>
                                     <span>{item.description}</span>
-                                    <div className="flex gap-2">
-                                       <button className="flex gap-[2px] items-center">
+                                    <div className="flex gap-2 justify-end">
+                                       <button className="btn btn-info btn-outline btn-sm">
                                           <PiPencilSimpleLight /> Alterar
                                        </button>
+
                                        <button
                                           onClick={() => removeProduct(item.id)}
-                                          className="cursor-pointer flex gap-[2px] items-center text-red-800 font-bold opacity-50"
+                                          className="btn btn-error btn-outline btn-sm"
                                        >
                                           <GoTrash /> Remover
                                        </button>
@@ -625,7 +626,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                      {tap !== 1 && (
                         <button
                            onClick={() => handleChangeTap(tap, true)}
-                           className="btn btn-ghost bg-slate-400 text-white w-full"
+                           className="btn btn-none hover:bg-primary houver:text-base-100 btn-outline w-full mt-2"
                         >
                            Voltar
                         </button>
@@ -633,7 +634,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                   </div>
                   <button
                      onClick={() => handleChangeTap(tap)}
-                     className="w-full bg-primary text-base-100 p-3 text-xl font-bold uppercase"
+                     className="w-full bg-cart text-base-100 p-3 text-xl font-bold uppercase"
                   >
                      {tap === 4 ? 'Finalizar Pedido' : 'Avançar'}
                   </button>
