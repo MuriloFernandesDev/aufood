@@ -11,16 +11,14 @@ import { Badge, Button, Divider, Form } from 'react-daisyui'
 import { useForm } from 'react-hook-form'
 import { GoTrash } from 'react-icons/go'
 import { GrFormClose } from 'react-icons/gr'
+import { MdHouse } from 'react-icons/md'
 import { PiPencilSimpleLight } from 'react-icons/pi'
 import Drawer from 'react-modern-drawer'
 import { toast } from 'react-toastify'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import ChooseAddress from './components/ChooseAddress'
 import DeliveryMethod from './components/DeliveryMethod'
 import PaymentComponent from './components/payment'
-import PaymentGroupComponent from './components/paymentGroup'
-import TitleCartDrawer from './components/titleCartDrawer'
 
 interface CartDrawerProps {
    isOpen: boolean
@@ -268,7 +266,6 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                                  : '\nDelivery'
                            }
                            \n------------------------------
-                           \nSubtotal: R$ ${formatPrice(somaTotal)}
                            \nValor Total: R$ ${formatPrice(somaTotal)}
                            \nObrigado!
                         `
@@ -330,13 +327,6 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
       setModalCode(false)
       setCode(['', '', '', ''])
    }
-
-   let title =
-      tap === 0
-         ? 'Acompanhar meu pedido'
-         : tap === 1
-         ? 'Informaçoes de envio'
-         : 'Informacoes de pagamento'
 
    const handlePersonalInfo = (e: EventTarget) => {
       const { name, value } = e.target
@@ -428,21 +418,22 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
             direction={isMobile ? 'bottom' : 'right'}
             className={`${
                isMobile ? 'rounded-t-3xl' : ''
-            } bg-base-100 p-3 px-4 max-h-auto pt-10 flex flex-col justify-between`}
+            } shadow-primary/30 shadow-xl bg-base-100 max-h-auto pt-10 flex flex-col justify-between`}
             size={isMobile ? '100vh' : '40vw'}
          >
             <>
-               <div className="pb-4">
+               <div className="mb-4 px-4">
                   <GrFormClose
                      size={30}
                      className="cursor-pointer absolute top-1 left-3"
                      onClick={toggleDrawer}
                   />
-                  <TitleCartDrawer
-                     title={title}
-                     localName="Mcdonald's - Araçatuba Drive (vsa)"
-                  />
-                  <Divider className="p-0 m-1" />
+
+                  <h3 className="text-xl font-semibold">
+                     Informações do pedido
+                  </h3>
+
+                  <Divider className="my-2" />
 
                   {tap === 1 ? (
                      <div className="max-h-[65vh] overflow-y-auto">
@@ -470,29 +461,6 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                                  </div>
                               ))}
                         </div>
-
-                        {/* <div className="flex justify-between items-center cursor-pointer">
-                           <div className="flex items-center gap-2">
-                              <IoTicketOutline size={40} />
-                              <div className="flex flex-col">
-                                 <span>Cupom</span>
-                                 <span>Código do cupom</span>
-                              </div>
-                           </div>
-                           <MdKeyboardArrowRight size={30} />
-                        </div> 
-                        <Divider />*/}
-
-                        <div className="flex flex-col gap-3">
-                           <div className="flex items-center justify-between">
-                              <span>Subtotal</span>
-                              <span>{formatPrice(somaTotal)}</span>
-                           </div>
-                           <div className="flex items-center justify-between">
-                              <span>Taxa de entrega</span>
-                              <span>{formatPrice(0)}</span>
-                           </div>
-                        </div>
                      </div>
                   ) : tap === 2 ? (
                      <InputComponent
@@ -510,12 +478,43 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                            handleCart={handleCart}
                            personalInfo={order}
                         />
-                        <ChooseAddress
-                           address={consumer.consumer_address!}
-                           setConsumerAddress={setConsumerAddress}
-                           setTap={setTap}
-                           consumerAddress={consumerAddress}
-                        />
+
+                        <div>
+                           <h3>
+                              Escolha um endereço pré-salvo ou crie um novo
+                           </h3>
+
+                           <div className="flex flex-col gap-2 mt-3">
+                              {consumer.consumer_address!.map((ad) => {
+                                 return (
+                                    <div
+                                       onClick={() => setConsumerAddress(ad)}
+                                       className={`${
+                                          consumerAddress.id == ad.id
+                                             ? 'bg-primary/50 text-primary-content'
+                                             : ''
+                                       } border-primary/10 border-[1px] shadow-primary/10 hover:shadow-md p-2 flex items-center gap-3 cursor-pointer rounded-lg`}
+                                    >
+                                       <MdHouse size={25} />
+                                       <div>
+                                          <h1>{ad.zipCode}</h1>
+                                          <h1>
+                                             {ad.street}, {ad.number}
+                                          </h1>
+                                       </div>
+                                    </div>
+                                 )
+                              })}
+                           </div>
+
+                           <Button
+                              className="mt-4 btn-primary"
+                              color="primary"
+                              onClick={() => setTap(3)}
+                           >
+                              <span>Novo endereço</span>
+                           </Button>
+                        </div>
                      </div>
                   ) : tap === 3 ? (
                      <div className="max-h-[55vh] overflow-y-auto flex flex-col gap-4 p-2">
@@ -585,59 +584,58 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                               </Badge>
                            </a>
                         </div>
-                        <div className="flex flex-col gap-8 mt-5">
-                           <PaymentGroupComponent title="Dinheiro">
-                              <PaymentComponent
-                                 method={3}
-                                 setOrder={setOrder}
-                                 payment_method={order.payment_method}
-                              />
-                           </PaymentGroupComponent>
-                           <PaymentGroupComponent title="Cartao">
-                              <PaymentComponent
-                                 method={2}
-                                 setOrder={setOrder}
-                                 payment_method={order.payment_method}
-                              />
-                              <PaymentComponent
-                                 method={1}
-                                 setOrder={setOrder}
-                                 payment_method={order.payment_method}
-                              />
-                              <PaymentComponent
-                                 method={4}
-                                 setOrder={setOrder}
-                                 payment_method={order.payment_method}
-                              />
-                              <PaymentComponent
-                                 method={5}
-                                 setOrder={setOrder}
-                                 payment_method={order.payment_method}
-                              />
-                           </PaymentGroupComponent>
+                        <div className="flex flex-col gap-2 mt-5">
+                           <PaymentComponent
+                              method={1}
+                              setOrder={setOrder}
+                              payment_method={order.payment_method}
+                           />
+
+                           <PaymentComponent
+                              method={2}
+                              setOrder={setOrder}
+                              payment_method={order.payment_method}
+                           />
+                           <PaymentComponent
+                              method={3}
+                              setOrder={setOrder}
+                              payment_method={order.payment_method}
+                           />
+                           <PaymentComponent
+                              method={4}
+                              setOrder={setOrder}
+                              payment_method={order.payment_method}
+                           />
+                           <PaymentComponent
+                              method={5}
+                              setOrder={setOrder}
+                              payment_method={order.payment_method}
+                           />
                         </div>
                      </div>
                   )}
                </div>
 
-               <div className="flex flex-col gap-2 w-full bottom-0 mb-3 bg-base-100">
-                  <div className="flex justify-between items-center">
-                     <span>Total</span>
-                     <span>{formatPrice(somaTotal)}</span>
+               <div className="flex flex-col gap-2 w-full bottom-0 bg-base-100">
+                  <div className="mx-2">
+                     <div className="flex justify-between items-center text-2xl font-bold px-2">
+                        <h3>Total</h3>
+                        <span>{formatPrice(somaTotal)}</span>
+                     </div>
+                     {tap !== 1 && (
+                        <button
+                           onClick={() => handleChangeTap(tap, true)}
+                           className="btn btn-ghost bg-slate-400 text-white w-full"
+                        >
+                           Voltar
+                        </button>
+                     )}
                   </div>
-                  {tap !== 1 && (
-                     <button
-                        onClick={() => handleChangeTap(tap, true)}
-                        className="btn btn-ghost bg-slate-400 text-white w-full"
-                     >
-                        Voltar
-                     </button>
-                  )}
                   <button
                      onClick={() => handleChangeTap(tap)}
-                     className="btn btn-primary w-full"
+                     className="w-full bg-primary text-base-100 p-3 text-xl font-bold uppercase"
                   >
-                     Próximo
+                     {tap === 4 ? 'Finalizar Pedido' : 'Avançar'}
                   </button>
                </div>
             </>

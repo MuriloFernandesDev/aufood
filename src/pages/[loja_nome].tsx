@@ -65,7 +65,7 @@ const Home = (props: IGetServerProps) => {
    return (
       <Layout>
          <header
-            className={`px-[1.1rem] max-w-container mt-[70px] md:mt-[140px] mx-auto transition-all duration-300 md:opacity-100 ${
+            className={`px-[1.1rem] max-w-container pt-[70px] md:pt-[140px] mx-auto transition-all duration-300 md:opacity-100 ${
                scroll >= 270 ? 'opacity-0' : 'opacity-100'
             }`}
          >
