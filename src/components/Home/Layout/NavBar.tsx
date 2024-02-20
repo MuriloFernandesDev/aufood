@@ -1,10 +1,10 @@
 import { infoApp } from 'configs'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { Navbar } from 'react-daisyui'
 import { AiOutlineMenu } from 'react-icons/ai'
-import { IoIosArrowDown } from 'react-icons/io'
-import { IoLocationOutline } from 'react-icons/io5'
+import Logo from '../../../assets/images/logo.png'
 
 const navItens = [
    {
@@ -52,16 +52,17 @@ export const NavBar = () => {
 
    return (
       <>
-         <Navbar className="text-base-100-home w-full bg-primary-home flex justify-center items-center fixed top-0 z-50 md:h-[100px] border-b-[1px] border-secondary/70">
-            <div className="flex justify-between items-center w-full max-w-container px-4 py-2 bg-primary-home mx-auto">
+         <Navbar className="text-base-100-home w-full bg-primary-home flex justify-center items-center fixed top-0 z-50 border-b-[1px] border-secondary/70">
+            <div className="flex justify-between items-center w-full max-w-container px-4 py-1 bg-primary-home mx-auto">
                <div className="flex gap-10 items-center">
                   <Link href="/">
-                     <img
-                        src={infoApp.logo}
-                        alt={infoApp.name}
-                        width={80}
-                        height={30}
-                     />
+                     <div className="w-24">
+                        <Image
+                           src={Logo}
+                           alt={infoApp.name}
+                           layout="responsive"
+                        />
+                     </div>
                   </Link>
                   <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
                      <ul className="flex gap-5 font-medium p-3">
@@ -100,7 +101,7 @@ export const NavBar = () => {
                      ))}
                   </ul>
                </div>
-               <div
+               {/* <div
                   onClick={handleModal}
                   className="hidden md:block cursor-pointer p-2"
                >
@@ -108,7 +109,7 @@ export const NavBar = () => {
                      <IoLocationOutline /> <h3>Rua Gilberto Trivelato, 502</h3>{' '}
                      <IoIosArrowDown />
                   </div>
-               </div>
+               </div> */}
             </div>
          </Navbar>{' '}
          <div

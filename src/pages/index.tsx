@@ -1,8 +1,6 @@
 import { api } from '@api'
 import LayoutHome from '@components/Home/Layout'
 import StoreCart from '@components/Home/StoreCard'
-import PromotionComponent from '@components/Home/Swiper/Promotion'
-import CategoriesComponent from '@components/Store/Categories'
 import { IStore } from '@types'
 import { useEffect, useState } from 'react'
 import { FaTruckLoading } from 'react-icons/fa'
@@ -24,18 +22,18 @@ const Home = () => {
    return (
       <LayoutHome>
          <div className="px-[1.1rem] max-w-container pt-[70px] md:pt-[130px] mx-auto bg-base-100-home">
-            <section className="bg-base-100-home">
+            {/* <section className="bg-base-100-home">
                <div className="divider divide-primary-home mb-6">
                   <h4 className="text-lg font-bold uppercase">
                      Lojas por categoria
                   </h4>
                </div>
                <CategoriesComponent bgColor="bg-primary-home" />
-            </section>
+            </section> */}
 
-            <section className="mt-14">
+            {/* <section className="mt-14">
                <PromotionComponent />
-            </section>
+            </section> */}
 
             {listAllStores === null ? (
                <FaTruckLoading />

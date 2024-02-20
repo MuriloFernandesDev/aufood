@@ -12,7 +12,6 @@ import { useForm } from 'react-hook-form'
 import { GoTrash } from 'react-icons/go'
 import { GrFormClose } from 'react-icons/gr'
 import { MdHouse } from 'react-icons/md'
-import { PiPencilSimpleLight } from 'react-icons/pi'
 import Drawer from 'react-modern-drawer'
 import { toast } from 'react-toastify'
 import Swal from 'sweetalert2'
@@ -447,9 +446,9 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                                     </div>
                                     <span>{item.description}</span>
                                     <div className="flex gap-2 justify-end">
-                                       <button className="btn btn-info btn-outline btn-sm">
+                                       {/* <button className="btn btn-info btn-outline btn-sm">
                                           <PiPencilSimpleLight /> Alterar
-                                       </button>
+                                       </button> */}
 
                                        <button
                                           onClick={() => removeProduct(item.id)}

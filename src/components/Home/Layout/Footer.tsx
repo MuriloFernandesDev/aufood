@@ -1,4 +1,6 @@
 import { infoApp } from 'configs'
+import Image from 'next/image'
+import Logo from '../../../assets/images/logo.png'
 
 const Footer = () => {
    return (
@@ -59,7 +61,9 @@ const Footer = () => {
          </footer>
          <footer className="footer footer-center border-t-[1px] border-base-100 pt-4 px-4 max-w-container mx-auto grid grid-cols-1 col-span-1 md:grid-cols-6">
             <div className="flex flex-col md:flex-row gap-4 md:gap-2 items-center md:col-span-4">
-               <img src={infoApp.logo} alt="logo" className="w-20" />
+               <div className="w-24">
+                  <Image src={Logo} alt={infoApp.name} layout="responsive" />
+               </div>
                <div className="flex flex-col text-start items-start gap-2">
                   <span className="text-sm text-base-300">
                      © Copyright 2021 - {infoApp.name} - Todos os direitos
@@ -73,12 +77,6 @@ const Footer = () => {
                      {infoApp.address.zip_code}
                   </span>
                </div>
-            </div>
-            <div className="grid grid-flow-col gap-4 col-span-1 md:col-span-2">
-               <a className="link link-hover">About us</a>
-               <a className="link link-hover">Contact</a>
-               <a className="link link-hover">Jobs</a>
-               <a className="link link-hover">Press kit</a>
             </div>
          </footer>
       </footer>
