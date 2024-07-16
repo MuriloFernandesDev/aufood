@@ -3,7 +3,7 @@ import https from 'https'
 
 export const link = process.env.NEXT_PUBLIC_API_URL
 
-export function ApiService(ctx?: any) {
+export function ApiService() {
    // const { '@Irriga_plis:Token': token } = parseCookies(ctx)
 
    const api = axios.create({

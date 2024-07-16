@@ -10,6 +10,24 @@
    scroll-behavior: smooth;
 }
 
+.bg-base-100-home {
+   background-color: #fff;
+}
+
+.btn-default {
+   @apply btn btn-error bg-[#d82324] text-white font-bold text-lg rounded-3xl;
+}
+
+.default-text {
+   @apply text-gray-700;
+}
+
+.img-inicio {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
 .swiper {
    width: 100%;
    height: 100%;

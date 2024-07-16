@@ -19,7 +19,7 @@ export const NavBar = ({ changeCartDrawer, store }: NavBarProps) => {
 
             <div className="hidden md:block">
                <button
-                  className="btn bg-cart hover:bg-cart hover:opacity-80 rounded-full border-none gap-1 font-bold"
+                  className="btn bg-base-100 text-primary hover:bg-cart hover:opacity-80 rounded-full border-none gap-1 font-bold"
                   onClick={changeCartDrawer}
                >
                   <HiOutlineShoppingBag size={30} className="icon-base-100" />

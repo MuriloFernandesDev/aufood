@@ -12,13 +12,17 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
-import '../styles/styles.scss'
+import '../styles/globals.scss'
 
 //** Imports Contexts
 import { CartProvider } from '@hooks/useCart'
 import { StoreProvider } from '@hooks/useStore'
 
 function MyApp({ Component, pageProps }: AppProps) {
+   // useEffect(() => {
+   //    SaveColors('#d82324', 'primary')
+   // }, [])
+
    return (
       <Theme dataTheme="light" className="bg-base-100">
          <StoreProvider>

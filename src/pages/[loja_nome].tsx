@@ -1,4 +1,4 @@
-import { ApiService, api } from '@api'
+import { api } from '@api'
 import CategoriesComponent from '@components/Store/Categories'
 import InfoDrawer from '@components/Store/Drawer/InfoDrawer'
 import Layout from '@components/Store/Layout'
@@ -7,23 +7,17 @@ import SearchHome from '@components/Store/Search'
 import { useStore } from '@hooks/useStore'
 import { IStore, ProductList } from '@types'
 import { SaveColors } from '@utils'
-import { GetServerSidePropsContext } from 'next'
-import { useEffect, useState } from 'react'
+import Head from 'next/head'
+import { Fragment, useEffect, useState } from 'react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { FaHamburger } from 'react-icons/fa'
 import { config } from '../configs'
-
-/*
-Drawer: https://www.npmjs.com/package/react-modern-drawer
-Modal: https://www.npmjs.com/package/react-modal
-*/
 
 interface IGetServerProps {
    params: {
       loja_nome: string
    }
    data: IStore | null
-   ctx: GetServerSidePropsContext
 }
 
 const Home = (props: IGetServerProps) => {
@@ -32,22 +26,9 @@ const Home = (props: IGetServerProps) => {
    if (!data) return <div>Loja {params.loja_nome} não encontrada</div>
 
    const [isOpen, setIsOpen] = useState(false)
-   const [scroll, setScroll] = useState(0)
    const [allProducts, setAllProducts] = useState<ProductList[]>([])
 
    const { getDataStore } = useStore()
-
-   useEffect(() => {
-      const handleScroll = () => {
-         setScroll(window.scrollY)
-      }
-
-      window.addEventListener('scroll', handleScroll)
-
-      return () => {
-         window.removeEventListener('scroll', handleScroll)
-      }
-   }, [])
 
    useEffect(() => {
       SaveColors(data.color_primary, 'primary')
@@ -63,90 +44,83 @@ const Home = (props: IGetServerProps) => {
    }, [])
 
    return (
-      <>
+      <Fragment>
+         <Head>
+            <title>{data?.name ?? ''}</title>
+            <meta name="description" content={data?.description ?? ''} />
+            <meta property="og:title" content={data?.name ?? ''} />
+            <meta property="og:description" content={data?.description ?? ''} />
+            <meta property="og:image" content={data?.background_image ?? ''} />
+            <meta property="og:type" content="website" />
+            <meta property="og:locale" content="pt_BR" />
+         </Head>
+
          <Layout>
-            <header
-               className={`px-[1.1rem] max-w-container pt-[70px] md:pt-[140px] mx-auto transition-all duration-300 md:opacity-100 ${
-                  scroll >= 270 ? 'opacity-0' : 'opacity-100'
-               }`}
-            >
-               <div
-                  className="rounded-[4px] h-[250px] w-full text-[#f7f7f7] bg-cover bg-center bg-no-repeat"
-                  style={{
-                     backgroundImage: `url(${data?.background_image})`,
-                  }}
-               />
-            </header>
-
-            <div className="max-w-container px-4 mx-auto mb-10 lg:pt-0 z-20">
-               <section>
-                  <div className="flex my-10 flex-col lg:flex-row justify-between items-center w-full text-secondary">
-                     <div className="flex items-center gap-3">
-                        <div className="mask mask-circle bg-primary p-3 flex justify-center items-center">
-                           <img src={data?.logo ?? ''} width={50} height={50} />
-                        </div>
-                        <h1 className="text-3xl font-semibold ">
-                           {data?.name}
-                        </h1>
+            <section>
+               <div className="flex my-10 flex-col lg:flex-row justify-between items-center w-full text-secondary">
+                  <div className="flex items-center gap-3">
+                     <div className="mask mask-circle bg-primary p-3 flex justify-center items-center">
+                        <img src={data?.logo ?? ''} width={50} height={50} />
                      </div>
-                     <div className="flex flex-col-reverse lg:flex-row lg:h-7 text-sm mt-4 md:mt-0">
-                        <div className="grid flex-grow place-items-center">
-                           <span
-                              className="link"
-                              onClick={() => setIsOpen(!isOpen)}
-                           >
-                              Ver mais
-                           </span>
-                        </div>
-                        <div className="divider lg:divider-horizontal"></div>
-                        <div className="grid flex-grow place-items-center">
-                           <span className="flex gap-1 items-center mt-5 lg:mt-0">
-                              <AiOutlineClockCircle /> Tempo de entrega -{' '}
-                              {config.operation.delivery_time} min
-                           </span>
-                        </div>
+                     <h1 className="text-3xl font-semibold ">{data?.name}</h1>
+                  </div>
+                  <div className="flex flex-col-reverse lg:flex-row lg:h-7 text-sm mt-4 md:mt-0">
+                     <div className="grid flex-grow place-items-center">
+                        <span
+                           className="link"
+                           onClick={() => setIsOpen(!isOpen)}
+                        >
+                           Ver mais
+                        </span>
+                     </div>
+                     <div className="divider lg:divider-horizontal"></div>
+                     <div className="grid flex-grow place-items-center">
+                        <span className="flex gap-1 items-center mt-5 lg:mt-0">
+                           <AiOutlineClockCircle /> Tempo de entrega -{' '}
+                           {config.operation.delivery_time} min
+                        </span>
                      </div>
                   </div>
-                  <SearchHome />
-               </section>
+               </div>
+               <SearchHome />
+            </section>
 
-               <section>
-                  <div className="divider divide-primary mt-10 mb-6">
-                     <h4 className="text-lg font-bold uppercase">Categorias</h4>
+            <section>
+               <div className="divider divide-primary mt-10 mb-6">
+                  <h4 className="text-lg font-bold uppercase">Categorias</h4>
+               </div>
+               <CategoriesComponent />
+            </section>
+
+            {allProducts.length > 0 && (
+               <section id="lanche" className="mt-10">
+                  <span className="flex items-center text-primary">
+                     <FaHamburger size={20} className="mr-1" />
+                     <h3 className="text-2xl font-semibold">Todos</h3>
+                  </span>
+
+                  <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-3 mt-3">
+                     {allProducts.map((product, index) => {
+                        return <ProductCard key={index} {...product} />
+                     })}
                   </div>
-                  <CategoriesComponent />
                </section>
+            )}
 
-               {allProducts.length > 0 && (
-                  <section id="lanche" className="mt-10">
-                     <span className="flex items-center text-primary">
-                        <FaHamburger size={20} className="mr-1" />
-                        <h3 className="text-2xl font-semibold">Todos</h3>
-                     </span>
-
-                     <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-3 mt-3">
-                        {allProducts.map((product, index) => {
-                           return <ProductCard key={index} {...product} />
-                        })}
-                     </div>
-                  </section>
-               )}
-
-               <InfoDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
-            </div>
+            <InfoDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
          </Layout>
-      </>
+      </Fragment>
    )
 }
 
 export default Home
 
-export const getServerSideProps = async ({ params, ctx }: IGetServerProps) => {
+export const getServerSideProps = async ({ params }: IGetServerProps) => {
    const query = params.loja_nome
 
    try {
-      const response = await ApiService(ctx)
-         .get(`/store/search/${query.replace(/ /g, '-')}`)
+      const response = await api
+         .get(`/store/search/${query}`)
          .then((res) => res?.data)
 
       return {

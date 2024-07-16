@@ -54,10 +54,10 @@ const PromotionComponent = () => {
             />
          </SwiperSlide>
 
-         <div className="custom-nav-promo-prev btn btn-sm bg-primary-home btn-circle border-base-100 absolute top-[50%] left-0 z-10 ml-2">
+         <div className="custom-nav-promo-prev btn btn-sm btn-circle border-base-100 absolute top-[50%] left-0 z-10 ml-2">
             <GrFormPrevious className="icon-base-100" />
          </div>
-         <div className="custom-nav-promo-next btn btn-sm bg-primary-home btn-circle border-base-100 absolute top-[50%] right-0 z-10 mr-2">
+         <div className="custom-nav-promo-next btn btn-sm btn-circle border-base-100 absolute top-[50%] right-0 z-10 mr-2">
             <GrFormNext className="icon-base-100" />
          </div>
       </Swiper>

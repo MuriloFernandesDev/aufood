@@ -16,8 +16,7 @@ module.exports = {
       extend: {
          colors: {
             ...colors,
-            'primary-home': '#232225',
-            'base-100-home': '#fff',
+            default: '#d82324',
          },
          maxWidth: {
             container: '1200px',

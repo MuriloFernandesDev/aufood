@@ -1,7 +1,5 @@
 import { useCart } from '@hooks/useCart'
-import Lanche from '@images/LancheWpp.jpg'
 import { ProductList } from '@types'
-import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
 interface ModalProps {
@@ -11,7 +9,7 @@ interface ModalProps {
 }
 
 const ModalAddProduct = ({ openModal, setOpenModal, product }: ModalProps) => {
-   const { name, price, description } = product
+   const { name, price, description, image } = product
 
    const modalRef = useRef<HTMLDivElement>(null)
    const [qtdProduct, setQtdProduct] = useState(1)
@@ -72,7 +70,7 @@ const ModalAddProduct = ({ openModal, setOpenModal, product }: ModalProps) => {
             <h3 className="font-bold text-lg text-center">{name}</h3>
             <div className="flex items-center my-4 gap-4">
                <div className="relative w-[50%]">
-                  <Image src={Lanche} layout="responsive" />
+                  <img src={image} className="w-full" />
                </div>
                <div className="flex flex-col items-start gap-5 overflow-y-auto max-h-[300px]">
                   <h2>{description}</h2>

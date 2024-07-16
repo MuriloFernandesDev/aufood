@@ -417,7 +417,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
             direction={isMobile ? 'bottom' : 'right'}
             className={`${
                isMobile ? 'rounded-t-3xl' : ''
-            } shadow-primary/30 shadow-xl bg-base-100 max-h-auto pt-10 flex flex-col justify-between`}
+            } shadow-primary/30 shadow-xl bg-base-100 text-primary max-h-auto pt-10 flex flex-col justify-between`}
             size={isMobile ? '100vh' : '40vw'}
          >
             <>
@@ -633,7 +633,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                   </div>
                   <button
                      onClick={() => handleChangeTap(tap)}
-                     className="w-full bg-cart text-base-100 p-3 text-xl font-bold uppercase"
+                     className="w-full text-base-100 bg-primary p-3 text-xl font-bold uppercase"
                   >
                      {tap === 4 ? 'Finalizar Pedido' : 'Avançar'}
                   </button>

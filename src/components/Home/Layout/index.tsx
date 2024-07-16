@@ -3,12 +3,14 @@ import { NavBar } from './NavBar'
 
 interface LayoutHomeProps {
    children: React.ReactNode
+   showCadastroNav?: boolean
 }
 
-const LayoutHome = ({ children }: LayoutHomeProps) => {
+const LayoutHome = ({ children, showCadastroNav }: LayoutHomeProps) => {
    return (
-      <div className="bg-base-100-home">
-         <NavBar />
+      <div className="bg-white">
+         <NavBar showCadastroNav={showCadastroNav} />
+
          {children}
          <Footer />
       </div>

@@ -1,9 +1,9 @@
 import { api } from '@api'
 import LayoutHome from '@components/Home/Layout'
+import Container from '@components/Home/Layout/Container'
 import StoreCart from '@components/Home/StoreCard'
 import { IStore } from '@types'
-import { useEffect, useState } from 'react'
-import { FaTruckLoading } from 'react-icons/fa'
+import { Fragment, useEffect, useState } from 'react'
 
 export interface IStoreListAll extends IStore {
    rating?: string
@@ -12,58 +12,41 @@ export interface IStoreListAll extends IStore {
 
 const Home = () => {
    const [listAllStores, setListAllStores] = useState<IStoreListAll[]>([])
+   const [loadingAllStores, setLoadingAllStores] = useState(true)
 
    useEffect(() => {
-      api.get('/store/list_all_store').then((response) => {
-         setListAllStores(response.data)
-      })
+      api.get('/store/list_all_store')
+         .then((response) => {
+            setListAllStores(response.data)
+         })
+         .catch((error) => {
+            console.log(error)
+         })
+         .finally(() => {
+            setLoadingAllStores(false)
+         })
    }, [])
 
    return (
-      <LayoutHome>
-         <div className="px-[1.1rem] max-w-container pt-[70px] md:pt-[130px] mx-auto bg-base-100-home">
-            {/* <section className="bg-base-100-home">
-               <div className="divider divide-primary-home mb-6">
-                  <h4 className="text-lg font-bold uppercase">
-                     Lojas por categoria
-                  </h4>
-               </div>
-               <CategoriesComponent bgColor="bg-primary-home" />
-            </section> */}
+      <Fragment>
+         <LayoutHome>
+            <Container spaceTop>
+               {loadingAllStores ? (
+                  <div>loading...</div>
+               ) : (
+                  <section>
+                     <h2>Todas lojas</h2>
 
-            {/* <section className="mt-14">
-               <PromotionComponent />
-            </section> */}
-
-            {listAllStores === null ? (
-               <FaTruckLoading />
-            ) : (
-               <section className="my-14">
-                  <h2>Todas lojas</h2>
-
-                  <div className="grid grid-cols-4 gap-5">
-                     {listAllStores.map((store) => (
-                        <StoreCart key={store.id} {...store} />
-                     ))}
-                  </div>
-               </section>
-            )}
-
-            {/* <section className="my-14">
-               <h2>Lojas em ofertas</h2>
-
-               <div className="grid grid-cols-4 gap-5">
-                  <StoreCart />
-                  <StoreCart />
-                  <StoreCart />
-                  <StoreCart />
-                  <StoreCart />
-                  <StoreCart />
-                  <StoreCart />
-               </div>
-            </section> */}
-         </div>
-      </LayoutHome>
+                     <div className="grid grid-cols-4 gap-5">
+                        {listAllStores.map((store) => (
+                           <StoreCart key={store.id} {...store} />
+                        ))}
+                     </div>
+                  </section>
+               )}
+            </Container>
+         </LayoutHome>
+      </Fragment>
    )
 }
 
