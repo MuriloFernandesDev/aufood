@@ -99,7 +99,11 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                      <ul>
                         <li>Nome: ${res.data.name}</li>
                         <li>Telefone: ${res.data.phone}</li>
-                        <li>E-mail: ${res.data.email}</li>
+                        ${
+                           res.data.email
+                              ? `<li>E-mail: ${res.data.email}</li>`
+                              : ''
+                        } 
                      </ul>
                   </div>
                   <div class="mt-3 font-bold text-xl">
