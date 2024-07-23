@@ -75,25 +75,24 @@ export interface EventTarget {
 }
 
 export interface IStore {
-   address: string
-   background_image: string
-   zip: string
-   city_id: number
-   cnpj: string
-   description: string
-   email: string
    id: number
-   logo: string
    name: string
-   number_address: string
-   phone: string
-   store_category_stores: null
-   street: string
+   logo: string
+   description: string
    whatsapp: string
-   city: ICity
-   color_background: string
+   email: string
+   number_address: string
+   cnpj: string
+   background_image: string
    color_primary: string
    color_secondary: string
+   color_background: string
+   zip: string
+   street: string
+   neighborhood: string
+   city_id: number
+   views: number
+   city: ICity
 }
 
 export interface ICity {

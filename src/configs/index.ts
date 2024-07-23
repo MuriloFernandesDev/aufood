@@ -1,8 +1,4 @@
 export const config = {
-   logo: 'https://logodownload.org/wp-content/uploads/2014/04/mcdonalds-logo-1-1.png',
-   title: 'McDonalds',
-   description: 'Google',
-   keywords: 'Google',
    colors: {
       primary: '35, 34, 37',
       secondary: '113, 113, 113',

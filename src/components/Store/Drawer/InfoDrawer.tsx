@@ -70,7 +70,7 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
                      onClick={() => setTab(0)}
                      className={`tab tab-bordered hover:tab-active ${
                         tab == 0 && 'tab-active'
-                     } w-1/3`}
+                     } w-1/2`}
                   >
                      Sobre
                   </a>
@@ -78,17 +78,9 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
                      onClick={() => setTab(1)}
                      className={`tab tab-bordered hover:tab-active ${
                         tab == 1 && 'tab-active'
-                     } w-1/3`}
+                     } w-1/2`}
                   >
                      Horário
-                  </a>
-                  <a
-                     onClick={() => setTab(2)}
-                     className={`tab tab-bordered hover:tab-active ${
-                        tab == 2 && 'tab-active'
-                     } w-1/3`}
-                  >
-                     Pagamentos
                   </a>
                </div>
                <div className="text-primary mt-4 max-h-80 md:max-h-full overflow-y-auto">
@@ -101,24 +93,10 @@ const InfoDrawer = ({ isOpen, setIsOpen }: InfoDrawerProps) => {
                            <p className="text-md mb-1">Endereço</p>
                            <div className="flex flex-col gap-2">
                               <p className="text-xs">
-                                 {store?.address}, {store?.number_address} -{' '}
-                                 {store?.street}
+                                 {store?.street}, {store?.number_address}
                               </p>
                               <p className="text-xs">
-                                 {store?.city?.name} - SP
-                              </p>
-                              <p className="text-xs">CEP: 16018-000</p>
-                           </div>
-                        </div>
-                        <div className="flex flex-col gap-2 mt-2">
-                           <p className="text-md mb-1">Endereço</p>
-                           <div className="flex flex-col gap-2">
-                              <p className="text-xs">
-                                 {store?.address}, {store?.number_address} -{' '}
-                                 {store?.street}
-                              </p>
-                              <p className="text-xs">
-                                 {store?.city?.name} - SP
+                                 {store?.city?.name} - {store?.city?.state.name}
                               </p>
                               <p className="text-xs">CEP: 16018-000</p>
                            </div>
