@@ -1,5 +1,4 @@
 import { api } from '@api'
-import CategoriesComponent from '@components/Store/Categories'
 import InfoDrawer from '@components/Store/Drawer/InfoDrawer'
 import Layout from '@components/Store/Layout'
 import ProductCard from '@components/Store/Product/ProductCard'
@@ -59,8 +58,8 @@ const Home = (props: IGetServerProps) => {
             <section>
                <div className="flex my-10 flex-col lg:flex-row justify-between items-center w-full text-secondary">
                   <div className="flex items-center gap-3">
-                     <div className="mask mask-circle bg-primary p-3 flex justify-center items-center">
-                        <img src={data?.logo ?? ''} width={50} height={50} />
+                     <div className="mask mask-circle bg-primary p-5 flex justify-center items-center">
+                        <img src={data?.logo ?? ''} width={50} />
                      </div>
                      <h1 className="text-3xl font-semibold ">{data?.name}</h1>
                   </div>
@@ -85,12 +84,12 @@ const Home = (props: IGetServerProps) => {
                <SearchHome />
             </section>
 
-            <section>
+            {/* <section>
                <div className="divider divide-primary mt-10 mb-6">
                   <h4 className="text-lg font-bold uppercase">Categorias</h4>
                </div>
                <CategoriesComponent />
-            </section>
+            </section> */}
 
             {allProducts.length > 0 && (
                <section id="lanche" className="mt-10">
@@ -99,7 +98,7 @@ const Home = (props: IGetServerProps) => {
                      <h3 className="text-2xl font-semibold">Todos</h3>
                   </span>
 
-                  <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-3 mt-3">
+                  <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-5 mt-3">
                      {allProducts.map((product, index) => {
                         return <ProductCard key={index} {...product} />
                      })}

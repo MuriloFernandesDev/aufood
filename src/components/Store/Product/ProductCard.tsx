@@ -1,5 +1,5 @@
 import { ProductList } from '@types'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { Badge } from 'react-daisyui'
 import { FaHamburger } from 'react-icons/fa'
 import { FiAlertCircle } from 'react-icons/fi'
@@ -11,7 +11,7 @@ const ProductCard = (props: ProductList) => {
    const { name, price, image, category } = props
 
    return (
-      <>
+      <Fragment>
          <div
             onClick={() =>
                price > 0
@@ -21,10 +21,7 @@ const ProductCard = (props: ProductList) => {
             className="card w-full bg-primary text-base-100 shadow-lg md:hover:scale-105 transition-all duration-300 cursor-pointer"
          >
             <picture className="relative">
-               <img
-                  src={image}
-                  className="min-h-[150px] max-h-[150px] w-full"
-               />
+               <img src={image} width={200} className="mx-auto py-3" />
                <Badge className="text-white border-none absolute bottom-0 left-0 m-1 p-3 ml-5 bg-red-600">
                   <FaHamburger size={15} className="mr-1" /> {category}
                </Badge>
@@ -45,12 +42,13 @@ const ProductCard = (props: ProductList) => {
                </div>
             </div>
          </div>
+
          <ModalAddProduct
             openModal={openModal}
             product={props}
             setOpenModal={setOpenModal}
          />
-      </>
+      </Fragment>
    )
 }
 
