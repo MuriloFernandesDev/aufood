@@ -443,25 +443,44 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                         <div className="flex flex-col gap-4">
                            {cart &&
                               cart.map((item) => (
-                                 <div className="flex flex-col gap-2">
-                                    <div className="flex justify-between items-center">
-                                       <h2>{item.name}</h2>
-                                       <span>{formatPrice(item.price)}</span>
-                                    </div>
-                                    <span>{item.description}</span>
-                                    <div className="flex gap-2 justify-end">
-                                       {/* <button className="btn btn-info btn-outline btn-sm">
-                                          <PiPencilSimpleLight /> Alterar
-                                       </button> */}
+                                 <div
+                                    key={item.id}
+                                    className="border rounded-lg p-4 shadow-sm"
+                                 >
+                                    <div className="grid grid-cols-12 gap-4">
+                                       <div className="col-span-4 flex justify-center items-center">
+                                          <img
+                                             src={item.image}
+                                             alt={item.name}
+                                             className="max-w-full h-auto"
+                                          />
+                                       </div>
 
-                                       <button
-                                          onClick={() => removeProduct(item.id)}
-                                          className="btn btn-error btn-outline btn-sm"
-                                       >
-                                          <GoTrash /> Remover
-                                       </button>
+                                       <div className="col-span-8 flex flex-col gap-2">
+                                          <div className="flex justify-between items-center">
+                                             <h2 className="text-lg font-semibold">
+                                                {item.name}
+                                             </h2>
+                                             <span className="text-lg font-semibold text-gray-700">
+                                                {formatPrice(item.price)}
+                                             </span>
+                                          </div>
+                                          <p className="text-gray-600">
+                                             {item.description}
+                                          </p>
+                                          <div className="flex justify-end gap-2">
+                                             <button
+                                                onClick={() =>
+                                                   removeProduct(item.id)
+                                                }
+                                                className="btn btn-error btn-outline btn-sm flex items-center"
+                                             >
+                                                <GoTrash className="mr-1" />{' '}
+                                                Remover
+                                             </button>
+                                          </div>
+                                       </div>
                                     </div>
-                                    <Divider />
                                  </div>
                               ))}
                         </div>
@@ -474,6 +493,7 @@ const CartDrawer = ({ isOpen, setIsOpen }: CartDrawerProps) => {
                         label="Telefone*"
                         placeholder="Ex: (18) 99999-9999"
                         invalid={campoInvalido(consumer, errors, 'phone')}
+                        type="tel"
                      />
                   ) : tap === 22 ? (
                      <div className="flex flex-col gap-3">

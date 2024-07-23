@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, HTMLInputTypeAttribute } from 'react'
 import { Input } from 'react-daisyui'
 import { CgDanger } from 'react-icons/cg'
 
@@ -11,6 +11,7 @@ interface InputComponentProps {
    placeholder: string
    name: nameTypes
    invalid?: boolean
+   type?: HTMLInputTypeAttribute
 }
 
 const InputComponent = ({
@@ -20,6 +21,7 @@ const InputComponent = ({
    placeholder,
    name,
    invalid,
+   type,
 }: InputComponentProps) => {
    return (
       <div>
@@ -35,6 +37,7 @@ const InputComponent = ({
             }`}
             placeholder={placeholder}
             id={label}
+            type={type}
          />
          {invalid && (
             <span className="label-text-alt text-error flex items-center gap-1 mt-1">
